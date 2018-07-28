@@ -6,9 +6,13 @@ var ctx = c.getContext("2d");
 var pol = new Polygon([{x:300, y:100},{x:400, y:50},{x:500, y:100},{x:450, y:200},{x:400, y:300},{x:300, y:200}]);
 
 var angle = 1;
+var x = 300;
+var y = 100;
 
 function update(progress) {
-	pol.rotate(300,100, angle / 10);
+	//pol.move(3,3);
+	//pol.rotate(x++,y++, angle / 5);
+	pol.scaleCenter(300, 100, 1.001, 1.0001);
 }
 
 function draw() {
