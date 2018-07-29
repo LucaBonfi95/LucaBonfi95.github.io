@@ -4,8 +4,9 @@
 
 class Polygon { 
 	
-	constructor(vertices) { 
+	constructor(vertices, color) { 
 		this.vertices = vertices;
+		this.color = color;
 	}
 	
 	move(x, y) { 
