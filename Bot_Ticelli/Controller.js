@@ -29,7 +29,7 @@ function update(progress) {
 	var rand = 0;
 	for (var i = 0; i < ch.bits.length(); i++) {
 		rand = Math.random();
-		if (rand < 0.0001) {
+		if (rand < 0.001) {
 			ch.bits.flip(i);
 		}
 	}
