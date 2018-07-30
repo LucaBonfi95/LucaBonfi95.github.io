@@ -59,6 +59,11 @@ class BitString {
 			this.values[byteIndex] += POW_2[bitIndex];
 	}
 	
+	flip(index) { 
+		this.setBit(index, !this.getBit(index));
+	}
+	
+	
 	length() { 
 		return this.byte * 8 + this.bit + 1;
 	}
@@ -82,8 +87,11 @@ class BitString {
 	
 	toString() {
 		var res = "";
-		for(var i = 0; i < this.length(); i++)
+		for(var i = 0; i < this.length(); i++) { 
 			res = res + (this.getBit(i) ? "1" : "0");
+			if (i % 8 == 7 && i != 0)
+				res = res + "-";
+		}
 		return res;
 	}
 	

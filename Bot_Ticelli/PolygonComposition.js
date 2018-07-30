@@ -4,10 +4,8 @@
 
 class PolygonComposition {
 	
-	constructor(polygons, width, height) { 
+	constructor(polygons) { 
 		this.polygons = polygons;
-		this.width = width;
-		this.height = height;
 	}
 	
 }
