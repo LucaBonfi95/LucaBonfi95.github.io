@@ -88,10 +88,10 @@ scale(d)</y:MethodLabel>
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="28.0" width="100.0" x="379.2327499999992" y="264.0"/>
+          <y:Geometry height="251.74999999999994" width="216.79999999999995" x="320.83274999999924" y="264.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="58.8818359375" x="20.55908203125" y="3.0">BitString<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="58.8818359375" x="78.95908203124998" y="3.0">BitString<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -99,8 +99,21 @@ scale(d)</y:MethodLabel>
             </y:ModelParameter>
           </y:NodeLabel>
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
-            <y:AttributeLabel/>
-            <y:MethodLabel/>
+            <y:AttributeLabel>values
+byte
+bit</y:AttributeLabel>
+            <y:MethodLabel>constructor(bytes)
+addBit(value)
+getByte(index)
+getBit(index)
+setByte(index, value)
+setBit(index, value)
+length()
+setLength(len)
+concat(bs)
+substring(begin, end)
+toString()
+</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -173,7 +186,6 @@ drawPolygon(pol)
     </node>
     <node id="n7">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="79.19999999999999" width="172.79999999999995" x="762.4977499999987" y="93.86636799999997"/>
@@ -196,7 +208,6 @@ drawPolygon(pol)
     </node>
     <node id="n8">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="28.0" width="100.0" x="129.6302499999997" y="122.24291200000022"/>
@@ -218,7 +229,6 @@ drawPolygon(pol)
     </node>
     <node id="n9">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="28.0" width="100.0" x="140.9287599999994" y="140.80291200000028"/>
@@ -240,7 +250,6 @@ drawPolygon(pol)
     </node>
     <node id="n10">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="28.0" width="100.0" x="151.39024999999975" y="160.64291200000025"/>
@@ -262,7 +271,6 @@ drawPolygon(pol)
     </node>
     <node id="n11">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="79.19999999999999" width="216.79999999999995" x="525.465249999999" y="-70.0"/>
@@ -329,7 +337,6 @@ newPolygonComposition(generation)</y:MethodLabel>
     </edge>
     <edge id="e4" source="n7" target="n0">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -341,7 +348,6 @@ newPolygonComposition(generation)</y:MethodLabel>
     </edge>
     <edge id="e5" source="n8" target="n4">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -353,7 +359,6 @@ newPolygonComposition(generation)</y:MethodLabel>
     </edge>
     <edge id="e6" source="n11" target="n7">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -365,7 +370,6 @@ newPolygonComposition(generation)</y:MethodLabel>
     </edge>
     <edge id="e7" source="n11" target="n1">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -385,7 +389,6 @@ newPolygonComposition(generation)</y:MethodLabel>
     </edge>
     <edge id="e8" source="n5" target="n7">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -397,7 +400,6 @@ newPolygonComposition(generation)</y:MethodLabel>
     </edge>
     <edge id="e9" source="n6" target="n7">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
