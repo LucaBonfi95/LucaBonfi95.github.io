@@ -70,8 +70,6 @@ class PolygonGenerationFactory {
 			if (chromosome.bits.getBit(3 * 8 + 8 * 8 * MAX_VERTICES + i)) {
 				x = chromosome.bits.getByte(8 * i + 3 + 0) * 16777216 + chromosome.bits.getByte(8 * i + 3 + 1) * 65536 + chromosome.bits.getByte(8 * i + 3 + 2) * 256 + chromosome.bits.getByte(8 * i + 3 + 3);
 				y = chromosome.bits.getByte(8 * i + 3 + 4) * 16777216 + chromosome.bits.getByte(8 * i + 3 + 5) * 65536 + chromosome.bits.getByte(8 * i + 3 + 6) * 256 + chromosome.bits.getByte(8 * i + 3 + 7);
-				x = x % WIDTH;
-				y = y % HEIGHT;
 				vertices.push({x,y});
 			}
 		}

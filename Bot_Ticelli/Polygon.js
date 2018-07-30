@@ -7,6 +7,12 @@ class Polygon {
 	constructor(vertices, color) { 
 		this.vertices = vertices;
 		this.color = color;
+		
+		for (var i = 0; i < vertices.length; i++){ 
+			vertices[i].x %= WIDTH;
+			vertices[i].y %= HEIGHT;
+		}
+		
 	}
 	
 	move(x, y) { 
