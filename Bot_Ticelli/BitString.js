@@ -3,8 +3,6 @@
  */
 
 const BITSTRING_MAX_SIZE_BYTES = 128;
-
-//const POW_2 = [1, 2, 4, 8, 16, 32, 64, 128];
 const POW_2 = [128, 64, 32, 16, 8, 4, 2, 1];
 
 class BitString {
@@ -19,14 +17,12 @@ class BitString {
 	}
 	
 	addBit(value) { 
-		if (this.byte * 8 + this.bit < BITSTRING_MAX_SIZE_BYTES * 8 - 1)  {
-			if (this.bit == 7) 
-				this.byte++;
-			this.bit = (bit == 7) ? 0 : this.bit + 1;
-		
-			if (value)
-				this.values[byte] += POW_2[bit];
-		}
+		if (this.bit == 7) 
+			this.byte++;
+		this.bit = (this.bit == 7) ? 0 : this.bit + 1;
+	
+		if (value)
+			this.values[this.byte] += POW_2[this.bit];
 	}
 	
 	getByte(index) {
@@ -63,9 +59,30 @@ class BitString {
 			this.values[byteIndex] += POW_2[bitIndex];
 	}
 	
+	length() { 
+		return this.byte * 8 + this.bit + 1;
+	}
+	
+	setLength(len) {
+		this.byte = Math.floor((len - 1) / 8);
+		this.bit = (len - 1) % 8;
+	}
+	
+	concat(bs) { 
+		for (var i = 0; i < bs.length(); i++) 
+			this.addBit(bs.getBit(i));
+	}
+	
+	substring(begin, end) {
+		var result = new BitString(0);
+		for (var i = begin; i < end; i++)
+			result.addBit(this.getBit(i));
+		return result;
+	}
+	
 	toString() {
 		var res = "";
-		for(var i = 0; i < (this.byte + 1) * 8 + this.bit + 1; i++)
+		for(var i = 0; i < this.length(); i++)
 			res = res + (this.getBit(i) ? "1" : "0");
 		return res;
 	}
