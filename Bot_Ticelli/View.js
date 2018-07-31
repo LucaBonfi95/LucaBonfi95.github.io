@@ -9,6 +9,10 @@ class View {
 	}
 	
 	drawPolygon(pol) {
+		
+		if (pol.vertices.length < 3) 
+			return;
+		
 		this.ctx.beginPath();
 		this.ctx.moveTo(pol.vertices[pol.vertices.length - 1].x, pol.vertices[pol.vertices.length - 1].y);
 		

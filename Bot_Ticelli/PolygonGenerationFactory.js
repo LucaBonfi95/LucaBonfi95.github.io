@@ -11,14 +11,14 @@ class PolygonGenerationFactory {
 	newGeneration(composition) {
 		var chromosomes = [];
 		for (var i = 0; i < composition.polygons.length; i++) 
-			chromosomes.push(PolygonGenerationFactory.newChromosome(composition.polygons[i]));
+			chromosomes.push(this.newChromosome(composition.polygons[i]));
 		return new Generation(chromosomes);
 	}
 
 	newPolygonComposition(generation) {
 		var polygons = [];
 		for (var i = 0; i < generation.chromosomes.length; i++)
-			polygons.push(PolygonGenerationFactory.newPolygon(generation.chromosomes[i]));
+			polygons.push(this.newPolygon(generation.chromosomes[i]));
 		return new PolygonComposition(polygons);
 	}
 
