@@ -4,6 +4,16 @@
 
 class Polygon { 
 	
+	static random() {
+		var vertices = [];
+		var verticesNo = Math.floor(Math.random() * (MAX_VERTICES - 3)) + 3;
+		
+		for (var i = 0; i < verticesNo; i++)
+			vertices.push({x: Math.floor(Math.random() * WIDTH), y: Math.floor(Math.random() * HEIGHT)});
+		
+		return new Polygon(vertices, Color.random()); 
+	}
+	
 	constructor(vertices, color) { 
 		this.vertices = vertices;
 		this.color = color;

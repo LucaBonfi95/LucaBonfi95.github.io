@@ -4,6 +4,10 @@
 
 class Color {
 	
+	static random() {
+		return new Color(Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256));
+	}
+	
 	constructor(r, g, b) { 
 		this.value = new Uint8Array(3);
 		this.value[0] = r;

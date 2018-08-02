@@ -8,4 +8,8 @@ class Chromosome {
 		this.bits = bits;
 	}
 	
+	clone() {
+		return new Chromosome(this.bits.clone());
+	}
+	
 }
