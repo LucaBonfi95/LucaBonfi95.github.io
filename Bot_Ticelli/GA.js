@@ -15,7 +15,9 @@ class GA {
 	}
 
 	fitness(index) {
-		return 1;
+		var color = this.composition.polygons[index].color;
+		return 255 + 255 + 255 - (color.r() + color.g() + color.b());
+//		return (color.r() + color.g() + color.b());
 	}
 
 	mutate(ch) {
@@ -45,10 +47,14 @@ class GA {
 				ch2 = this.extract();
 			while (ch2 == ch1);
 			
+//			console.log(ch1);
+//			console.log(ch2);
+//			console.log("");
+			
 			ch1 = this.generation.chromosomes[ch1].clone();
 			ch2 = this.generation.chromosomes[ch2].clone();
 			
-			this.crossover(ch1,ch2);
+//			this.crossover(ch1,ch2);
 			this.mutate(ch1);
 			this.mutate(ch2);
 
