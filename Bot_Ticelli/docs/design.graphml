@@ -18,7 +18,7 @@
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="177.0" width="207.0" x="745.3977499999987" y="318.76636799999994"/>
+          <y:Geometry height="203.4000000000001" width="207.0" x="745.3977499999987" y="305.5663679999999"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="55.2763671875" x="75.86181640625" y="3.0">Polygon<y:LabelModel>
@@ -31,13 +31,16 @@
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
             <y:AttributeLabel>vertices
 color</y:AttributeLabel>
-            <y:MethodLabel>constructor(vertices, color)
-move(x, y)
-rotateCenter(x, y, deg)
-rotate(deg)
-scaleCenter(x, y, dx, dy)
-scaleOrigin(dx, dy)
-scale(d)</y:MethodLabel>
+            <y:MethodLabel>&lt;html&gt;
+&lt;i&gt;random()&lt;/i&gt; &lt;br&gt;
+constructor(vertices, color) &lt;br&gt;
+move(x, y) &lt;br&gt;
+rotateCenter(x, y, deg) &lt;br&gt;
+rotate(deg)&lt;br&gt;
+scaleCenter(x, y, dx, dy)&lt;br&gt;
+scaleOrigin(dx, dy)&lt;br&gt;
+scale(d)&lt;br&gt;
+&lt;html&gt;</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -46,10 +49,10 @@ scale(d)</y:MethodLabel>
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="79.19999999999999" width="153.12" x="352.6727499999992" y="53.19999999999999"/>
+          <y:Geometry height="90.39999999999998" width="154.72000000000003" x="352.6727499999992" y="53.19999999999999"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="72.62451171875" x="40.247744140625" y="3.0">Generation<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="72.62451171875" x="41.047744140625014" y="3.0">Generation<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -58,7 +61,8 @@ scale(d)</y:MethodLabel>
           </y:NodeLabel>
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
             <y:AttributeLabel>chromosomes</y:AttributeLabel>
-            <y:MethodLabel>constructor(chromosomes)</y:MethodLabel>
+            <y:MethodLabel>constructor(chromosomes)
+clone()</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -67,7 +71,7 @@ scale(d)</y:MethodLabel>
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="79.19999999999999" width="147.0" x="355.7327499999992" y="204.5"/>
+          <y:Geometry height="90.39999999999998" width="147.0" x="355.7327499999992" y="204.5"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="87.7890625" x="29.60546875" y="3.0">Chromosome<y:LabelModel>
@@ -79,7 +83,8 @@ scale(d)</y:MethodLabel>
           </y:NodeLabel>
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
             <y:AttributeLabel>bits</y:AttributeLabel>
-            <y:MethodLabel>constructor(bits)</y:MethodLabel>
+            <y:MethodLabel>constructor(bits)
+clone()</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -88,7 +93,7 @@ scale(d)</y:MethodLabel>
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="265.74999999999994" width="216.14463999999998" x="320.83274999999924" y="362.0"/>
+          <y:Geometry height="279.34999999999997" width="216.14463999999998" x="320.83274999999924" y="362.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="58.8818359375" x="78.63140203124999" y="3.0">BitString<y:LabelModel>
@@ -114,6 +119,7 @@ setLength(len)
 concat(bs)
 substring(begin, end)
 toString()
+clone()
 </y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
@@ -189,7 +195,7 @@ drawPolygon(pol)
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="79.19999999999999" width="172.79999999999995" x="762.4977499999987" y="93.86636799999997"/>
+          <y:Geometry height="93.60000000000002" width="172.79999999999995" x="762.4977499999987" y="86.66636799999995"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="134.7109375" x="19.044531249999977" y="3.0">PolygonComposition<y:LabelModel>
@@ -202,7 +208,10 @@ drawPolygon(pol)
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
             <y:AttributeLabel>polygons
 </y:AttributeLabel>
-            <y:MethodLabel>constructor(polygons)</y:MethodLabel>
+            <y:MethodLabel>&lt;html&gt;
+&lt;i&gt;random(polygonNo)&lt;/i&gt; &lt;br&gt;
+constructor(polygons)&lt;br&gt;
+&lt;/html&gt;</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -296,10 +305,9 @@ newPolygon(chromosome)</y:MethodLabel>
     </node>
     <node id="n12">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="118.39999999999998" width="168.5999999999999" x="1016.2261068871999" y="348.06636799999995"/>
+          <y:Geometry height="139.19999999999993" width="168.5999999999999" x="1016.2261068871999" y="337.666368"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="37.94091796875" x="65.32954101562495" y="3.0">Color<y:LabelModel>
@@ -311,10 +319,13 @@ newPolygon(chromosome)</y:MethodLabel>
           </y:NodeLabel>
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
             <y:AttributeLabel>value</y:AttributeLabel>
-            <y:MethodLabel>constructor(r,g,b)
-r()
-g()
-b()</y:MethodLabel>
+            <y:MethodLabel>&lt;html&gt;
+&lt;i&gt;random()&lt;/i&gt; &lt;br&gt;
+constructor(r,g,b) &lt;br&gt;
+r() &lt;br&gt;
+g()&lt;br&gt;
+b()&lt;br&gt;
+&lt;/html&gt;</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -400,7 +411,7 @@ b()</y:MethodLabel>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="dashed" width="1.0"/>
           <y:Arrows source="none" target="plain"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="56.69921875" x="65.67270836754983" y="34.92903838948295">«creates»<y:LabelModel>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="56.69921875" x="61.673934083527456" y="31.32903838948291">«creates»<y:LabelModel>
               <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -419,7 +430,7 @@ b()</y:MethodLabel>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="dashed" width="1.0"/>
           <y:Arrows source="none" target="plain"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="56.69921875" x="-105.27742573084032" y="7.947470135753438">«creates»<y:LabelModel>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="56.69921875" x="-103.35329385517025" y="8.288712288660957">«creates»<y:LabelModel>
               <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -452,7 +463,6 @@ b()</y:MethodLabel>
     </edge>
     <edge id="e9" source="n0" target="n12">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
