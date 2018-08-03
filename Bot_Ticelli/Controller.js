@@ -6,7 +6,8 @@
 
 function update(progress) {
 	ga.nextGeneration();
-	comp = ga.composition;
+//	comp = ga.generation.individuals[ga.generation.fittest()];
+	comp = new PolygonComposition(ga.generation.individuals);
 }
 
 function draw() {
@@ -33,10 +34,12 @@ function stop() {
 	stopflag = true;
 }
 
-var comp = PolygonComposition.random(MAX_POLYGONS);
-var ga = new GA(new PolygonGenerationFactory());
-ga.composition = comp;
-ga.generation = ga.factory.newGeneration(comp);
+var initialComp = [];
+var comp;
+for (var i = 0; i < MAX_POPULATION; i++) 
+	initialComp.push(Polygon.random());
+var ga = new GA(new Generation([],initialComp, new PolygonChromosomeFactory()), 0.0001);
+ga.generation.updateChromosomes();
 
 var c = document.getElementById("canvas");
 var ctx = c.getContext("2d");

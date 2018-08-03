@@ -2,7 +2,7 @@
  * 
  */
 
-class Polygon { 
+class Polygon extends Individual { 
 	
 	static random() {
 		var vertices = [];
@@ -15,6 +15,7 @@ class Polygon {
 	}
 	
 	constructor(vertices, color) { 
+		super();
 		this.vertices = vertices;
 		this.color = color;
 		
@@ -60,6 +61,10 @@ class Polygon {
 	
 	scale(d) {
 		this.scaleOrigin(d, d);
+	}
+	
+	fitness() {
+		return 1;
 	}
 	
 }

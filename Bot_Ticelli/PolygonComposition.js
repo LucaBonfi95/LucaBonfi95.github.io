@@ -2,7 +2,7 @@
  * 
  */
 
-class PolygonComposition {
+class PolygonComposition extends Individual{
 	
 	static random(polygonNo) {
 		var polygons = [];
@@ -13,7 +13,12 @@ class PolygonComposition {
 	}
 	
 	constructor(polygons) { 
+		super();
 		this.polygons = polygons;
+	}
+	
+	fitness() { //TODO
+		return 1;
 	}
 	
 }

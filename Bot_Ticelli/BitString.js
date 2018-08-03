@@ -2,7 +2,8 @@
  * 
  */
 
-const BITSTRING_MAX_SIZE_BYTES = 128;
+//const BITSTRING_MAX_SIZE_BYTES = 131072;
+const BITSTRING_MAX_SIZE_BYTES = 128; //TODO
 const POW_2 = [128, 64, 32, 16, 8, 4, 2, 1];
 
 class BitString {
