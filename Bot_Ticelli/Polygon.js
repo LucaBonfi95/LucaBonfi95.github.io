@@ -63,15 +63,69 @@ class Polygon extends Individual {
 		this.scaleOrigin(d, d);
 	}
 
+//	fitness() {
+//		if (this.vertices.length != 4)
+//			return 0;
+//
+//		return 1 / (Math.abs(this.vertices[0].x - this.vertices[1].x) +
+//			Math.abs(this.vertices[1].y - this.vertices[2].y) +
+//			Math.abs(this.vertices[2].x - this.vertices[3].x) +
+//			Math.abs(this.vertices[3].y - this.vertices[0].y))
+//
+//	}
+	
+//	fitness() {
+//		if (this.vertices.length != 4)
+//			return 0;
+//
+//		return 1 / (Math.abs(this.vertices[0].x - this.vertices[1].x) +
+//			Math.abs(this.vertices[1].y - this.vertices[2].y) +
+//			Math.abs(this.vertices[2].x - this.vertices[3].x) +
+//			Math.abs(this.vertices[3].y - this.vertices[0].y))
+//
+//	}
+
 	fitness() {
-		if (this.vertices.length != 4)
+		var distances = [];
+		var sides = [];
+		var center = {x:0, y:0};
+		
+		if (this.vertices.length != 5) 
 			return 0;
-
-		return 1 / (Math.abs(this.vertices[0].x - this.vertices[1].x) +
-			Math.abs(this.vertices[1].y - this.vertices[2].y) +
-			Math.abs(this.vertices[2].x - this.vertices[3].x) +
-			Math.abs(this.vertices[3].y - this.vertices[0].y))
-
+		
+		for (var i = 0; i < this.vertices.length; i++){
+			center.x += this.vertices[i].x;
+			center.y += this.vertices[i].y;
+			
+			sides[i] = Math.sqrt(Math.pow(this.vertices[i].x - this.vertices[(i + 1) % this.vertices.length].x, 2) + 
+					Math.pow(this.vertices[i].y - this.vertices[(i + 1) % this.vertices.length].y, 2));
+		}
+		
+		center.x /= this.vertices.length;
+		center.y /= this.vertices.length;
+		
+		for (var i = 0; i < this.vertices.length; i++) {
+			distances.push(Math.sqrt(
+					(this.vertices[i].x - center.x) *
+					(this.vertices[i].x - center.x) +
+					(this.vertices[i].y - center.y) * 
+					(this.vertices[i].y - center.y)
+			));
+		}
+				
+		var avgRadius = 0;
+		for (var i = 0; i < distances.length; i++) {
+			avgRadius += distances[i];
+		}
+		avgRadius /= distances.length;
+		
+		var optimalSide = Math.PI * avgRadius * 2 / this.vertices.length;
+		
+		var slack = 0;
+		for (var i = 0; i < distances.length; i++) {
+			slack += Math.pow(distances[i] - avgRadius, 2) + Math.pow(sides[i] - optimalSide, 2);
+		}
+		return 1 / slack;
 	}
 
 }
