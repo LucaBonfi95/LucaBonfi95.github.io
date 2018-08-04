@@ -13,7 +13,7 @@ class Generation {
 	fittest() {
 		var max = 0, ret = 0, temp = 0;
 		for (var i = 0; i < this.individuals.length; i++) {
-			temp = individuals[i].fitness();
+			temp = this.individuals[i].fitness();
 			if (temp > max) {
 				max = temp;
 				ret = i;

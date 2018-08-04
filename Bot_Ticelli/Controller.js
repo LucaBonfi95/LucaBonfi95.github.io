@@ -6,12 +6,10 @@
 
 function update(progress) {
 	ga.nextGeneration();
-//	comp = ga.generation.individuals[ga.generation.fittest()];
-	comp = new PolygonComposition(ga.generation.individuals);
 }
 
 function draw() {
-	view.draw(comp);
+	view.draw(new PolygonComposition([ga.generation.individuals[ga.generation.fittest()]]));
 }
 
 function loop(timestamp) {
