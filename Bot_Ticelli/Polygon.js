@@ -63,34 +63,12 @@ class Polygon extends Individual {
 		this.scaleOrigin(d, d);
 	}
 
-//	fitness() {
-//		if (this.vertices.length != 4)
-//			return 0;
-//
-//		return 1 / (Math.abs(this.vertices[0].x - this.vertices[1].x) +
-//			Math.abs(this.vertices[1].y - this.vertices[2].y) +
-//			Math.abs(this.vertices[2].x - this.vertices[3].x) +
-//			Math.abs(this.vertices[3].y - this.vertices[0].y))
-//
-//	}
-	
-//	fitness() {
-//		if (this.vertices.length != 4)
-//			return 0;
-//
-//		return 1 / (Math.abs(this.vertices[0].x - this.vertices[1].x) +
-//			Math.abs(this.vertices[1].y - this.vertices[2].y) +
-//			Math.abs(this.vertices[2].x - this.vertices[3].x) +
-//			Math.abs(this.vertices[3].y - this.vertices[0].y))
-//
-//	}
-
 	fitness() {
 		var distances = [];
 		var sides = [];
 		var center = {x:0, y:0};
 		
-		if (this.vertices.length != 5) 
+		if (this.vertices.length != 3) 
 			return 0;
 		
 		for (var i = 0; i < this.vertices.length; i++){
@@ -119,7 +97,7 @@ class Polygon extends Individual {
 		}
 		avgRadius /= distances.length;
 		
-		var optimalSide = Math.PI * avgRadius * 2 / this.vertices.length;
+		var optimalSide = avgRadius * 2 * Math.cos(Math.PI * (this.vertices.length - 2)/(2 * this.vertices.length));
 		
 		var slack = 0;
 		for (var i = 0; i < distances.length; i++) {
