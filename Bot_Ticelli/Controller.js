@@ -36,7 +36,7 @@ var initialComp = [];
 var comp;
 for (var i = 0; i < MAX_POPULATION; i++) 
 	initialComp.push(Polygon.random());
-var ga = new GA(new Generation([],initialComp, new PolygonChromosomeFactory()), 0.01);
+var ga = new GA(new Generation([],initialComp), DEFAULT_MUTATION_PROBABILITY);
 ga.generation.updateChromosomes();
 
 var c = document.getElementById("canvas");

@@ -6,9 +6,9 @@ const DEFAULT_MUTATION_PROBABILITY = 0.0001;
 
 class GA {
 
-	constructor(initialGeneration, polygonGenerationFactory) { 
+	constructor(initialGeneration, mutationProbability) { 
 		this.generation = initialGeneration;
-		this.mutationProbability = DEFAULT_MUTATION_PROBABILITY;
+		this.mutationProbability = mutationProbability;
 	}
 	
 	mutate(ch) {
@@ -31,7 +31,7 @@ class GA {
 
 	nextGeneration() {
 		var ch1, ch2, nextGen;
-		nextGen = new Generation([],[],this.generation.chFactory);
+		nextGen = new Generation([],this.generation.individuals);
 		for (var i = 0; i < this.generation.chromosomes.length; i+=2) {
 			ch1 = this.extract();
 			do
@@ -48,7 +48,7 @@ class GA {
 			nextGen.chromosomes.push(ch1);
 			nextGen.chromosomes.push(ch2);
 		}
-		nextGen.updateIndividuals();
+		nextGen.updateIndividuals();		
 		this.generation = nextGen;
 	}
 

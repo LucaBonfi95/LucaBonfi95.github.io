@@ -2,13 +2,11 @@
  * 
  */
 
-class PolygonChromosomeFactory extends ChromosomeFactory {
+class PolygonChromosomeFactory {
 	
-	constructor() {
-		super();
-	}
+	constructor() {}
 	
-	newIndividual(chromosome) {
+	newPolygon(chromosome) {
 		var color = new Color(chromosome.bits.getByte(0), chromosome.bits.getByte(1), chromosome.bits.getByte(2));
 		var vertices = [];
 		var x, y;
@@ -24,19 +22,19 @@ class PolygonChromosomeFactory extends ChromosomeFactory {
 		return new Polygon(vertices, color);
 	}
 	
-	newChromosome(individual) { 
+	newChromosome(polygon) { 
 		var bits = new BitString(0);
 		var temp = new Uint32Array(2);
 
 		bits.setLength(3 * 8 + 8 * 8 * MAX_VERTICES + MAX_VERTICES);
 
-		bits.setByte(0, individual.color.r());
-		bits.setByte(1, individual.color.g());
-		bits.setByte(2, individual.color.b());
+		bits.setByte(0, polygon.color.r());
+		bits.setByte(1, polygon.color.g());
+		bits.setByte(2, polygon.color.b());
 
-		for(var i = 0; i < MAX_VERTICES && i < individual.vertices.length; i++) {	
-			temp[0] = individual.vertices[i].x;
-			temp[1] = individual.vertices[i].y;
+		for(var i = 0; i < MAX_VERTICES && i < polygon.vertices.length; i++) {	
+			temp[0] = polygon.vertices[i].x;
+			temp[1] = polygon.vertices[i].y;
 
 			bits.setByte(8 * i + 3 + 0, Math.floor(temp[0] / 16777216)); 	temp[0] = temp[0] % 16777216;
 			bits.setByte(8 * i + 3 + 1, Math.floor(temp[0] / 65536)); 		temp[0] = temp[0] % 65536;

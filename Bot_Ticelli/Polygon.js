@@ -7,7 +7,7 @@ class Polygon extends Individual {
 	static random() {
 		var vertices = [];
 		var verticesNo = Math.floor(Math.random() * (MAX_VERTICES - 3)) + 3;
-
+		
 		for (var i = 0; i < verticesNo; i++)
 			vertices.push({x: Math.floor(Math.random() * WIDTH), y: Math.floor(Math.random() * HEIGHT)});
 
@@ -18,7 +18,8 @@ class Polygon extends Individual {
 		super();
 		this.vertices = vertices;
 		this.color = color;
-
+		this.factory = new PolygonChromosomeFactory();
+		
 		for (var i = 0; i < vertices.length; i++){ 
 			vertices[i].x %= WIDTH;
 			vertices[i].y %= HEIGHT;
@@ -104,6 +105,14 @@ class Polygon extends Individual {
 			slack += Math.pow(distances[i] - avgRadius, 2) + Math.pow(sides[i] - optimalSide, 2);
 		}
 		return 1 / slack;
+	}
+	
+	encode() { 
+		return this.factory.newChromosome(this);
+	}
+	
+	decode(chromosome){
+		return this.factory.newPolygon(chromosome);
 	}
 
 }

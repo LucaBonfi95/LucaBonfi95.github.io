@@ -4,10 +4,9 @@
 
 class Generation {
 	
-	constructor(chromosomes, individuals, chFactory) {
+	constructor(chromosomes, individuals) {
 		this.chromosomes = chromosomes;
 		this.individuals = individuals;
-		this.chFactory = chFactory;
 	}
 	
 	fittest() {
@@ -23,13 +22,17 @@ class Generation {
 	}
 	
 	updateIndividuals() {
-		for (var i = 0; i < this.chromosomes.length; i++)
-			this.individuals.push(this.chFactory.newIndividual(this.chromosomes[i]));
+		var newIndividuals = [];
+		for (var i = 0; i < this.individuals.length; i++)
+			newIndividuals.push(this.individuals[i].decode(this.chromosomes[i]));
+		this.individuals = newIndividuals;
 	}
 	
 	updateChromosomes() {
+		var newChromosomes = [];
 		for (var i = 0; i < this.individuals.length; i++) 
-			this.chromosomes.push(this.chFactory.newChromosome(this.individuals[i]));
+			newChromosomes.push(this.individuals[i].encode());
+		this.chromosomes = newChromosomes;
 	}
 	
 }

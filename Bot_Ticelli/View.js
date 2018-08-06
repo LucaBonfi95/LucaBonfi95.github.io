@@ -26,7 +26,6 @@ class View {
 	
 	draw(polygonComposition, x, y) {
 		this.ctx.clearRect(0, 0, WIDTH, HEIGHT);
-		
 		for(var i = 0; i < polygonComposition.polygons.length; i++) 
 			this.drawPolygon(polygonComposition.polygons[i]);
 	}

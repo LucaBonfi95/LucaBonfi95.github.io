@@ -14,11 +14,20 @@ class PolygonComposition extends Individual{
 	
 	constructor(polygons) { 
 		super();
+		this.factory = new PolygonCompositionChromosomeFactory();
 		this.polygons = polygons;
 	}
 	
 	fitness() { //TODO
 		return 1;
+	}
+	
+	encode() {
+		return this.factory.newChromosome(this);
+	}
+	
+	decode(chromosome) {
+		return this.factory.newPolygonComposition(chromosome);
 	}
 	
 }

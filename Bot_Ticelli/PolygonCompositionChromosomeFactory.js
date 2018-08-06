@@ -2,17 +2,17 @@
  * 
  */
 
-class PolygonCompositionChromosomeFactory extends ChromosomeFactory {
+class PolygonCompositionChromosomeFactory {
 	
 	constructor() {
 		
 	}
 	
-	newIndividual(chromosome) {
+	newPolygonComposition(chromosome) {
 		//TODO
 	}
 	
-	newChromosome(individual) { 
+	newChromosome(polygonComposition) { 
 		//TODO
 	}
 	
