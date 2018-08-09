@@ -69,7 +69,7 @@ class Polygon extends Individual {
 		var sides = [];
 		var center = {x:0, y:0};
 		
-		if (this.vertices.length != 3) 
+		if (this.vertices.length != 5) 
 			return 0;
 		
 		for (var i = 0; i < this.vertices.length; i++){
