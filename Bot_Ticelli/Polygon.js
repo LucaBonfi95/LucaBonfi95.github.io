@@ -2,7 +2,7 @@
  * 
  */
 
-class Polygon extends Individual { 
+class Polygon extends Phenotype { 
 
 	static random() {
 		var vertices = [];
@@ -18,7 +18,7 @@ class Polygon extends Individual {
 		super();
 		this.vertices = vertices;
 		this.color = color;
-		this.factory = new PolygonChromosomeFactory();
+		this.encoder = new BitStringGenotypePolygonEncoder();
 		
 		for (var i = 0; i < vertices.length; i++){ 
 			vertices[i].x %= WIDTH;
@@ -108,11 +108,7 @@ class Polygon extends Individual {
 	}
 	
 	encode() { 
-		return this.factory.newChromosome(this);
-	}
-	
-	decode(chromosome){
-		return this.factory.newPolygon(chromosome);
+		return this.encoder.encode(this);
 	}
 
 }

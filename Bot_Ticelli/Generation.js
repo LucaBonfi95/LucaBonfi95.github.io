@@ -4,15 +4,15 @@
 
 class Generation {
 	
-	constructor(chromosomes, individuals) {
-		this.chromosomes = chromosomes;
-		this.individuals = individuals;
+	constructor(genotypes, phenotypes) {
+		this.genotypes = genotypes;
+		this.phenotypes = phenotypes;
 	}
 	
 	fittest() {
 		var max = 0, ret = 0, temp = 0;
-		for (var i = 0; i < this.individuals.length; i++) {
-			temp = this.individuals[i].fitness();
+		for (var i = 0; i < this.phenotypes.length; i++) {
+			temp = this.phenotypes[i].fitness();
 			if (temp > max) {
 				max = temp;
 				ret = i;
@@ -21,18 +21,18 @@ class Generation {
 		return ret;
 	}
 	
-	updateIndividuals() {
-		var newIndividuals = [];
-		for (var i = 0; i < this.individuals.length; i++)
-			newIndividuals.push(this.individuals[i].decode(this.chromosomes[i]));
-		this.individuals = newIndividuals;
+	updatePhenotypes() {
+		var newPhenotypes = [];
+		for (var i = 0; i < this.genotypes.length; i++)
+			newPhenotypes.push(this.genotypes[i].decode());
+		this.phenotypes = newPhenotypes;
 	}
 	
-	updateChromosomes() {
-		var newChromosomes = [];
-		for (var i = 0; i < this.individuals.length; i++) 
-			newChromosomes.push(this.individuals[i].encode());
-		this.chromosomes = newChromosomes;
+	updateGenotypes() {
+		var newGenotypes = [];
+		for (var i = 0; i < this.phenotypes.length; i++) 
+			newGenotypes.push(this.phenotypes[i].encode());
+		this.genotypes = newGenotypes;
 	}
 	
 }

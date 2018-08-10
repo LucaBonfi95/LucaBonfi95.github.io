@@ -2,7 +2,7 @@
  * 
  */
 
-class PolygonComposition extends Individual{
+class PolygonComposition extends Phenotype {
 	
 	static random(polygonNo) {
 		var polygons = [];
@@ -14,7 +14,7 @@ class PolygonComposition extends Individual{
 	
 	constructor(polygons) { 
 		super();
-		this.factory = new PolygonCompositionChromosomeFactory();
+		this.encoder = new BitStringGenotypePolygonCompositionEncoder();
 		this.polygons = polygons;
 	}
 	
@@ -23,11 +23,7 @@ class PolygonComposition extends Individual{
 	}
 	
 	encode() {
-		return this.factory.newChromosome(this);
-	}
-	
-	decode(chromosome) {
-		return this.factory.newPolygonComposition(chromosome);
+		return this.encoder.encode(this);
 	}
 	
 }

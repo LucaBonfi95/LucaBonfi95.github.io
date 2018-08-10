@@ -9,7 +9,7 @@ function update(progress) {
 }
 
 function draw() {
-	view.draw(new PolygonComposition([ga.generation.individuals[ga.generation.fittest()]]));
+	view.draw(new PolygonComposition([ga.generation.phenotypes[ga.generation.fittest()]]));
 }
 
 function loop(timestamp) {
@@ -36,8 +36,9 @@ var initialComp = [];
 var comp;
 for (var i = 0; i < MAX_POPULATION; i++) 
 	initialComp.push(Polygon.random());
+
 var ga = new GA(new Generation([],initialComp), DEFAULT_MUTATION_PROBABILITY);
-ga.generation.updateChromosomes();
+ga.generation.updateGenotypes();
 
 var c = document.getElementById("canvas");
 var ctx = c.getContext("2d");
