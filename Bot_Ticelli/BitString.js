@@ -69,7 +69,7 @@ class BitString {
 		this.setBit(index, !this.getBit(index));
 	}
 
-
+ 
 	length() { 
 		return this.byte * 8 + this.bit + 1;
 	}
