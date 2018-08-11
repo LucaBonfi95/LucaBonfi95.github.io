@@ -7,31 +7,32 @@
     </head>
     <body>
         <canvas id="canvas" width="1890" height="925" style="border:1px solid #FFFFFF;"></canvas>
-        <script src="../Commons.js"></script>
-        <script src="../Utils.js"></script>
+        <script src="../js/Commons.js"></script>
+        <script src="../js/Utils.js"></script>
         
-        <script src="../Color.js"></script>
-        
-        <script src="../Phenotype.js"></script>
-        <script src="../Genotype.js"></script>
-        <script src="../Polygon.js"></script>
-        <script src="../BitString.js"></script>
-        
-        <script src="../BitStringGenotype.js"></script>
-		<script src="../PolygonComposition.js"></script>
+        <script src="../js/phenotypes/Color.js"></script>
+        <script src="../js/phenotypes/Phenotype.js"></script>
+        <script src="../js/phenotypes/Polygon.js"></script>
+		<script src="../js/phenotypes/PolygonComposition.js"></script>
+		<script src="../js/phenotypes/PolygonEncoder.js"></script>
+		<script src="../js/phenotypes/PolygonCompositionEncoder.js"></script>
 		
-		<script src="../PolygonEncoder.js"></script>
-		<script src="../PolygonCompositionEncoder.js"></script>
-		<script src="../BitStringGenotypeDecoder.js"></script>
+		<script src="../js/genotypes/BitString.js"></script>
+        <script src="../js/genotypes/Genotype.js"></script>
+        <script src="../js/genotypes/BitStringGenotype.js"></script>
+        <script src="../js/genotypes/FloatArrayGenotype.js"></script>
+		<script src="../js/genotypes/BitStringGenotypeDecoder.js"></script>
+		<script src="../js/genotypes/FloatArrayGenotypeDecoder.js"></script>
 		
-		<script src="../Generation.js"></script>
-		<script src="../GA.js"></script>
+		<script src="../js/Generation.js"></script>
+		<script src="../js/GA.js"></script>
 		
-		<script src="../View.js"></script>
-		<script src="../Controller.js"></script>
+		<script src="../js/View.js"></script>
+		<script src="../js/Controller.js"></script>
 		
 		<button onClick="start()">start</button>
 		<button onClick="stop()">stop</button>
+		<button onClick="console.log(countP / countM)">debug</button>
 		
     </body>
 </html>

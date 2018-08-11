@@ -18,8 +18,8 @@ class Polygon extends Phenotype {
 		super();
 		this.vertices = vertices;
 		this.color = color;
-		this.encoder = new BitStringGenotypePolygonEncoder();
-		
+		//this.encoder = new BitStringGenotypePolygonEncoder();
+		this.encoder = new FloatArrayGenotypePolygonEncoder();
 		for (var i = 0; i < vertices.length; i++){ 
 			vertices[i].x %= WIDTH;
 			vertices[i].y %= HEIGHT;
@@ -69,7 +69,7 @@ class Polygon extends Phenotype {
 		var sides = [];
 		var center = {x:0, y:0};
 		
-		if (this.vertices.length != 5) 
+		if (this.vertices.length != 9) 
 			return 0;
 		
 		for (var i = 0; i < this.vertices.length; i++){
@@ -104,7 +104,8 @@ class Polygon extends Phenotype {
 		for (var i = 0; i < distances.length; i++) {
 			slack += Math.pow(distances[i] - avgRadius, 2) + Math.pow(sides[i] - optimalSide, 2);
 		}
-		return 1 / slack;
+		return (1 + avgRadius) / slack;
+//		return 1;
 	}
 	
 	encode() { 

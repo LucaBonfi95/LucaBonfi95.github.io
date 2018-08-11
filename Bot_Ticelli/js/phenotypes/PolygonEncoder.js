@@ -48,3 +48,27 @@ class BitStringGenotypePolygonEncoder extends PolygonEncoder {
 	}
 	
 }
+
+class FloatArrayGenotypePolygonEncoder extends PolygonEncoder {
+	
+	constructor() {
+		super();
+	}
+	
+	encode(polygon) {
+		var values = new Array(MAX_VERTICES * 3 + 3);
+		for (var i = 0; i < values.length; i++)
+			values[i] = 0;
+		
+		values[0] = polygon.color.r();
+		values[1] = polygon.color.g();
+		values[2] = polygon.color.b();
+		for (var i = 0; i < polygon.vertices.length; i++) {
+			values[3 * i + 3] = 1;
+			values[3 * i + 4] = polygon.vertices[i].x;
+			values[3 * i + 5] = polygon.vertices[i].y;
+		}
+		return new FloatArrayGenotype(values);
+	}
+	
+}
