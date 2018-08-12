@@ -6,7 +6,7 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <canvas id="canvas" width="1500" height="925" style="border:1px solid #000000;"></canvas>
+        <canvas id="canvas" width="1500" height="800" style="border:1px solid #000000;"></canvas>
         <script src="../js/Commons.js"></script>
         <script src="../js/Utils.js"></script>
         
@@ -31,9 +31,10 @@
 		<script src="../js/Controller.js"></script>
 		
 		<p id="fitness"></p>
+		<p id="render"></p>
 		<button onClick="start()">start</button>
 		<button onClick="stop()">stop</button>
-		<button onClick="console.log(countP / countM)">debug</button>
+		<button onClick="window.requestAnimationFrame(loop)">next</button>
 		
     </body>
 </html>

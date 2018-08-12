@@ -14,12 +14,15 @@ class PolygonComposition extends Phenotype {
 	
 	constructor(polygons) { 
 		super();
-		this.encoder = new BitStringGenotypePolygonCompositionEncoder();
+		this.encoder = new FloatArrayGenotypePolygonCompositionEncoder();
 		this.polygons = polygons;
 	}
 	
-	fitness() { //TODO
-		return 1;
+	fitness() { 
+		var ret = 1;
+		for (var i = 0; i < this.polygons.length; i++)
+			ret *= this.polygons[i].fitness();
+		return ret;
 	}
 	
 	encode() {

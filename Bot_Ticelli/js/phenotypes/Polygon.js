@@ -69,8 +69,10 @@ class Polygon extends Phenotype {
 		var sides = [];
 		var center = {x:0, y:0};
 		
-		if (this.vertices.length != 4) 
-			return 0;
+		var desiredVertices = 5;
+		
+		if (this.vertices.length != desiredVertices) 
+			return 0.00000001 / Math.abs(this.vertices.length - desiredVertices);
 		
 		for (var i = 0; i < this.vertices.length; i++){
 			center.x += this.vertices[i].x;

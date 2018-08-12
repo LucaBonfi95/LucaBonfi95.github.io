@@ -6,14 +6,14 @@ var mutationProbability = 0.01;
 var maxMutation = 400;
 var maxLambda = 0.2;
 var minLambda = -0.2;
-var sigma = 100;
+var sigma = 300;
 
 class FloatArrayGenotype extends Genotype{
 	
 	constructor(values) {
 		super();
 		this.values = values;
-		this.decoder = new PolygonFloatArrayGenotypeDecoder();
+		this.decoder = new PolygonCompositionFloatArrayGenotypeDecoder();
 	}
 	
 	decode() {

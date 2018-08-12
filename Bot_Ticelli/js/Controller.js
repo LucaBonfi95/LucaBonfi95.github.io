@@ -4,18 +4,23 @@
 
 //MAIN
 
+var render = 0;
+
 function update(progress) {
 	ga.nextGeneration();
 }
 
 function draw() {
-	view.draw(new PolygonComposition([ga.generation.phenotypes[ga.generation.fittest()]]));
+	view.draw(ga.generation.phenotypes[ga.generation.fittest()]);
+	//view.draw(ga.generation.phenotypes[0].encode().decode());
 	document.getElementById("fitness").innerText = "Fitness: "+ga.generation.phenotypes[ga.generation.fittest()].fitness();
+	document.getElementById("render").innerText = "Render: "+render;
 }
 
 function loop(timestamp) {
 	var progress = timestamp - lastRender;
-
+	render++;
+	
 	update(progress);
 	draw();
 
@@ -33,12 +38,12 @@ function stop() {
 	stopflag = true;
 }
 
-var initialComp = [];
+var initialGen = [];
 var comp;
 for (var i = 0; i < MAX_POPULATION; i++) 
-	initialComp.push(Polygon.random());
+	initialGen.push(PolygonComposition.random(MAX_POLYGONS));
 
-var ga = new GA(new Generation([],initialComp), DEFAULT_MUTATION_PROBABILITY);
+var ga = new GA(new Generation([],initialGen));
 ga.generation.updateGenotypes();
 
 var c = document.getElementById("canvas");

@@ -3,19 +3,21 @@
  */
 class GA {
 
-	constructor(initialGeneration, mutationProbability) { 
+	constructor(initialGeneration) { 
 		this.generation = initialGeneration;
-		this.mutationProbability = mutationProbability;
 	}
 	
 	nextGeneration() {
-		var genotype1, genotype2, nextGen;
+		var genotype1, genotype2, nextGen, attempts;
 		nextGen = new Generation([],this.generation.phenotypes);
 		for (var i = 0; i < this.generation.genotypes.length; i+=2) {
 			genotype1 = this.extract();
-			do
+			attempts = 0;
+			do {
+				attempts++;
 				genotype2 = this.extract();
-			while (genotype2 == genotype1);
+			}
+			while (genotype2 == genotype1 && attempts <= 10);
 			
 			genotype1 = this.generation.genotypes[genotype1].clone();
 			genotype2 = this.generation.genotypes[genotype2].clone();
@@ -46,6 +48,7 @@ class GA {
 			else if (probs[i - 1] <= r && r <= probs[i])
 				return i;
 		}
+		return Math.floor(Math.random() * this.generation.genotypes.length);
 	}
 
 }

@@ -20,11 +20,11 @@ class PolygonFloatArrayGenotypeDecoder extends FloatArrayGenotypeDecoder {
 	
 	decode(floatArrayGenotype) {
 		var r,g,b;
-//		r = Math.floor(Math.abs(floatArrayGenotype.values[0])) % 256;
-//		g = Math.floor(Math.abs(floatArrayGenotype.values[1])) % 256;
-//		b = Math.floor(Math.abs(floatArrayGenotype.values[2])) % 256;
+		r = Math.floor(Math.abs(floatArrayGenotype.values[0])) % 256;
+		g = Math.floor(Math.abs(floatArrayGenotype.values[1])) % 256;
+		b = Math.floor(Math.abs(floatArrayGenotype.values[2])) % 256;
 		
-		r = 0, g = 0, b = 0;
+//		r = 0, g = 0, b = 0;
 		
 		var polygon = new Polygon([], new Color(r,g,b));
 		var x,y;
@@ -37,6 +37,40 @@ class PolygonFloatArrayGenotypeDecoder extends FloatArrayGenotypeDecoder {
 			}
 		}
 		return polygon;
+	}
+	
+}
+
+class PolygonCompositionFloatArrayGenotypeDecoder extends FloatArrayGenotypeDecoder {
+	
+	constructor() {
+		super();
+	}
+
+	decode(floatArrayGenotype) {
+		var r, g, b, polygon, x, y;
+		var polygons = [];
+		for (var j = 0; j < MAX_POLYGONS; j ++) {
+			if (floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4)]) {
+				r = Math.floor(Math.abs(floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + 1])) % 256;
+				g = Math.floor(Math.abs(floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + 2])) % 256;
+				b = Math.floor(Math.abs(floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + 3])) % 256;
+
+//				r = 0, g = 0, b = 0;
+
+				polygon = new Polygon([], new Color(r,g,b));
+
+				for (var i = 0; i < MAX_VERTICES; i++) { 
+					if (floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + i * 3 + 4] >= 0.5) {
+						x = Math.abs(floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + i * 3 + 5]) % WIDTH;
+						y = Math.abs(floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + i * 3 + 6]) % HEIGHT;
+						polygon.vertices.push({x:x, y:y});
+					}
+				}
+				polygons.push(polygon);
+			}
+		}
+		return new PolygonComposition(polygons);
 	}
 	
 }
