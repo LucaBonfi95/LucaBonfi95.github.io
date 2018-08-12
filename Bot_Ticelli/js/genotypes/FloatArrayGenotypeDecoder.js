@@ -20,9 +20,11 @@ class PolygonFloatArrayGenotypeDecoder extends FloatArrayGenotypeDecoder {
 	
 	decode(floatArrayGenotype) {
 		var r,g,b;
-		r = Math.floor(Math.abs(floatArrayGenotype.values[0])) % 256;
-		g = Math.floor(Math.abs(floatArrayGenotype.values[1])) % 256;
-		b = Math.floor(Math.abs(floatArrayGenotype.values[2])) % 256;
+//		r = Math.floor(Math.abs(floatArrayGenotype.values[0])) % 256;
+//		g = Math.floor(Math.abs(floatArrayGenotype.values[1])) % 256;
+//		b = Math.floor(Math.abs(floatArrayGenotype.values[2])) % 256;
+		
+		r = 0, g = 0, b = 0;
 		
 		var polygon = new Polygon([], new Color(r,g,b));
 		var x,y;

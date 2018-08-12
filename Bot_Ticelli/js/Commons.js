@@ -2,10 +2,10 @@
  * 
  */
 
-const WIDTH 	= 1890;
+const WIDTH 	= 1500;
 const HEIGHT	= 925;
 
-const MAX_VERTICES = 10;
+const MAX_VERTICES = 5;
 const MAX_POLYGONS = 10;
 const MAX_POPULATION = 100;
 

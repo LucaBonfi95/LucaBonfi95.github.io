@@ -2,8 +2,11 @@
  * 
  */
 
-var countP = 0;
-var countM = 0;
+var mutationProbability = 0.01;
+var maxMutation = 400;
+var maxLambda = 0.2;
+var minLambda = -0.2;
+var sigma = 100;
 
 class FloatArrayGenotype extends Genotype{
 	
@@ -11,26 +14,49 @@ class FloatArrayGenotype extends Genotype{
 		super();
 		this.values = values;
 		this.decoder = new PolygonFloatArrayGenotypeDecoder();
-		this.mutationProbability = 0.1;
-		this.maxMutation = 400;
-		this.maxLambda = 1;
 	}
 	
 	decode() {
 		return this.decoder.decode(this);
 	}
 	
+	// Mutation occurs adding a random number to an allele
+	
+	// Uniform Distribution
+	
+//	mutate() {
+//		var mutation;
+//		for (var i = 0; i < this.values.length; i++) {
+//			if (Math.random() < mutationProbability) {
+//				mutation = Math.random() * maxMutation;
+//				if (Math.random() < 0.5)
+//					mutation = -mutation;
+//				this.values[i] += mutation;
+//			}
+//		}
+//	}
+	
+	// Versiera
+	
+//	mutate() {
+//		var mutation;
+//		for (var i = 0; i < this.values.length; i++) {
+//			if (Math.random() < mutationProbability) {
+//				mutation = 10 * Math.tan(Math.random() * Math.PI / 2);
+//				if (Math.random() < 0.5)
+//					mutation = -mutation;
+//				this.values[i] += mutation;
+//			}
+//		}
+//	}
+	
+	// Gaussian
+	
 	mutate() {
 		var mutation;
 		for (var i = 0; i < this.values.length; i++) {
-			if (Math.random() < this.mutationProbability) {
-				mutation = Math.random() * this.maxMutation;
-				if (Math.random() < 0.5) {
-					mutation = -mutation;
-					countM++;
-				}
-				else
-					countP++;
+			if (Math.random() < mutationProbability) {
+				mutation = sigma * randn_bm();
 				this.values[i] += mutation;
 			}
 		}
@@ -39,7 +65,7 @@ class FloatArrayGenotype extends Genotype{
 	crossover(genotype) {
 		var lambda, temp;
 		for (var i = 0; i < this.values.length; i++) {
-			lambda = Math.random() * this.maxLambda;
+			lambda = Math.random() * (maxLambda - minLambda) + minLambda;
 			if (Math.random() < 0.5)
 				lambda = 1 - lambda;
 			temp = this.values[i];

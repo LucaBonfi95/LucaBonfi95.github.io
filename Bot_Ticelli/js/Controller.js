@@ -10,6 +10,7 @@ function update(progress) {
 
 function draw() {
 	view.draw(new PolygonComposition([ga.generation.phenotypes[ga.generation.fittest()]]));
+	document.getElementById("fitness").innerText = "Fitness: "+ga.generation.phenotypes[ga.generation.fittest()].fitness();
 }
 
 function loop(timestamp) {

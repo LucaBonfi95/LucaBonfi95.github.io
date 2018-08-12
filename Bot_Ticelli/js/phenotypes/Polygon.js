@@ -6,7 +6,7 @@ class Polygon extends Phenotype {
 
 	static random() {
 		var vertices = [];
-		var verticesNo = Math.floor(Math.random() * (MAX_VERTICES - 3)) + 3;
+		var verticesNo = Math.floor(Math.random() * (MAX_VERTICES - 3 + 1)) + 3;
 		
 		for (var i = 0; i < verticesNo; i++)
 			vertices.push({x: Math.floor(Math.random() * WIDTH), y: Math.floor(Math.random() * HEIGHT)});
@@ -69,7 +69,7 @@ class Polygon extends Phenotype {
 		var sides = [];
 		var center = {x:0, y:0};
 		
-		if (this.vertices.length != 9) 
+		if (this.vertices.length != 4) 
 			return 0;
 		
 		for (var i = 0; i < this.vertices.length; i++){
@@ -104,7 +104,7 @@ class Polygon extends Phenotype {
 		for (var i = 0; i < distances.length; i++) {
 			slack += Math.pow(distances[i] - avgRadius, 2) + Math.pow(sides[i] - optimalSide, 2);
 		}
-		return (1 + avgRadius) / slack;
+		return 1 / (slack + 0.01);
 //		return 1;
 	}
 	
