@@ -24,10 +24,13 @@ class View {
 		this.ctx.closePath();
 	}
 	
-	draw(polygonComposition, x, y) {
+	draw(polygonComposition) {
 		this.ctx.clearRect(0, 0, WIDTH, HEIGHT);
-		for(var i = 0; i < polygonComposition.polygons.length; i++) 
-			this.drawPolygon(polygonComposition.polygons[i]);
+		if (polygonComposition.cachedImageData == null)
+			for(var i = 0; i < polygonComposition.polygons.length; i++) 
+				this.drawPolygon(polygonComposition.polygons[i]);
+		else
+			this.ctx.putImageData(polygonComposition.getImageData(), 0, 0);
 	}
 
 }
