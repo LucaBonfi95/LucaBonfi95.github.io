@@ -14,7 +14,6 @@ class PolygonComposition extends Phenotype {
 
 	constructor(polygons) { 
 		super();
-		this.encoder = new FloatArrayGenotypePolygonCompositionEncoder();
 		this.polygons = polygons;
 		this.cachedImageData = null;
 	}
@@ -24,10 +23,6 @@ class PolygonComposition extends Phenotype {
 		for (var i = 0; i < this.polygons.length; i++)
 			ret *= this.polygons[i].fitness();
 		return ret;
-	}
-
-	encode() {
-		return this.encoder.encode(this);
 	}
 
 	drawPolygon(pol, ctx) {

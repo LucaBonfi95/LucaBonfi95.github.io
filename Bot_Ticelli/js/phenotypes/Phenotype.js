@@ -10,8 +10,4 @@ class Phenotype {
 		throw new Error('Override me!');
 	}
 	
-	encode() {
-		throw new Error('Override me!');
-	}
-	
 }

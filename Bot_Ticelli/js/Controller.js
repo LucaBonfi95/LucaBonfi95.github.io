@@ -38,13 +38,15 @@ function stop() {
 	stopflag = true;
 }
 
-var initialGen = [];
+var genotypes = [];
 var comp;
-for (var i = 0; i < MAX_POPULATION; i++) 
-	initialGen.push(PolygonComposition.random(MAX_POLYGONS));
+for (var i = 0; i < MAX_POPULATION; i++) {
+	genotypes.push(new FloatArrayGenotype([]));
+	for (var j = 0; j < MAX_POLYGONS * (MAX_VERTICES * 3 + 3 + 1); j++) 
+		genotypes[i].values.push(Math.random() * 10000 );
+}
 
-var ga = new GA(new Generation([],initialGen));
-ga.generation.updateGenotypes();
+var ga = new GA(new Generation(genotypes));
 
 var c = document.getElementById("canvas");
 var ctx = c.getContext("2d");

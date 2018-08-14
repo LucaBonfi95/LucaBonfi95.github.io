@@ -8,8 +8,8 @@ class GA {
 	}
 	
 	nextGeneration() {
-		var genotype1, genotype2, nextGen, attempts;
-		nextGen = new Generation([],this.generation.phenotypes);
+		var genotype1, genotype2, newGenotypes, attempts;
+		newGenotypes = [];
 		for (var i = 0; i < this.generation.genotypes.length; i+=2) {
 			genotype1 = this.extract();
 			attempts = 0;
@@ -26,11 +26,10 @@ class GA {
 			genotype1.mutate();
 			genotype2.mutate();
 
-			nextGen.genotypes.push(genotype1);
-			nextGen.genotypes.push(genotype2);
+			newGenotypes.push(genotype1);
+			newGenotypes.push(genotype2);
 		}
-		nextGen.updatePhenotypes();		
-		this.generation = nextGen;
+		this.generation = new Generation(newGenotypes);
 	}
 
 	extract() {

@@ -18,8 +18,6 @@ class Polygon extends Phenotype {
 		super();
 		this.vertices = vertices;
 		this.color = color;
-		//this.encoder = new BitStringGenotypePolygonEncoder();
-		this.encoder = new FloatArrayGenotypePolygonEncoder();
 		for (var i = 0; i < vertices.length; i++){ 
 			vertices[i].x %= WIDTH;
 			vertices[i].y %= HEIGHT;
@@ -108,10 +106,6 @@ class Polygon extends Phenotype {
 		}
 		return 1 / (slack + 0.01);
 //		return 1;
-	}
-	
-	encode() { 
-		return this.encoder.encode(this);
 	}
 
 }
