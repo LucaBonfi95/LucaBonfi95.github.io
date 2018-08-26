@@ -10,6 +10,10 @@ class Exp {
 		throw new Error('Override me!');
 	}
 	
+	clone() {
+		throw new Error('Override me!');
+	}
+	
 }
 
 class CompositeExp extends Exp {
@@ -27,6 +31,13 @@ class CompositeExp extends Exp {
 		return this.expFunction.evaluate(args);
 	}
 	
+	clone() {
+		var childrenClone = [];
+		for (var i = 0; i < this.children.length; i++)
+			childrenClone.push(this.children[i].clone());
+		return new CompositeExp(this.expFunction, childrenClone);
+	}
+	
 }
 
 class ConstExp extends Exp {
@@ -40,17 +51,29 @@ class ConstExp extends Exp {
 		return this.value;
 	}
 	
+	clone() {
+		return new ConstExp(this.value);
+	}
+	
 }
 
 class VarExp extends Exp {
 	
-	constructor(id) {
+	constructor(id, defaultValue) {
 		super();
 		this.id = id;
+		this.defaultValue = defaultValue;
 	}
 	
 	evaluate(vars) {
-		return vars[this.id];
+		if (vars.length >= this.id + 1)
+			return vars[this.id];
+		else
+			return this.defaultValue;
+	}
+	
+	clone() {
+		return new VarExp(this.id, this.defaultValue);
 	}
 	
 }

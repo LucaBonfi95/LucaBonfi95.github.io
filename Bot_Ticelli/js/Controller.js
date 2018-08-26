@@ -11,8 +11,7 @@ function update(progress) {
 }
 
 function draw() {
-	view.draw(ga.generation.phenotypes[ga.generation.fittest()]);
-	//view.draw(ga.generation.phenotypes[0].encode().decode());
+	view.drawRawImage(ga.generation.phenotypes[ga.generation.fittest()]);
 	document.getElementById("fitness").innerText = "Fitness: "+ga.generation.phenotypes[ga.generation.fittest()].fitness();
 	document.getElementById("render").innerText = "Render: "+render;
 }
@@ -39,12 +38,17 @@ function stop() {
 }
 
 var genotypes = [];
-var comp;
+
+//for (var i = 0; i < MAX_POPULATION; i++) {
+//	genotypes.push(new FloatArrayGenotype([]));
+//	for (var j = 0; j < MAX_POLYGONS * (MAX_VERTICES * 3 + 3 + 1); j++) 
+//		genotypes[i].values.push(Math.random() * 10000 );
+//}
+
 for (var i = 0; i < MAX_POPULATION; i++) {
-	genotypes.push(new FloatArrayGenotype([]));
-	for (var j = 0; j < MAX_POLYGONS * (MAX_VERTICES * 3 + 3 + 1); j++) 
-		genotypes[i].values.push(Math.random() * 10000 );
+	genotypes.push(new ExpressionGenotype(new ConstExp(31)));
 }
+
 
 var ga = new GA(new Generation(genotypes));
 

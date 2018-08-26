@@ -7,6 +7,13 @@
     </head>
     <body>
         <canvas id="canvas" width="1500" height="800" style="border:1px solid #000000;"></canvas>
+        
+        <p id="fitness">Fitness: 0</p>
+		<p id="render">Render: 0</p>
+		<button onClick="start()">start</button>
+		<button onClick="stop()">stop</button>
+		<button onClick="window.requestAnimationFrame(loop)">next</button>
+        
         <script src="../js/Commons.js"></script>
         <script src="../js/Utils.js"></script>
         
@@ -14,6 +21,7 @@
         <script src="../js/phenotypes/Phenotype.js"></script>
         <script src="../js/phenotypes/Polygon.js"></script>
 		<script src="../js/phenotypes/PolygonComposition.js"></script>
+		<script src="../js/phenotypes/RawImage.js"></script>
 		
 		<script src="../js/genotypes/BitString.js"></script>
         <script src="../js/genotypes/Genotype.js"></script>
@@ -23,18 +31,14 @@
 		<script src="../js/genotypes/FloatArrayGenotypeDecoder.js"></script>
 		<script src="../js/genotypes/ExpFunction.js"></script>
 		<script src="../js/genotypes/Expression.js"></script>
+		<script src="../js/genotypes/ExpressionGenotype.js"></script>
+		<script src="../js/genotypes/ExpressionGenotypeDecoder.js"></script>
 		
 		<script src="../js/Generation.js"></script>
 		<script src="../js/GA.js"></script>
 		
 		<script src="../js/View.js"></script>
 		<script src="../js/Controller.js"></script>
-		
-		<p id="fitness"></p>
-		<p id="render"></p>
-		<button onClick="start()">start</button>
-		<button onClick="stop()">stop</button>
-		<button onClick="window.requestAnimationFrame(loop)">next</button>
 		
     </body>
 </html>

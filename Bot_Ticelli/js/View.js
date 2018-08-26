@@ -30,7 +30,13 @@ class View {
 			for(var i = 0; i < polygonComposition.polygons.length; i++) 
 				this.drawPolygon(polygonComposition.polygons[i]);
 		else
-			this.ctx.putImageData(polygonComposition.getImageData(), 0, 0);
+			this.ctx.putImageData(polygonComposition.cachedImageData, 0, 0);
+	}
+	
+	drawRawImage(rawImage) {
+		this.ctx.clearRect(0, 0, WIDTH, HEIGHT);
+		console.log(rawImage.imageData); //REMOVE ME!
+		this.ctx.putImageData(rawImage.imageData, 0, 0);
 	}
 
 }

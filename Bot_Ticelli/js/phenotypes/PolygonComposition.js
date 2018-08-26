@@ -16,6 +16,7 @@ class PolygonComposition extends Phenotype {
 		super();
 		this.polygons = polygons;
 		this.cachedImageData = null;
+		this.ctx = null;
 	}
 
 	fitness() { 
@@ -47,11 +48,13 @@ class PolygonComposition extends Phenotype {
 	}
 
 	updateImageData() {
-		var canvas = document.createElement("canvas");
-		canvas.width = WIDTH;
-		canvas.height = HEIGHT;
-		var ctx = canvas.getContext("2d");
-		this.draw(ctx);
-		this.cachedImageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+		if (this.ctx == null) {
+			var canvas = document.createElement("canvas");
+			canvas.width = WIDTH;
+			canvas.height = HEIGHT;
+			this.ctx = canvas.getContext("2d");
+		}
+		this.draw(this.ctx);
+		this.cachedImageData = this.ctx.getImageData(0,0,canvas.width,canvas.height);
 	}
 }
