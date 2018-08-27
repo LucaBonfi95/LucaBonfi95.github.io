@@ -4,6 +4,10 @@
 
 class ExpressionGenotype extends Genotype {
 	
+	static random(levels, variables) {
+		return new ExpressionGenotype(Exp.random(levels, variables));
+	}
+	
 	constructor(exp) {
 		super();
 		this.exp = exp;
