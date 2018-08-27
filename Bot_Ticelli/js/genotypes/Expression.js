@@ -2,15 +2,17 @@
  * 
  */
 
+const MAX_VALUES = 100;
+
 class Exp {
 	
 	static random(levels, variables) {
 		if (levels == 0) {
 			var t = Math.floor(Math.random() * 2); 
 			if (t == 0) 
-				return new ConstExp(Math.random());
+				return new ConstExp(Math.random() * MAX_VALUES * 2 - MAX_VALUES);
 			if (t == 1)
-				return new VarExp(Math.floor(Math.random() * variables), Math.random());
+				return new VarExp(Math.floor(Math.random() * variables), Math.random() * MAX_VALUES * 2 - MAX_VALUES);
 		}
 		else {
 			var func = ExpFunction.random();
@@ -62,7 +64,7 @@ class CompositeExp extends Exp {
 	toString() {
 		var res = this.expFunction.name+"(";
 		for (var i = 0; i < this.children.length; i++){ 
-			res = res + this.children.toString();
+			res = res + this.children[i].toString();
 			if (i != this.children.length - 1)
 				res = res + ",";
 		}

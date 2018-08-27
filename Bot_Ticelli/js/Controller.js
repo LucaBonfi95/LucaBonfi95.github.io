@@ -7,22 +7,25 @@
 var render = 0;
 
 function update(progress) {
-	ga.nextGeneration();
+	if (ga.ready == true) {
+		render++;
+		draw();
+		ga.nextGeneration();
+	}
+	document.getElementById("fitness").innerText = "Fitness: "+ga.generation.phenotypes[ga.generation.fittest()].fitness();
+	document.getElementById("render").innerText = "Render: "+render;
+	document.getElementById("progress").innerText = "Progress: "+ga.generation.progress;
 }
 
 function draw() {
 	view.drawRawImage(ga.generation.phenotypes[ga.generation.fittest()]);
-	document.getElementById("fitness").innerText = "Fitness: "+ga.generation.phenotypes[ga.generation.fittest()].fitness();
-	document.getElementById("render").innerText = "Render: "+render;
 }
 
 function loop(timestamp) {
 	var progress = timestamp - lastRender;
-	render++;
 	
 	update(progress);
-	draw();
-
+	
 	lastRender = timestamp;
 	if (!stopflag)
 		window.requestAnimationFrame(loop);
@@ -46,7 +49,7 @@ var genotypes = [];
 //}
 
 for (var i = 0; i < MAX_POPULATION; i++) {
-	genotypes.push(new ExpressionGenotype(new ConstExp(31)));
+	genotypes.push(new ExpressionGenotype(Exp.random(4,2)));
 }
 
 

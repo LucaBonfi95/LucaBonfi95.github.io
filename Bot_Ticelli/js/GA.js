@@ -5,9 +5,11 @@ class GA {
 
 	constructor(initialGeneration) { 
 		this.generation = initialGeneration;
+		this.ready = false;
 	}
 	
 	nextGeneration() {
+		this.ready = false;
 		var genotype1, genotype2, newGenotypes, attempts;
 		newGenotypes = [];
 		for (var i = 0; i < this.generation.genotypes.length; i+=2) {
@@ -30,6 +32,7 @@ class GA {
 			newGenotypes.push(genotype2);
 		}
 		this.generation = new Generation(newGenotypes);
+		this.ready = true;
 	}
 
 	extract() {

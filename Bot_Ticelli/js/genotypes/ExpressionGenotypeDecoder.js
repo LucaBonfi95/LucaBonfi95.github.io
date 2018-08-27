@@ -28,11 +28,12 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 		for (var y = 0; y < HEIGHT; y++) {
 			for(var x = 0; x < WIDTH; x++) {
 				for (var color = 0; color < 3; color++) {
-//					rawImage.imageData.data[y * WIDTH * 4 + x * 4 + color] = expressionGenotype.evaluate([x,y,color]);
-					rawImage.imageData.data[y * WIDTH * 4 + x * 4 + color] = x % 255;
+					rawImage.imageData.data[y * WIDTH * 4 + x * 4 + color] = expressionGenotype.exp.evaluate([x,y]);
+//					rawImage.imageData.data[y * WIDTH * 4 + x * 4 + color] = x % 255;
 				}
 				rawImage.imageData.data[y * WIDTH * 4 + x * 4 + 3] = 255;
 			}	
+			console.log(y);
 		}
 		
 		return rawImage;

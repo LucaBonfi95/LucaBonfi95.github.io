@@ -6,6 +6,7 @@ class Generation {
 	
 	constructor(genotypes) {
 		this.genotypes = genotypes;
+		this.progress = 0;
 		this.updatePhenotypes();
 	}
 	
@@ -23,8 +24,10 @@ class Generation {
 	
 	updatePhenotypes() {
 		var newPhenotypes = [];
-		for (var i = 0; i < this.genotypes.length; i++)
+		for (var i = 0; i < this.genotypes.length; i++) {
 			newPhenotypes.push(this.genotypes[i].decode());
+			this.progress = 100 * i / this.genotypes.length;
+		}
 		this.phenotypes = newPhenotypes;
 	}
 	
