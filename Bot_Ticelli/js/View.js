@@ -35,7 +35,6 @@ class View {
 	
 	drawRawImage(rawImage) {
 		this.ctx.clearRect(0, 0, WIDTH, HEIGHT);
-		console.log(rawImage.imageData); //REMOVE ME!
 		this.ctx.putImageData(rawImage.imageData, 0, 0);
 	}
 

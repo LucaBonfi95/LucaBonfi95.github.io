@@ -34,7 +34,7 @@ class ExpFunction {
 		else {
 			var _args = [];
 			for (var i = 0; i < this.arity(); i++) {
-				if (i < args.length)
+				if (i < args.length && args[i] != NaN)
 					_args.push(args[i]);
 				else
 					_args.push(this.defaultArgs[i]);

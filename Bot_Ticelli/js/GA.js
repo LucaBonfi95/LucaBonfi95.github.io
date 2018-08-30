@@ -18,6 +18,7 @@ class GA {
 		this.isInit = true;
 		this.generation.phenotypes = this.updatePhenotypes();
 		this.ready = true;
+		this.status = "Idle";
 		this.raiseUpdate();
 	}
 	

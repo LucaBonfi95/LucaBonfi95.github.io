@@ -12,7 +12,7 @@ class RawImage extends Phenotype {
 	
 	fitness() {
 		if (this.fitnessCache == null)
-			this.fitnessCache = Math.random();
+			this.fitnessCache = 1;
 		return this.fitnessCache;
 	}
 	
