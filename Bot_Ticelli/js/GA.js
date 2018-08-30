@@ -3,16 +3,35 @@
  */
 class GA {
 
-	constructor(initialGeneration) { 
-		this.generation = initialGeneration;
+	constructor(initialGenotypes, updateCallback) { 
+		this.isInit = false;
 		this.ready = false;
+		this.status = "Idle";
+		this.currentGeneration = 0;
+		this.newGenotypesCreated = 0;
+		this.newPhenotypesCreated = 0;
+		this.updateCallback = updateCallback;
+		this.generation = new Generation(initialGenotypes, []);
+	}
+	
+	init() {
+		this.isInit = true;
+		this.generation.phenotypes = this.updatePhenotypes();
+		this.ready = true;
+		this.raiseUpdate();
 	}
 	
 	nextGeneration() {
+		if (this.generation.phenotypes == [])
+			this.generation.phenotypes = this.updatePhenotypes();
+		
 		this.ready = false;
+		this.status = "Creating new genotypes";
 		var genotype1, genotype2, newGenotypes, attempts;
 		newGenotypes = [];
 		for (var i = 0; i < this.generation.genotypes.length; i+=2) {
+			this.newGenotypesCreates = i;
+			this.raiseUpdate();
 			genotype1 = this.extract();
 			attempts = 0;
 			do {
@@ -31,8 +50,13 @@ class GA {
 			newGenotypes.push(genotype1);
 			newGenotypes.push(genotype2);
 		}
-		this.generation = new Generation(newGenotypes);
+		this.raiseUpdate();
+		var newPhenotypes = this.updatePhenotypes();
+		this.generation = new Generation(newGenotypes, newPhenotypes);
 		this.ready = true;
+		this.currentGeneration++;
+		this.status = "Idle";
+		this.raiseUpdate();
 	}
 
 	extract() {
@@ -51,6 +75,23 @@ class GA {
 				return i;
 		}
 		return Math.floor(Math.random() * this.generation.genotypes.length);
+	}
+	
+	updatePhenotypes() {
+		this.status = "Creating new phenotypes";
+		var newPhenotypes = [];
+		for (var i = 0; i < this.generation.genotypes.length; i++) {
+			this.newPhenotypesCreated = i;
+			this.status = "Creating new phenotypes ["+this.newPhenotypesCreated+"/"+this.generation.genotypes.length+"]";
+			this.raiseUpdate();
+			newPhenotypes.push(this.generation.genotypes[i].decode());
+		}
+		return newPhenotypes;
+	}
+	
+	raiseUpdate() {
+		if (this.updateCallback != null)
+			this.updateCallback();
 	}
 
 }

@@ -33,7 +33,6 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 				}
 				rawImage.imageData.data[y * WIDTH * 4 + x * 4 + 3] = 255;
 			}	
-			console.log(y);
 		}
 		
 		return rawImage;

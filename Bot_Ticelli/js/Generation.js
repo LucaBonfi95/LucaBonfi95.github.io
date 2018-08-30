@@ -4,10 +4,9 @@
 
 class Generation {
 	
-	constructor(genotypes) {
+	constructor(genotypes, phenotypes) {
 		this.genotypes = genotypes;
-		this.progress = 0;
-		this.updatePhenotypes();
+		this.phenotypes = phenotypes;
 	}
 	
 	fittest() {
@@ -20,15 +19,6 @@ class Generation {
 			}
 		}
 		return ret;
-	}
-	
-	updatePhenotypes() {
-		var newPhenotypes = [];
-		for (var i = 0; i < this.genotypes.length; i++) {
-			newPhenotypes.push(this.genotypes[i].decode());
-			this.progress = 100 * i / this.genotypes.length;
-		}
-		this.phenotypes = newPhenotypes;
 	}
 	
 }
