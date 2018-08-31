@@ -22,12 +22,20 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 	
 	decode(expressionGenotype) {
 		var rawImage = new RawImage(this.ctx.getImageData(0, 0, WIDTH, HEIGHT));
+		var x1, y1, pixel, index = 0;
 
 		for (var y = 0; y < HEIGHT; y++) {
 			for(var x = 0; x < WIDTH; x++) {
-				for (var color = 0; color < 3; color++) 
-					rawImage.imageData.data[y * WIDTH * 4 + x * 4 + color] = 127 * (1 + 2 / Math.PI * Math.atan(expressionGenotype.exp.evaluate([x - WIDTH/2,y - HEIGHT / 2])));
-				rawImage.imageData.data[y * WIDTH * 4 + x * 4 + 3] = 255;
+				for (var color = 0; color < 3; color++) {
+//					x1 = (x - WIDTH/2) * Math.cos(y - HEIGHT/2);
+//					y1 = (y - HEIGHT/2) * Math.sin(x - WIDTH/2);
+					x1 = Math.sqrt(Math.pow((x - WIDTH/2),2) + Math.pow((y - HEIGHT/2),2));
+					y1 = Math.atan2(y,x);
+					pixel = expressionGenotype.exp.evaluate([x1,y1]);
+					pixel = 127 * (1 + 2 / Math.PI * Math.atan(pixel));
+					rawImage.imageData.data[index++] = pixel;
+				}
+				rawImage.imageData.data[index++] = 255;
 			}	
 		}
 		

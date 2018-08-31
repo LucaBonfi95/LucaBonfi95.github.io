@@ -5,7 +5,7 @@
 class ExpFunction {
 	
 	static random() { 
-		var f = Math.floor(Math.random() * 10);
+		var f = Math.floor(Math.random() * 11);
 		if (f == 0) return absF;
 		else if (f == 1) return addF;
 		else if (f == 2) return cosF;
@@ -15,6 +15,7 @@ class ExpFunction {
 		else if (f == 6) return mulF;
 		else if (f == 7) return powF;
 		else if (f == 8) return sinF;
+		else if (f == 9) return atanF;
 		else return tanF;
 	}
 	
@@ -121,6 +122,14 @@ const modF = new ExpFunction(
 		},
 		[0,1],
 		"mod"
+)
+
+const atanF = new ExpFunction(
+		function(vars) {
+			return Math.atan(vars[0]);
+		},
+		[0],
+		"atan"
 )
 
 const idF = new ExpFunction(

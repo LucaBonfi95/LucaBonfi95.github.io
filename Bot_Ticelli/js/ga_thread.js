@@ -45,7 +45,7 @@ function update() {
 //}
 
 for (var i = 0; i < MAX_POPULATION; i++) {
-	genotypes.push(new ExpressionGenotype(Exp.random(4,2)));
+	genotypes.push(new ExpressionGenotype(Exp.random(6,2)));
 }
 
 ga = new GA(genotypes, update);
