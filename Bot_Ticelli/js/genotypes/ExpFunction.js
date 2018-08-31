@@ -70,7 +70,7 @@ const mulF = new ExpFunction(
 
 const powF = new ExpFunction(
 		function(vars) {
-			return Math.pow(vars[0], vars[1]);
+			return Math.pow(Math.abs(vars[0]), vars[1]);
 		},
 		[1,1],
 		"pow"
@@ -78,7 +78,7 @@ const powF = new ExpFunction(
 
 const logF = new ExpFunction(
 		function(vars) {
-			return Math.log(vars[1]) / Math.log(vars[0]);
+			return Math.log(Math.abs(vars[1])) / Math.log(Math.abs(vars[0]));
 		},
 		[1, Math.E],
 		"log"

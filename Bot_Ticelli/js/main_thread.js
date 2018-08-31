@@ -6,23 +6,11 @@
 
 var render = 0;
 var genotypes = [];
-var gaInfo, c, ctx, view, stopflag, lastRender, worker;
+var gaInfo, view, stopflag, worker;
 
 function update(e) {
-
 	gaInfo = e.data;
-	
-	if (gaInfo.ready == true) {
-		draw();
-		document.getElementById("fitness").innerText = "Fitness: "+gaInfo.fitness;
-		document.getElementById("render").innerText = "Generation: "+gaInfo.generation;
-	}
-	document.getElementById("progress").innerText = "Status: "+gaInfo.status;
-	
-}
-
-function draw() {
-	view.drawRawImage(gaInfo.imgData);
+	view.update(gaInfo);
 }
 
 function start() {
@@ -35,13 +23,9 @@ function stop() {
 
 function init() {
 	stopflag = false;
-	
-	c = document.getElementById("canvas");
-	ctx = c.getContext("2d");
-	view = new View(ctx);
 
-	lastRender = 0;
-	
+	view = new View();
+
 	worker = new Worker('../js/ga_thread.js');
 	worker.onmessage = update;
 	worker.postMessage('as');

@@ -2,11 +2,11 @@
  * 
  */
 
-const WIDTH 	= 1500;
-const HEIGHT	= 800;
+const WIDTH 	= 1000;
+const HEIGHT	= 1000;
 
 const MAX_VERTICES = 10;
 const MAX_POLYGONS = 10;
-const MAX_POPULATION = 2;
+const MAX_POPULATION = 10;
 
 const DEFAULT_MUTATION_PROBABILITY = 0.0001; 

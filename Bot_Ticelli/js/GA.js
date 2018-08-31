@@ -8,15 +8,16 @@ class GA {
 		this.ready = false;
 		this.status = "Idle";
 		this.currentGeneration = 0;
-		this.newGenotypesCreated = 0;
-		this.newPhenotypesCreated = 0;
+		this.newGenotypes = [];
+		this.newPhenotypes = [];
 		this.updateCallback = updateCallback;
 		this.generation = new Generation(initialGenotypes, []);
 	}
 	
 	init() {
 		this.isInit = true;
-		this.generation.phenotypes = this.updatePhenotypes();
+		this.updatePhenotypes();
+		this.generation.phenotypes = this.newPhenotypes;
 		this.ready = true;
 		this.status = "Idle";
 		this.raiseUpdate();
@@ -28,11 +29,9 @@ class GA {
 		
 		this.ready = false;
 		this.status = "Creating new genotypes";
-		var genotype1, genotype2, newGenotypes, attempts;
-		newGenotypes = [];
+		this.newGenotypes = [];
+		var genotype1, genotype2, attempts;
 		for (var i = 0; i < this.generation.genotypes.length; i+=2) {
-			this.newGenotypesCreates = i;
-			this.raiseUpdate();
 			genotype1 = this.extract();
 			attempts = 0;
 			do {
@@ -48,12 +47,12 @@ class GA {
 			genotype1.mutate();
 			genotype2.mutate();
 
-			newGenotypes.push(genotype1);
-			newGenotypes.push(genotype2);
+			this.newGenotypes.push(genotype1);
+			this.newGenotypes.push(genotype2);
+			this.raiseUpdate();
 		}
-		this.raiseUpdate();
-		var newPhenotypes = this.updatePhenotypes();
-		this.generation = new Generation(newGenotypes, newPhenotypes);
+		this.updatePhenotypes();
+		this.generation = new Generation(this.newGenotypes, this.newPhenotypes);
 		this.ready = true;
 		this.currentGeneration++;
 		this.status = "Idle";
@@ -79,15 +78,14 @@ class GA {
 	}
 	
 	updatePhenotypes() {
-		this.status = "Creating new phenotypes";
-		var newPhenotypes = [];
+		this.newPhenotypes = [];
+		this.status = this.status = "Creating new phenotypes ["+this.newPhenotypes.length+"/"+this.generation.genotypes.length+"]";
+		this.raiseUpdate();
 		for (var i = 0; i < this.generation.genotypes.length; i++) {
-			this.newPhenotypesCreated = i;
-			this.status = "Creating new phenotypes ["+this.newPhenotypesCreated+"/"+this.generation.genotypes.length+"]";
+			this.newPhenotypes.push(this.generation.genotypes[i].decode());
+			this.status = "Creating new phenotypes ["+this.newPhenotypes.length+"/"+this.generation.genotypes.length+"]";
 			this.raiseUpdate();
-			newPhenotypes.push(this.generation.genotypes[i].decode());
 		}
-		return newPhenotypes;
 	}
 	
 	raiseUpdate() {

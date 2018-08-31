@@ -24,16 +24,20 @@ importScripts("../js/genotypes/ExpressionGenotypeDecoder.js");
 importScripts("../js/Generation.js");
 importScripts("../js/GA.js");
 
-var ga, genotypes = [];
+var ga, genotypes = [], msgId = 0;
 
 function update() {
 	var gaInfo = new Object();
+	gaInfo.msgId = msgId++;
 	gaInfo.ready = ga.ready;
 	gaInfo.status = ga.status;
-	if (ga.ready == true) {
-		gaInfo.fitness = ga.generation.phenotypes[ga.generation.fittest()].fitness();
-		gaInfo.generation = ga.currentGeneration;
-		gaInfo.imgData = ga.generation.phenotypes[ga.generation.fittest()];
+	gaInfo.currentGeneration = ga.currentGeneration;
+	gaInfo.newPhenotypes = [];
+	for (var i = 0; i < ga.newPhenotypes.length; i++) {
+		var phenotypeInfo = new Object();
+		phenotypeInfo.imageData = ga.newPhenotypes[i].imageData;
+		phenotypeInfo.fitness = ga.newPhenotypes[i].fitness();
+		gaInfo.newPhenotypes.push(phenotypeInfo);		
 	}
 	postMessage(gaInfo);
 }
