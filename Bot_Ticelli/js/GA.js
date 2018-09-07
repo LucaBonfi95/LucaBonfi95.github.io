@@ -8,7 +8,7 @@ class GA {
 		this.ready = false;
 		this.status = "Idle";
 		this.currentGeneration = 0;
-		this.newGenotypes = [];
+		this.newGenotypes = initialGenotypes;
 		this.newPhenotypes = [];
 		this.updateCallback = updateCallback;
 		this.generation = new Generation(initialGenotypes, []);
@@ -24,6 +24,8 @@ class GA {
 	}
 	
 	nextGeneration() {
+		this.currentGeneration++;
+		
 		if (this.generation.phenotypes == [])
 			this.generation.phenotypes = this.updatePhenotypes();
 		
@@ -54,7 +56,6 @@ class GA {
 		this.updatePhenotypes();
 		this.generation = new Generation(this.newGenotypes, this.newPhenotypes);
 		this.ready = true;
-		this.currentGeneration++;
 		this.status = "Idle";
 		this.raiseUpdate();
 	}
@@ -81,9 +82,9 @@ class GA {
 		this.newPhenotypes = [];
 		this.status = this.status = "Creating new phenotypes ["+this.newPhenotypes.length+"/"+this.generation.genotypes.length+"]";
 		this.raiseUpdate();
-		for (var i = 0; i < this.generation.genotypes.length; i++) {
-			this.newPhenotypes.push(this.generation.genotypes[i].decode());
-			this.status = "Creating new phenotypes ["+this.newPhenotypes.length+"/"+this.generation.genotypes.length+"]";
+		for (var i = 0; i < this.newGenotypes.length; i++) {
+			this.newPhenotypes.push(this.newGenotypes[i].decode());
+			this.status = "Creating new phenotypes ["+this.newPhenotypes.length+"/"+this.newGenotypes.length+"]";
 			this.raiseUpdate();
 		}
 	}

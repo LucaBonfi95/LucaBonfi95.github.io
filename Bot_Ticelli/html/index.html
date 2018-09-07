@@ -13,18 +13,26 @@
 		<div id="phenotypes" style="float: left; height: 400px; width: 840px; overflow: auto;"></div>
 
 		<div id="status">Status: Idle</div>
+		<div>
+			<button id="pauseButton" onClick="togglePause()">Pause</button>
+			<button id="nextGenerationButton" onClick="nextGeneration()">Next</button>
+		</div>
+		<div>Fitness Mode: <br> 
+			<input id="fitnessModeAuto" type="radio" name="fitnessMode" onClick='updateFitnessMode(FITNESS_MODE_AUTO)'>Automatic<br>
+			<input id="fitnessModeManual" type="radio" name="fitnessMode" onClick='updateFitnessMode(FITNESS_MODE_MANUAL)' checked="checked">Manual<br>
+		</div>
+		<div></div>
 	</div>
 
 	<div id="selectedPhenotype" style="float: right">
-		<canvas id="selectedPhenotypeCanvas" width="500" height="300"
+		<canvas id="selectedPhenotypeCanvas" width="800" height="800"
 			style="border: 1px solid #000000;"></canvas>
-		<div id="selectedPhenotypeInfo">
+		<div id="selectedPhenotypeInfo" style="width: 800px;">
 			<div id="id">Id:</div>
-			<div id="fitness">Fitness:</div>
-			<div id="toString">String:</div>
+			Fitness: <input id="fitness" onchange='setFitness(this.value)'>
+			<div id="string">String: </div>
 		</div>
 	</div>
-
 
 	<script src="../js/Commons.js"></script>
 	<script src="../js/Utils.js"></script>
@@ -46,6 +54,7 @@
 	<script src="../js/genotypes/ExpressionGenotype.js"></script>
 	<script src="../js/genotypes/ExpressionGenotypeDecoder.js"></script>
 
+	<script src="../js/Command.js"></script>
 	<script src="../js/Generation.js"></script>
 	<script src="../js/GA.js"></script>
 

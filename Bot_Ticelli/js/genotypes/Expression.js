@@ -66,7 +66,7 @@ class CompositeExp extends Exp {
 		for (var i = 0; i < this.children.length; i++){ 
 			res = res + this.children[i].toString();
 			if (i != this.children.length - 1)
-				res = res + ",";
+				res = res + ", ";
 		}
 		res = res + ")";
 		return res;

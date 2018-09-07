@@ -9,64 +9,88 @@ class View {
 	
 	constructor() {
 		this.phenotypesDisplayed = 0;
+		this.gaInfo = null;
 	}
 	
 	update(gaInfo) {
+		this.gaInfo = gaInfo;
 		document.getElementById("currentGeneration").innerHTML = "Generation: "+gaInfo.currentGeneration;
 		document.getElementById("status").innerHTML = "Status: "+gaInfo.status;
 		if (gaInfo.newPhenotypes.length != this.phenotypesDisplayed)
-			this.updatePhenotypesGrid(gaInfo);
+			this.updatePhenotypesGrid();
+		document.getElementById("nextGenerationButton").disabled = (gaInfo.status != "Idle");
+		document.getElementById("fitness").disabled = (gaInfo.status != "Idle")
 	}
 	
-	updatePhenotypesGrid(gaInfo) {
-		var srcCtx, destCtx, child, newCanvas;
-		console.log(gaInfo.msgId);
-		if (this.phenotypesDisplayed > gaInfo.newPhenotypes.length) {
+	updatePhenotypesGrid() {
+		var destCanvas, child;
+		if (this.phenotypesDisplayed > this.gaInfo.newPhenotypes.length) {
 			this.phenotypesDisplayed = 0;
 			document.getElementById("phenotypes").innerHTML = "";
 		}
 		
-		for (var i = this.phenotypesDisplayed; i < gaInfo.newPhenotypes.length; i++){ 
+		for (var i = this.phenotypesDisplayed; i < this.gaInfo.newPhenotypes.length; i++){ 
 			child = document.createElement('span');
-		    child.innerHTML ='<canvas id="canvas'+i+'" width="'+PREVIEW_SIZE_X+'" height="'+PREVIEW_SIZE_Y+'" style="border: 1px solid #000000;"></canvas>';
+		    child.innerHTML ='<canvas id="canvas'+i+'" width="'+PREVIEW_SIZE_X+'" height="'+PREVIEW_SIZE_Y+'" onclick="selectPhenotype('+i+')" style="border: 1px solid #000000;"></canvas>';
 			document.getElementById("phenotypes").appendChild(child);
-			destCtx = document.getElementById("canvas"+i).getContext("2d");
+			destCanvas = document.getElementById("canvas"+i);
 
-			newCanvas = document.createElement("canvas");
-			newCanvas.width = WIDTH;
-			newCanvas.height = HEIGHT;
-
-			newCanvas.getContext("2d").putImageData(gaInfo.newPhenotypes[i].imageData, 0, 0);
-
-			destCtx.scale(0.2, 0.2);
-			destCtx.drawImage(newCanvas, 0, 0);
+			this.showImage(gaInfo.newPhenotypes[i].imageData, destCanvas);
 		}
 		
-		this.phenotypesDisplayed = gaInfo.newPhenotypes.length;
+		this.phenotypesDisplayed = this.gaInfo.newPhenotypes.length;
 	}
 	
-	drawPolygon(ctx, pol) {
-		if (pol.vertices.length < 3) 
-			return;
-		
-		ctx.beginPath();
-		ctx.moveTo(pol.vertices[pol.vertices.length - 1].x, pol.vertices[pol.vertices.length - 1].y);
-		
-		for (var i = 0; i < pol.vertices.length - 1; i++)
-			ctx.lineTo(pol.vertices[i].x, pol.vertices[i].y);
-		
-		ctx.fillStyle = "rgb("+pol.color.r()+", "+pol.color.g()+", "+pol.color.b()+")";
-		ctx.fill();
-		ctx.closePath();
-	}
-	
-	draw(ctx, polygonComposition) {
-		ctx.clearRect(0, 0, WIDTH, HEIGHT);
-		if (polygonComposition.cachedImageData == null)
-			for(var i = 0; i < polygonComposition.polygons.length; i++) 
-				this.drawPolygon(polygonComposition.polygons[i]);
+	togglePause() {
+		var button = document.getElementById("pauseButton");
+		if (button.innerHTML == "Pause")
+			button.innerHTML = "Resume";
 		else
-			ctx.putImageData(polygonComposition.cachedImageData, 0, 0);
+			button.innerHTML = "Pause";
 	}
+	
+	selectPhenotype(i) {
+		document.getElementById("fitness").value = this.gaInfo.newPhenotypes[i].fitness;
+		document.getElementById("id").innerHTML = "Id: "+i;
+		document.getElementById("string").innerHTML = "String: "+this.gaInfo.newGenotypes[i].string;
+		this.showImage(this.gaInfo.newPhenotypes[i].imageData, document.getElementById("selectedPhenotypeCanvas"));
+	}
+	
+	showImage(imageData, destCanvas) { 
+		var newCanvas = document.createElement("canvas");
+		var ctx = destCanvas.getContext("2d");
+		newCanvas.width = imageData.width;
+		newCanvas.height = imageData.height;
+
+		newCanvas.getContext("2d").putImageData(imageData, 0, 0);
+		
+		ctx.scale(destCanvas.width / newCanvas.width, destCanvas.height / newCanvas.height);
+		ctx.drawImage(newCanvas, 0, 0);
+		ctx.scale(newCanvas.width / destCanvas.width, newCanvas.height / destCanvas.height);
+	}
+	
+//	drawPolygon(ctx, pol) {
+//		if (pol.vertices.length < 3) 
+//			return;
+//		
+//		ctx.beginPath();
+//		ctx.moveTo(pol.vertices[pol.vertices.length - 1].x, pol.vertices[pol.vertices.length - 1].y);
+//		
+//		for (var i = 0; i < pol.vertices.length - 1; i++)
+//			ctx.lineTo(pol.vertices[i].x, pol.vertices[i].y);
+//		
+//		ctx.fillStyle = "rgb("+pol.color.r()+", "+pol.color.g()+", "+pol.color.b()+")";
+//		ctx.fill();
+//		ctx.closePath();
+//	}
+//	
+//	draw(ctx, polygonComposition) {
+//		ctx.clearRect(0, 0, WIDTH, HEIGHT);
+//		if (polygonComposition.cachedImageData == null)
+//			for(var i = 0; i < polygonComposition.polygons.length; i++) 
+//				this.drawPolygon(polygonComposition.polygons[i]);
+//		else
+//			ctx.putImageData(polygonComposition.cachedImageData, 0, 0);
+//	}
 
 }

@@ -23,8 +23,30 @@ importScripts("../js/genotypes/ExpressionGenotypeDecoder.js");
 
 importScripts("../js/Generation.js");
 importScripts("../js/GA.js");
+importScripts("../js/Command.js");
 
 var ga, genotypes = [], msgId = 0;
+var stopFlag = false;
+var fitnessMode = FITNESS_MODE_MANUAL;
+
+onmessage = function(e) {
+	var cmd = e.data;
+	console.log(cmd);
+	if (cmd.name == CMD_TOGGLE_PAUSE) {
+		console.log("pause");
+		stopFlag = !stopFlag;
+		setTimeout(nextGeneration(), TIMEOUT);
+	}
+	else if (cmd.name == CMD_NEXT_GENERATION) {
+		setTimeout(nextGeneration(), TIMEOUT);
+	}
+	else if (cmd.name == CMD_SET_FITNESS_MODE) {
+		fitnessMode = cmd.args[0];
+	}
+	else if (cmd.name == CMD_SET_FITNESS) {
+		ga.generation.phenotypes[cmd.args[0]].fitnessCache = cmd.args[1];
+	}
+}
 
 function update() {
 	var gaInfo = new Object();
@@ -33,11 +55,17 @@ function update() {
 	gaInfo.status = ga.status;
 	gaInfo.currentGeneration = ga.currentGeneration;
 	gaInfo.newPhenotypes = [];
+	gaInfo.newGenotypes = [];
 	for (var i = 0; i < ga.newPhenotypes.length; i++) {
 		var phenotypeInfo = new Object();
 		phenotypeInfo.imageData = ga.newPhenotypes[i].imageData;
 		phenotypeInfo.fitness = ga.newPhenotypes[i].fitness();
 		gaInfo.newPhenotypes.push(phenotypeInfo);		
+	}
+	for (var i = 0; i < ga.newGenotypes.length; i++) {
+		var genotypeInfo = new Object();
+		genotypeInfo.string = ga.newGenotypes[i].exp.toString();
+		gaInfo.newGenotypes.push(genotypeInfo);
 	}
 	postMessage(gaInfo);
 }
@@ -54,7 +82,12 @@ for (var i = 0; i < MAX_POPULATION; i++) {
 
 ga = new GA(genotypes, update);
 ga.init();
-while(true) {
-	console.log(ga.generation.genotypes[ga.generation.fittest()].exp.toString());
-	ga.nextGeneration();
+
+function nextGeneration() {
+	if(!stopFlag) {
+		ga.nextGeneration();
+		if (fitnessMode == FITNESS_MODE_AUTO)
+			setTimeout(nextGeneration, TIMEOUT);
+	}
 }
+setTimeout(nextGeneration, TIMEOUT);

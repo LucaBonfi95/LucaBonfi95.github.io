@@ -6,19 +6,40 @@
 
 var render = 0;
 var genotypes = [];
-var gaInfo, view, stopflag, worker;
+var gaInfo, view, worker, selectedPhenotype;
 
 function update(e) {
 	gaInfo = e.data;
 	view.update(gaInfo);
 }
 
-function start() {
-	init();
+function togglePause() {
+	view.togglePause();
+	worker.postMessage(new Command(CMD_TOGGLE_PAUSE, []));
 }
 
-function stop() {
-	stopflag = true;
+function updateFitnessMode(newFitnessMode) {
+	fitnessMode = newFitnessMode;
+	worker.postMessage(new Command(CMD_SET_FITNESS_MODE, [fitnessMode]));
+} 
+
+function selectPhenotype(index) {
+	selectedPhenotype = index;
+	view.selectPhenotype(index);
+}
+
+function setFitness(value) {
+	value = parseInt(value, 10);
+	gaInfo.newPhenotypes[selectedPhenotype].fitness = value;
+	worker.postMessage(new Command(CMD_SET_FITNESS, [selectedPhenotype, value]));
+}
+
+function nextGeneration() {
+	worker.postMessage(new Command(CMD_NEXT_GENERATION, []));
+}
+
+function start() {
+	init();
 }
 
 function init() {
@@ -28,7 +49,7 @@ function init() {
 
 	worker = new Worker('../js/ga_thread.js');
 	worker.onmessage = update;
-	worker.postMessage('as');
+	worker.postMessage(new Command(CMD_INIT, []));
 }
 
 if (typeof (OffscreenCanvas) == "undefined")
