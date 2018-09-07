@@ -16,6 +16,8 @@ class PolygonFloatArrayGenotypeDecoder extends FloatArrayGenotypeDecoder {
 	
 	constructor() {
 		super();
+		this.width = WIDTH;
+		this.height = HEIGHT;
 	}
 	
 	decode(floatArrayGenotype) {
@@ -31,8 +33,8 @@ class PolygonFloatArrayGenotypeDecoder extends FloatArrayGenotypeDecoder {
 		
 		for (var i = 3; i < floatArrayGenotype.values.length; i+=3) { 
 			if (floatArrayGenotype.values[i] >= 0.5) {
-				x = Math.abs(floatArrayGenotype.values[i + 1]) % WIDTH;
-				y = Math.abs(floatArrayGenotype.values[i + 2]) % HEIGHT;
+				x = Math.abs(floatArrayGenotype.values[i + 1]) % this.width;
+				y = Math.abs(floatArrayGenotype.values[i + 2]) % this.height;
 				polygon.vertices.push({x:x, y:y});
 			}
 		}
@@ -45,6 +47,8 @@ class PolygonCompositionFloatArrayGenotypeDecoder extends FloatArrayGenotypeDeco
 	
 	constructor() {
 		super();
+		this.width = WIDTH;
+		this.height = HEIGHT;
 	}
 
 	decode(floatArrayGenotype) {
@@ -63,8 +67,8 @@ class PolygonCompositionFloatArrayGenotypeDecoder extends FloatArrayGenotypeDeco
 
 				for (var i = 0; i < MAX_VERTICES; i++) { 
 					if (floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + i * 3 + 4] > 0) {
-						x = Math.abs(floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + i * 3 + 5]) % WIDTH;
-						y = Math.abs(floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + i * 3 + 6]) % HEIGHT;
+						x = Math.abs(floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + i * 3 + 5]) % this.width;
+						y = Math.abs(floatArrayGenotype.values[j * (MAX_VERTICES * 3 + 4) + i * 3 + 6]) % this.height;
 						polygon.vertices.push({x:x, y:y});
 					}
 				}

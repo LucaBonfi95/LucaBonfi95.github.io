@@ -20,6 +20,9 @@ class View {
 			this.updatePhenotypesGrid();
 		document.getElementById("nextGenerationButton").disabled = (gaInfo.status != "Idle");
 		document.getElementById("fitness").disabled = (gaInfo.status != "Idle")
+		if (gaInfo.hdPhenotype != null) {
+			this.showHdPhenotype();
+		}
 	}
 	
 	updatePhenotypesGrid() {
@@ -67,6 +70,17 @@ class View {
 		ctx.scale(destCanvas.width / newCanvas.width, destCanvas.height / newCanvas.height);
 		ctx.drawImage(newCanvas, 0, 0);
 		ctx.scale(newCanvas.width / destCanvas.width, newCanvas.height / destCanvas.height);
+	}
+	
+	showHdPhenotype() {
+		var download = document.createElement('a');
+		var canvas = document.createElement("canvas");
+		canvas.width = gaInfo.hdPhenotype.imageData.width;
+		canvas.height = gaInfo.hdPhenotype.imageData.height;
+		canvas.getContext('2d').putImageData(gaInfo.hdPhenotype.imageData, 0, 0);
+		download.href = canvas.toDataURL("image/png");
+		download.download = 'sasso.png';
+		download.click();
 	}
 	
 //	drawPolygon(ctx, pol) {

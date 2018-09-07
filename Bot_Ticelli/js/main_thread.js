@@ -38,6 +38,10 @@ function nextGeneration() {
 	worker.postMessage(new Command(CMD_NEXT_GENERATION, []));
 }
 
+function getHdImage() {
+	worker.postMessage(new Command(CMD_REQ_HD_IMAGE, [selectedPhenotype]));
+}
+
 function start() {
 	init();
 }

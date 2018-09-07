@@ -2,24 +2,22 @@
  * 
  */
 
-const MAX_VALUES = 100;
-
 class Exp {
 	
 	static random(levels, variables) {
 		if (levels == 0) {
 			var t = Math.floor(Math.random() * 2); 
 			if (t == 0) 
-				return new ConstExp(Math.random() * MAX_VALUES * 2 - MAX_VALUES);
+				return new ConstExp(random_abs(MAX_CONST_VALUE));
 			if (t == 1)
-				return new VarExp(Math.floor(Math.random() * variables), Math.random() * MAX_VALUES * 2 - MAX_VALUES);
+				return new VarExp(random_int(variables), random_abs(MAX_CONST_VALUE));
 		}
 		else {
 			var func = ExpFunction.random();
 			var children = [];
 			for (var i = 0; i < func.arity(); i++)
 				children.push(Exp.random(levels - 1, variables));
-			return new CompositeExp(func, children);
+			return new AffCompositeExp(func, children, random_abs(MAX_AFF_VALUE), random_1avg(MAX_AFF_VALUE));
 		}
 	}
 	
@@ -51,7 +49,10 @@ class CompositeExp extends Exp {
 		var args = [];
 		for (var i = 0; i < this.children.length; i++)
 			args.push(this.children[i].evaluate(vars));
-		return this.expFunction.evaluate(args);
+		var res = this.expFunction.evaluate(args);
+		if (res == Infinity)
+			res = SOFT_INFINITY;
+		return res;
 	}
 	
 	clone() {
@@ -70,6 +71,31 @@ class CompositeExp extends Exp {
 		}
 		res = res + ")";
 		return res;
+	}
+	
+}
+
+class AffCompositeExp extends CompositeExp {
+	
+	constructor(expFunction, children, a, b) {
+		super(expFunction, children);
+		this.a = a;
+		this.b = b;
+	}
+	
+	evaluate(vars) {
+		return this.a + this.b * super.evaluate(vars);
+	}
+	
+	clone() {
+		var childrenClone = [];
+		for (var i = 0; i < this.children.length; i++)
+			childrenClone.push(this.children[i].clone());
+		return new AffCompositeExp(this.expFunction, childrenClone, this.a, this.b);
+	}
+	
+	toString() {
+		return "sum("+this.a+", mul("+this.b+", "+super.toString()+"))";
 	}
 	
 }

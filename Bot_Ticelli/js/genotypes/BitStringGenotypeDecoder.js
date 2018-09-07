@@ -16,6 +16,8 @@ class PolygonBitStringGenotypeDecoder extends BitStringGenotypeDecoder{
 	
 	constructor() {
 		super();
+		this.width = WIDTH;
+		this.height = HEIGHT;
 	}
 	
 	decode(bitStringGenotype) {
@@ -32,6 +34,7 @@ class PolygonBitStringGenotypeDecoder extends BitStringGenotypeDecoder{
 		}
 
 		return new Polygon(vertices, color);
+		//TODO Set polygon width and height 
 	}
 	
 }
@@ -40,6 +43,8 @@ class PolygonCompositionBitStringGenotypeDecoder extends BitStringGenotypeDecode
 	
 	constructor() {
 		super();
+		this.width = WIDTH;
+		this.height = HEIGHT;
 	}
 	
 	decode(bitStringGenotype) {

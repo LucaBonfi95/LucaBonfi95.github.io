@@ -12,6 +12,8 @@ const CMD_SET_FITNESS_MODE = "setFitnessMode";
 const CMD_NEXT_GENERATION = "nextGeneration";
 // setFitness <id> <fitness>
 const CMD_SET_FITNESS = "setFitness";
+// reqHdImage <id>
+const CMD_REQ_HD_IMAGE = "reqHdImage";
 
 const FITNESS_MODE_AUTO = 0;
 const FITNESS_MODE_MANUAL = 1;

@@ -10,7 +10,7 @@
 	<div style="float: left">
 		<div id="currentGeneration">Generation: 0</div>
 
-		<div id="phenotypes" style="float: left; height: 400px; width: 840px; overflow: auto;"></div>
+		<div id="phenotypes" style="float: left; height: 700px; width: 840px; overflow: auto;"></div>
 
 		<div id="status">Status: Idle</div>
 		<div>
@@ -24,7 +24,8 @@
 		<div></div>
 	</div>
 
-	<div id="selectedPhenotype" style="float: right">
+	<div id="selectedPhenotype" style="height: 900px; float: right; overflow: auto;">
+		<button id="hdButton" onClick="getHdImage()">HD Render</button><br>
 		<canvas id="selectedPhenotypeCanvas" width="800" height="800"
 			style="border: 1px solid #000000;"></canvas>
 		<div id="selectedPhenotypeInfo" style="width: 800px;">

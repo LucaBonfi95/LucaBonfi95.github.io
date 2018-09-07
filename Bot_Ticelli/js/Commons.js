@@ -2,15 +2,22 @@
  * 
  */
 
-const WIDTH 	= 1000;
-const HEIGHT	= 1000;
+const WIDTH 	= 500;
+const HEIGHT	= 500;
+const HD_WIDTH  = 2000;
+const HD_HEIGHT = 2000;
 
 const MAX_VERTICES = 10;
 const MAX_POLYGONS = 10;
-const MAX_POPULATION = 4;
+const MAX_POPULATION = 30;
 
 const DEFAULT_MUTATION_PROBABILITY = 0.0001; 
 
 const DEFAULT_FITNESS = 1;
 
 const TIMEOUT = 10;
+
+const EXPRESSION_LEVELS = 1;
+const SOFT_INFINITY = 1e300;
+const MAX_CONST_VALUE = 100;
+const MAX_AFF_VALUE = 1;

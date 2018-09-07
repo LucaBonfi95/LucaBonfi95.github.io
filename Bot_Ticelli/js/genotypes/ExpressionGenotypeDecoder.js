@@ -16,21 +16,25 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 
 	constructor() {
 		super();
-		var canvas = new OffscreenCanvas(WIDTH, HEIGHT);
-		this.ctx = canvas.getContext("2d");
+		this.width = WIDTH;
+		this.height = HEIGHT;
 	}
 	
 	decode(expressionGenotype) {
-		var rawImage = new RawImage(this.ctx.getImageData(0, 0, WIDTH, HEIGHT));
+		var canvas = new OffscreenCanvas(this.width, this.height);
+		this.ctx = canvas.getContext("2d");
+		var rawImage = new RawImage(this.ctx.getImageData(0, 0, this.width, this.height));
 		var x1, y1, pixel, index = 0;
 
-		for (var y = 0; y < HEIGHT; y++) {
-			for(var x = 0; x < WIDTH; x++) {
+		for (var y = 0; y < this.height; y++) {
+			for(var x = 0; x < this.width; x++) {
 				for (var color = 0; color < 3; color++) {
-//					x1 = (x - WIDTH/2) * Math.cos(y - HEIGHT/2);
-//					y1 = (y - HEIGHT/2) * Math.sin(x - WIDTH/2);
-					x1 = Math.sqrt(Math.pow((x - WIDTH/2),2) + Math.pow((y - HEIGHT/2),2));
-					y1 = Math.atan2(y,x);
+					x1 = x - this.width/2;
+					y1 = y - this.height/2;
+					x1 = (WIDTH / this.width) * x1;
+					y1 = (HEIGHT / this.height) * y1;
+					x1 = Math.sqrt(Math.pow(x1,2) + Math.pow(y1,2));
+					y1 = Math.atan2(y1,x1);
 					pixel = expressionGenotype.exp.evaluate([x1,y1]);
 					pixel = 127 * (1 + 2 / Math.PI * Math.atan(pixel));
 					rawImage.imageData.data[index++] = pixel;
