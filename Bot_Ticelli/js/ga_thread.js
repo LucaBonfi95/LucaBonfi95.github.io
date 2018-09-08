@@ -68,7 +68,7 @@ function update() {
 	gaInfo.ready = ga.ready;
 	gaInfo.status = ga.status;
 	if (renderingHdImage) 
-		gaInfo.status = "renderingHdImage";
+		gaInfo.status = "Rendering HD Image";
 	gaInfo.currentGeneration = ga.currentGeneration;
 	gaInfo.newPhenotypes = [];
 	gaInfo.newGenotypes = [];

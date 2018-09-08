@@ -73,14 +73,20 @@ class View {
 	}
 	
 	showHdPhenotype() {
-		var download = document.createElement('a');
-		var canvas = document.createElement("canvas");
-		canvas.width = gaInfo.hdPhenotype.imageData.width;
-		canvas.height = gaInfo.hdPhenotype.imageData.height;
-		canvas.getContext('2d').putImageData(gaInfo.hdPhenotype.imageData, 0, 0);
-		download.href = canvas.toDataURL("image/png");
-		download.download = 'sasso.png';
-		download.click();
+//		var download = document.createElement('a');
+//		var canvas = document.createElement("canvas");
+//		canvas.width = gaInfo.hdPhenotype.imageData.width;
+//		canvas.height = gaInfo.hdPhenotype.imageData.height;
+//		canvas.getContext('2d').putImageData(gaInfo.hdPhenotype.imageData, 0, 0);
+//		download.href = canvas.toDataURL("image/png");
+//		download.download = 'phenotype.png';
+//		console.log(download.href);
+//		download.click();
+		
+		var newTab = window.open('about:blank','_blank');
+		newTab.document.title = 'HD Phenotype';
+		newTab.document.body.innerHTML = '<canvas id="hdCanvas" width='+HD_WIDTH+' height='+HD_HEIGHT+'></canvas>';
+		newTab.document.getElementById("hdCanvas").getContext('2d').putImageData(gaInfo.hdPhenotype.imageData,0,0);
 	}
 	
 //	drawPolygon(ctx, pol) {
