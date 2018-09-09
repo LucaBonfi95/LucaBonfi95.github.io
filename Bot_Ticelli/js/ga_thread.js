@@ -112,4 +112,6 @@ function nextGeneration() {
 			setTimeout(nextGeneration, TIMEOUT);
 	}
 }
-setTimeout(nextGeneration, TIMEOUT);
+if(!stopFlag && fitnessMode == FITNESS_MODE_AUTO) {
+	setTimeout(nextGeneration, TIMEOUT);
+}

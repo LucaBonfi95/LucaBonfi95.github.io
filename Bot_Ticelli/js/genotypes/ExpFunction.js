@@ -19,6 +19,14 @@ class ExpFunction {
 		else return tanF;
 	}
 	
+//	//DEBUG
+//	static random() { 
+//		var f = Math.floor(Math.random() * 3);
+//		if (f == 0) return sinF;
+//		else if (f == 1) return cosF;
+//		else if (f == 2) return tanF;
+//	}
+	
 	constructor(func, defaultArgs, name) {
 		this.defaultArgs = defaultArgs;
 		this.func = func;

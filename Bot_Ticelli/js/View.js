@@ -20,6 +20,7 @@ class View {
 			this.updatePhenotypesGrid();
 		document.getElementById("nextGenerationButton").disabled = (gaInfo.status != "Idle");
 		document.getElementById("fitness").disabled = (gaInfo.status != "Idle")
+		document.getElementById("hdButton").disabled = (gaInfo.status != "Idle")
 		if (gaInfo.hdPhenotype != null) {
 			this.showHdPhenotype();
 		}
