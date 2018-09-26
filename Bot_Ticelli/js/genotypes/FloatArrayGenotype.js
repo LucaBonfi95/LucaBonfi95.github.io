@@ -2,11 +2,11 @@
  * 
  */
 
-var mutationProbability = 0.01;
-var maxMutation = 400;
-var maxLambda = 0.2;
-var minLambda = -0.2;
-var sigma = 300;
+var fg_mutationProbability = 0.01;
+var fg_maxMutation = 400;
+var fg_maxLambda = 0.2;
+var fg_minLambda = -0.2;
+var fg_sigma = 300;
 
 class FloatArrayGenotype extends Genotype{
 	
@@ -27,8 +27,8 @@ class FloatArrayGenotype extends Genotype{
 //	mutate() {
 //		var mutation;
 //		for (var i = 0; i < this.values.length; i++) {
-//			if (Math.random() < mutationProbability) {
-//				mutation = Math.random() * maxMutation;
+//			if (Math.random() < fg_mutationProbability) {
+//				mutation = Math.random() * fg_maxMutation;
 //				if (Math.random() < 0.5)
 //					mutation = -mutation;
 //				this.values[i] += mutation;
@@ -41,7 +41,7 @@ class FloatArrayGenotype extends Genotype{
 //	mutate() {
 //		var mutation;
 //		for (var i = 0; i < this.values.length; i++) {
-//			if (Math.random() < mutationProbability) {
+//			if (Math.random() < fg_mutationProbability) {
 //				mutation = 10 * Math.tan(Math.random() * Math.PI / 2);
 //				if (Math.random() < 0.5)
 //					mutation = -mutation;
@@ -55,8 +55,8 @@ class FloatArrayGenotype extends Genotype{
 	mutate() {
 		var mutation;
 		for (var i = 0; i < this.values.length; i++) {
-			if (Math.random() < mutationProbability) {
-				mutation = sigma * randn_bm();
+			if (Math.random() < fg_mutationProbability) {
+				mutation = fg_sigma * randn_bm();
 				this.values[i] += mutation;
 			}
 		}
@@ -65,7 +65,7 @@ class FloatArrayGenotype extends Genotype{
 	crossover(genotype) {
 		var lambda, temp;
 		for (var i = 0; i < this.values.length; i++) {
-			lambda = Math.random() * (maxLambda - minLambda) + minLambda;
+			lambda = Math.random() * (fg_maxLambda - fg_minLambda) + fg_minLambda;
 			if (Math.random() < 0.5)
 				lambda = 1 - lambda;
 			temp = this.values[i];

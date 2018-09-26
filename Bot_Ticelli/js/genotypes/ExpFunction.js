@@ -5,18 +5,8 @@
 class ExpFunction {
 	
 	static random() { 
-		var f = Math.floor(Math.random() * 11);
-		if (f == 0) return absF;
-		else if (f == 1) return addF;
-		else if (f == 2) return cosF;
-		else if (f == 3) return idF;
-		else if (f == 4) return logF;
-		else if (f == 5) return modF;
-		else if (f == 6) return mulF;
-		else if (f == 7) return powF;
-		else if (f == 8) return sinF;
-		else if (f == 9) return atanF;
-		else return tanF;
+		var f = random_int(func_array.length);
+		return func_array[f];
 	}
 	
 //	//DEBUG
@@ -147,3 +137,6 @@ const idF = new ExpFunction(
 		[0],
 		""
 )
+
+//const func_array = [absF, addF, atanF, cosF, idF, logF, modF, mulF, powF, sinF, tanF];
+const func_array = [absF, atanF, cosF, idF, logF, modF, sinF];

@@ -46,6 +46,7 @@ class GA {
 			genotype2 = this.generation.genotypes[genotype2].clone();
 			
 			genotype1.crossover(genotype2);
+			
 			genotype1.mutate();
 			genotype2.mutate();
 

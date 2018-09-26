@@ -57,5 +57,5 @@ function init() {
 }
 
 if (typeof (OffscreenCanvas) == "undefined")
-	alert("Your browser does not support OffscreenCanvas, you need Google Chrome 69+. Available here: https://www.google.com/chrome/beta/");
+	alert("Your browser does not support OffscreenCanvas, you need Google Chrome 69+. If you are using Google Chrome, make sure to update it to the latest version.");
 init();

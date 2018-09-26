@@ -8,13 +8,12 @@ class Exp {
 		if (levels == 0) {
 			var t = Math.floor(Math.random() * 2); 
 			if (t == 0) 
-				return ConstExp.random(MAX_CONST_VALUE);
+				return ConstExp.random(eg_maxConstValue);
 			if (t == 1)
-				return VarExp.random(variables, MAX_CONST_VALUE);
+				return VarExp.random(variables, eg_maxConstValue);
 		}
 		else {
-//			return CompositeExp.random(levels, variables);
-			return SPCompositeExp.random(levels, variables, 3, 3);
+			return SPCompositeExp.random(levels, variables, 3, 3, eg_maxConstValue, eg_factorSigma);
 		}
 	}
 
@@ -34,62 +33,64 @@ class Exp {
 
 }
 
-class CompositeExp extends Exp {
-
-	static random(levels, variables) {
-		var func = ExpFunction.random();
-		var children = [];
-		for (var i = 0; i < func.arity(); i++)
-			children.push(Exp.random(levels - 1, variables));
-		return new CompositeExp(func, children);
-	}
-	
-	constructor(expFunction, children) {
-		super();
-		this.expFunction = expFunction;
-		this.children = children;
-	}
-
-	evaluate(vars) {
-		var args = [];
-		for (var i = 0; i < this.children.length; i++)
-			args.push(this.children[i].evaluate(vars));
-		var res = this.expFunction.evaluate(args);
-		if (res == Infinity)
-			res = SOFT_INFINITY;
-		return res;
-	}
-
-	clone() {
-		var childrenClone = [];
-		for (var i = 0; i < this.children.length; i++)
-			childrenClone.push(this.children[i].clone());
-		return new CompositeExp(this.expFunction, childrenClone);
-	}
-
-	toString() {
-		var res = this.expFunction.name+"(";
-		for (var i = 0; i < this.children.length; i++){ 
-			res = res + this.children[i].toString();
-			if (i != this.children.length - 1)
-				res = res + ", ";
-		}
-		res = res + ")";
-		return res;
-	}
-
-}
+//class CompositeExp extends Exp {
+//
+//	static random(levels, variables) {
+//		var func = ExpFunction.random();
+//		var children = [];
+//		for (var i = 0; i < func.arity(); i++)
+//			children.push(Exp.random(levels - 1, variables));
+//		return new CompositeExp(func, children);
+//	}
+//	
+//	constructor(expFunction, children) {
+//		super();
+//		this.expFunction = expFunction;
+//		this.children = children;
+//	}
+//
+//	evaluate(vars) {
+//		var args = [];
+//		for (var i = 0; i < this.children.length; i++)
+//			args.push(this.children[i].evaluate(vars));
+//		var res = this.expFunction.evaluate(args);
+//		if (res == Infinity)
+//			res = SOFT_INFINITY;
+//		return res;
+//	}
+//
+//	clone() {
+//		var childrenClone = [];
+//		for (var i = 0; i < this.children.length; i++)
+//			childrenClone.push(this.children[i].clone());
+//		return new CompositeExp(this.expFunction, childrenClone);
+//	}
+//
+//	toString() {
+//		var res = this.expFunction.name+"(";
+//		for (var i = 0; i < this.children.length; i++){ 
+//			res = res + this.children[i].toString();
+//			if (i != this.children.length - 1)
+//				res = res + ", ";
+//		}
+//		res = res + ")";
+//		return res;
+//	}
+//
+//}
 
 class SPCompositeExp extends Exp {
 
-	static random(levels, variables, maxTerms, maxFact) {
-		var terms, fact, expFunction, children;
+	static random(levels, variables, maxTerms, maxFact, maxConst, factorSigma) {
+		var terms, fact, expFunction, children, coefficients;
 		expFunction = [];
 		children = [];
+		coefficients = [];
 		terms = random_int(maxTerms - 1) + 1;
 		for (var i = 0; i < terms; i++){
 			expFunction.push([]);
 			children.push([]);
+			coefficients.push(random_lognormal(1,factorSigma));
 			fact = random_int(maxFact - 1) + 1;
 			for (var j = 0; j < fact; j++){
 				expFunction[i].push(ExpFunction.random());
@@ -99,20 +100,22 @@ class SPCompositeExp extends Exp {
 				}
 			}
 		}
-		return new SPCompositeExp(expFunction, children);
+		return new SPCompositeExp(expFunction, children, random_abs(maxConst), coefficients);
 	}
 	
-	constructor(expFunction, children) {
+	constructor(expFunction, children, constant, coefficients) {
 		super();
 		this.expFunction = expFunction;
 		this.children = children;
+		this.constant = constant;
+		this.coefficients = coefficients;
 	}
 
 	evaluate(vars) {
 		var res, p, args;
-		res = 0;
+		res = this.constant;
 		for (var i = 0; i < this.children.length; i++){
-			p = 1;
+			p = this.coefficients[i];
 			for (var j = 0; j < this.children[i].length; j++){
 				args = [];
 				for (var k = 0; k < this.children[i][j].length; k++){
@@ -130,9 +133,12 @@ class SPCompositeExp extends Exp {
 	}
 
 	clone() {
-		var childrenClone = [];
+		var coefficientsClone, childrenClone;
+		childrenClone = [];
+		coefficientsClone = [];
 		for (var i = 0; i < this.children.length; i++) {
 			childrenClone.push([]);
+			coefficientsClone.push(this.coefficients[i]);
 			for (var j = 0; j < this.children[i].length; j++) {
 				childrenClone[i].push([]);
 				for (var k = 0; k < this.children[i][j].length; k++) {
@@ -140,13 +146,13 @@ class SPCompositeExp extends Exp {
 				}
 			}
 		}
-		return new SPCompositeExp(this.expFunction, childrenClone);
+		return new SPCompositeExp(this.expFunction, childrenClone, this.constant, coefficientsClone);
 	}
 
 	toString() {
-		var res = "(";
+		var res = "( " + this.constant + " + ";
 		for (var i = 0; i < this.children.length; i++) { 
-			res = res + "(";
+			res = res + "( " + this.coefficients[i] + " * ";
 			for (var j = 0; j < this.children[i].length; j++) {
 				res = res + this.expFunction[i][j].name + "(";
 				for (var k = 0; k < this.children[i][j].length; k++) {
