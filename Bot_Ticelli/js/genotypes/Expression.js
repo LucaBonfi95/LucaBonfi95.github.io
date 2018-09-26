@@ -129,6 +129,12 @@ class SPCompositeExp extends Exp {
 			res = SOFT_INFINITY;
 		if (res == -Infinity)
 			res = -SOFT_INFINITY;
+		if (isNaN(res)) {
+			var newVars = [];
+			for (var i = 0; i < vars.length; i++)
+				vars[i] = random_normal(vars[i], 0.0001);
+			res = this.evaluate(vars);
+		} 
 		return res;
 	}
 

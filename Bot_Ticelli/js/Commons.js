@@ -17,6 +17,6 @@ const DEFAULT_FITNESS = 1;
 
 const TIMEOUT = 10;
 
-const EXPRESSION_LEVELS = 3;
+const EXPRESSION_LEVELS = 4;
 const SOFT_INFINITY = 1e300;
 const MAX_AFF_VALUE = 1;

@@ -76,10 +76,13 @@ const powF = new ExpFunction(
 
 const logF = new ExpFunction(
 		function(vars) {
-			return Math.log(Math.abs(vars[1])) / Math.log(Math.abs(vars[0]));
+			var res = Math.log(Math.abs(vars[1])) / Math.log(Math.abs(vars[0]));
+			if (Math.abs(res) == Infinity)
+				return NaN;
+			return res;
 		},
 		[1, Math.E],
-		"log"
+		"log*"
 )
 
 const sinF = new ExpFunction(
