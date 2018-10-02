@@ -141,5 +141,15 @@ const idF = new ExpFunction(
 		""
 )
 
+const divF = new ExpFunction(
+		function(vars) {
+			if (vars[1] == 0)
+				return NaN;
+			return vars[0] / vars[1];
+		},
+		[1,1],
+		"div"
+)
+
 //const func_array = [absF, addF, atanF, cosF, idF, logF, modF, mulF, powF, sinF, tanF];
-const func_array = [absF, atanF, cosF, idF, logF, modF, sinF];
+const func_array = [absF, atanF, cosF, idF, logF, modF, sinF, divF];
