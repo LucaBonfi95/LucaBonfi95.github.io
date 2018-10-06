@@ -6,11 +6,17 @@
 
 var render = 0;
 var genotypes = [];
-var gaInfo, view, worker, selectedPhenotype;
+var gaInfo, view, worker, selectedPhenotype, params;
 
-function update(e) {
-	gaInfo = e.data;
-	view.update(gaInfo);
+function cmdHandler(e) {
+	var cmd = e.data;
+	if (cmd.name == CMD_UPDATE_VIEW) {
+		gaInfo = cmd.args[0];
+		view.update(gaInfo);
+	}
+	if (cmd.name == CMD_UPDATE_PARAMS) {
+		view.updateParams(cmd.args[0], cmd.args[1]);
+	}
 }
 
 function togglePause() {
@@ -42,8 +48,21 @@ function getHdImage() {
 	worker.postMessage(new Command(CMD_REQ_HD_IMAGE, [selectedPhenotype]));
 }
 
+function changeCommonParam(index, value) {
+	var p = parseFloat(value);
+	if (p != NaN)
+		worker.postMessage(new Command(CMD_CHANGE_COMMON_PARAM, [index, p]));
+}
+
+function changeGenotypeParam(index, value) {
+	var p = parseFloat(value);
+	if (p != NaN)
+		worker.postMessage(new Command(CMD_CHANGE_GENOTYPE_PARAM, [index, p]));
+}
+
 function start() {
-	init();
+	worker.postMessage(new Command(CMD_INIT, []));
+	view.start();
 }
 
 function init() {
@@ -52,8 +71,7 @@ function init() {
 	view = new View();
 
 	worker = new Worker('../js/ga_thread.js');
-	worker.onmessage = update;
-	worker.postMessage(new Command(CMD_INIT, []));
+	worker.onmessage = cmdHandler;
 }
 
 if (typeof (OffscreenCanvas) == "undefined")

@@ -8,12 +8,12 @@ class Exp {
 		if (levels == 0) {
 			var t = Math.floor(Math.random() * 2); 
 			if (t == 0) 
-				return ConstExp.random(eg_maxConstValue);
+				return ConstExp.random(egParameters[EG_MAX_CONST_VALUE_INDEX].value);
 			if (t == 1)
-				return VarExp.random(variables, eg_maxConstValue);
+				return VarExp.random(variables, egParameters[EG_MAX_CONST_VALUE_INDEX].value);
 		}
 		else {
-			return SPCompositeExp.random(levels, variables, 3, 3, eg_maxConstValue, eg_factorSigma);
+			return SPCompositeExp.random(levels, variables, 3, 3, egParameters[EG_MAX_CONST_VALUE_INDEX].value, egParameters[EG_FACTOR_SIGMA_INDEX].value);
 		}
 	}
 

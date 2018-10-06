@@ -33,7 +33,7 @@ class GA {
 		this.status = "Creating new genotypes";
 		this.newGenotypes = [];
 		var genotype1, genotype2, attempts;
-		for (var i = 0; i < this.generation.genotypes.length; i+=2) {
+		for (var i = 0; i < parameters[MAX_POPULATION_INDEX].value; i+=2) {
 			genotype1 = this.extract();
 			attempts = 0;
 			do {

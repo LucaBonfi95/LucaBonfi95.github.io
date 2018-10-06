@@ -16,22 +16,23 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 
 	constructor() {
 		super();
-		this.width = WIDTH;
-		this.height = HEIGHT;
+		this.width = parameters[WIDTH_INDEX].value;
+		this.height = parameters[HEIGHT_INDEX].value;
 	}
 	
 	decode(expressionGenotype) {
 		var canvas = new OffscreenCanvas(this.width, this.height);
 		this.ctx = canvas.getContext("2d");
 		var rawImage = new RawImage(this.ctx.getImageData(0, 0, this.width, this.height));
-		var x1, y1, pixel, index = 0, temp, lambda, res1, res2;
-
+		var x1, y1, pixel, index = 0, temp, lambda, res1, res2, width, height;
+		width = parameters[WIDTH_INDEX].value;
+		height = parameters[HEIGHT_INDEX].value;
 		for (var y = 0; y < this.height; y++) {
 			for(var x = 0; x < this.width; x++) {
 				x1 = x - this.width/2;
 				y1 = y - this.height/2;
-				x1 = (WIDTH / this.width) * x1;
-				y1 = (HEIGHT / this.height) * y1;
+				x1 = (width / this.width) * x1;
+				y1 = (height / this.height) * y1;
 				x1 = x1 * 1/100;
 				y1 = y1 * 1/100;
 				temp = x1;

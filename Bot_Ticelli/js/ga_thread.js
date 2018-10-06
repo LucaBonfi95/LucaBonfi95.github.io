@@ -3,19 +3,12 @@
  */
 importScripts("../js/Commons.js");
 importScripts("../js/Utils.js");
+importScripts("../js/Param.js");
 
-importScripts("../js/phenotypes/Color.js");
 importScripts("../js/phenotypes/Phenotype.js");
-importScripts("../js/phenotypes/Polygon.js");
-importScripts("../js/phenotypes/PolygonComposition.js");
 importScripts("../js/phenotypes/RawImage.js");
 
-importScripts("../js/genotypes/BitString.js");
 importScripts("../js/genotypes/Genotype.js");
-importScripts("../js/genotypes/BitStringGenotype.js");
-importScripts("../js/genotypes/FloatArrayGenotype.js");
-importScripts("../js/genotypes/BitStringGenotypeDecoder.js");
-importScripts("../js/genotypes/FloatArrayGenotypeDecoder.js");
 importScripts("../js/genotypes/ExpFunction.js");
 importScripts("../js/genotypes/Expression.js");
 importScripts("../js/genotypes/ExpressionGenotype.js");
@@ -25,7 +18,9 @@ importScripts("../js/Generation.js");
 importScripts("../js/GA.js");
 importScripts("../js/Command.js");
 
-var ga, genotypes = [], msgId = 0, stopFlag, fitnessMode, renderingHdImage, hdPhenotype, hdPhenotypeToSend;
+var ga, genotypes = [], msgId = 0, stopFlag, 
+	fitnessMode, renderingHdImage, hdPhenotype, hdPhenotypeToSend,
+	genotypeParams;
 stopFlag = false;
 fitnessMode = FITNESS_MODE_MANUAL;
 renderingHdImage = false;
@@ -34,10 +29,17 @@ hdPhenotypeToSend = false;
 
 onmessage = function(e) {
 	var cmd = e.data;
-	console.log(cmd);
 	if (cmd.name == CMD_TOGGLE_PAUSE) {
 		stopFlag = !stopFlag;
-		setTimeout(nextGeneration(), TIMEOUT);
+		if (!stopFlag)
+			setTimeout(nextGeneration(), TIMEOUT);
+	}
+	else if (cmd.name == CMD_INIT) {
+		for (var i = 0; i < parameters[MAX_POPULATION_INDEX].value; i++) {
+			genotypes.push(new ExpressionGenotype(Exp.random(egParameters[EG_EXPRESSION_LEVELS_INDEX].value,2)));
+		}
+		ga = new GA(genotypes, update);
+		ga.init();
 	}
 	else if (cmd.name == CMD_NEXT_GENERATION) {
 		setTimeout(nextGeneration(), TIMEOUT);
@@ -53,12 +55,18 @@ onmessage = function(e) {
 		renderingHdImage = true;
 		update();
 		genotype = ga.generation.genotypes[cmd.args[0]].clone();
-		genotype.decoder.width = HD_WIDTH;
-		genotype.decoder.height = HD_HEIGHT;
+		genotype.decoder.width = parameters[HD_WIDTH_INDEX].value;
+		genotype.decoder.height = parameters[HD_HEIGHT_INDEX].value;
 		hdPhenotype = genotype.decode();
 		renderingHdImage = false;
 		hdPhenotypeToSend = true;
 		update();
+	}
+	else if (cmd.name == CMD_CHANGE_COMMON_PARAM) {
+		parameters[cmd.args[0]].value = cmd.args[1];
+	}
+	else if (cmd.name == CMD_CHANGE_GENOTYPE_PARAM) {
+		genotypeParams[cmd.args[0]].value = cmd.args[1];
 	}
 }
 
@@ -89,29 +97,19 @@ function update() {
 		hdPhenotypeToSend = false;
 	}
 	
-	postMessage(gaInfo);
+	postMessage(new Command(CMD_UPDATE_VIEW, [gaInfo]));
 }
 
-//for (var i = 0; i < MAX_POPULATION; i++) {
-//genotypes.push(new FloatArrayGenotype([]));
-//for (var j = 0; j < MAX_POLYGONS * (MAX_VERTICES * 3 + 3 + 1); j++) 
-//	genotypes[i].values.push(Math.random() * 10000 );
-//}
-
-for (var i = 0; i < MAX_POPULATION; i++) {
-	genotypes.push(new ExpressionGenotype(Exp.random(EXPRESSION_LEVELS,2)));
-}
-
-ga = new GA(genotypes, update);
-ga.init();
+genotypeParams = egParameters;
+postMessage(new Command(CMD_UPDATE_PARAMS, [parameters, genotypeParams]));
 
 function nextGeneration() {
 	if(!stopFlag) {
-		ga.nextGeneration();
 		if (fitnessMode == FITNESS_MODE_AUTO)
 			setTimeout(nextGeneration, TIMEOUT);
+		ga.nextGeneration();
 	}
 }
-if(!stopFlag && fitnessMode == FITNESS_MODE_AUTO) {
-	setTimeout(nextGeneration, TIMEOUT);
-}
+//if(!stopFlag && fitnessMode == FITNESS_MODE_AUTO) {
+//	setTimeout(nextGeneration, TIMEOUT);
+//}

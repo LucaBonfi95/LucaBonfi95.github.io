@@ -7,49 +7,51 @@
 </head>
 <body>
 
-	<div style="float: left">
+	<div style="float: left; width: 1040px">
 		<div id="currentGeneration">Generation: 0</div>
 
-		<div id="phenotypes" style="float: left; height: 700px; width: 840px; overflow: auto;"></div>
-
-		<div id="status">Status: Idle</div>
-		<div>
-			<button id="pauseButton" onClick="togglePause()">Pause</button>
-			<button id="nextGenerationButton" onClick="nextGeneration()">Next</button>
+		<div id="phenotypes"
+			style="float: left; height: 500px; width: 1040px; overflow: auto;"></div>
+		<div id="generalControls" style="float: left; width: 300px">
+			<div id="status">Status: Idle</div>
+			<div>
+				<button id="pauseButton" onClick="togglePause()">Pause</button>
+				<button id="nextGenerationButton" onClick="nextGeneration()">Next</button>
+				<button id="startButton" onClick="start()">Start</button>
+			</div>
+			<br>
+			<div>
+				Fitness Mode: <br> <input id="fitnessModeAuto" type="radio"
+					name="fitnessMode" onClick='updateFitnessMode(FITNESS_MODE_AUTO)'>Automatic<br>
+				<input id="fitnessModeManual" type="radio" name="fitnessMode"
+					onClick='updateFitnessMode(FITNESS_MODE_MANUAL)' checked="checked">Manual<br>
+			</div>
 		</div>
-		<div>Fitness Mode: <br> 
-			<input id="fitnessModeAuto" type="radio" name="fitnessMode" onClick='updateFitnessMode(FITNESS_MODE_AUTO)'>Automatic<br>
-			<input id="fitnessModeManual" type="radio" name="fitnessMode" onClick='updateFitnessMode(FITNESS_MODE_MANUAL)' checked="checked">Manual<br>
-		</div>
-		<div></div>
+		<div id="commonParams" style="float: left; width: 350px"></div>
+		<div id="genotypeParams" style="float: left; width: 350px"></div>
 	</div>
 
-	<div id="selectedPhenotype" style="height: 900px; float: right; overflow: auto;">
-		<button id="hdButton" onClick="getHdImage()">HD Render</button><br>
+	<div id="selectedPhenotype"
+		style="height: 900px; float: right; overflow: auto;">
+		<button id="hdButton" onClick="getHdImage()">HD Render</button>
+		<br>
 		<canvas id="selectedPhenotypeCanvas" width="800" height="800"
 			style="border: 1px solid #000000;"></canvas>
 		<div id="selectedPhenotypeInfo" style="width: 800px;">
 			<div id="id">Id:</div>
 			Fitness: <input id="fitness" onchange='setFitness(this.value)'>
-			<div id="string">String: </div>
+			<div id="string">String:</div>
 		</div>
 	</div>
 
 	<script src="../js/Commons.js"></script>
 	<script src="../js/Utils.js"></script>
+	<script src="../js/Param.js"></script>
 
-	<script src="../js/phenotypes/Color.js"></script>
 	<script src="../js/phenotypes/Phenotype.js"></script>
-	<script src="../js/phenotypes/Polygon.js"></script>
-	<script src="../js/phenotypes/PolygonComposition.js"></script>
 	<script src="../js/phenotypes/RawImage.js"></script>
 
-	<script src="../js/genotypes/BitString.js"></script>
 	<script src="../js/genotypes/Genotype.js"></script>
-	<script src="../js/genotypes/BitStringGenotype.js"></script>
-	<script src="../js/genotypes/FloatArrayGenotype.js"></script>
-	<script src="../js/genotypes/BitStringGenotypeDecoder.js"></script>
-	<script src="../js/genotypes/FloatArrayGenotypeDecoder.js"></script>
 	<script src="../js/genotypes/ExpFunction.js"></script>
 	<script src="../js/genotypes/Expression.js"></script>
 	<script src="../js/genotypes/ExpressionGenotype.js"></script>
