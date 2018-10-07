@@ -10,7 +10,7 @@ class Exp {
 			if (t == 0) 
 				return ConstExp.random(egParameters[EG_MAX_CONST_VALUE_INDEX].value);
 			if (t == 1)
-				return VarExp.random(variables, egParameters[EG_MAX_CONST_VALUE_INDEX].value);
+				return SPVarExp.random(variables, egParameters[EG_MAX_CONST_VALUE_INDEX].value, egParameters[EG_MAX_CONST_VALUE_INDEX].value, egParameters[EG_FACTOR_SIGMA_INDEX].value);
 		}
 		else {
 			return SPCompositeExp.random(levels, variables, 3, 3, egParameters[EG_MAX_CONST_VALUE_INDEX].value, egParameters[EG_FACTOR_SIGMA_INDEX].value);
@@ -232,4 +232,36 @@ class VarExp extends Exp {
 		return "v"+this.id;
 	}
 
+}
+
+class SPVarExp extends Exp {
+	
+	static random(variables, maxAbs, maxConst, factorSigma) {
+		return new SPVarExp(random_int(variables), random_abs(maxAbs), random_abs(maxConst), random_lognormal(1,factorSigma));
+	}
+	
+	constructor(id, defaultValue, constant, coefficient) {
+		super();
+		this.id = id;
+		this.defaultValue = defaultValue;
+		this.constant = constant;
+		this.coefficient = coefficient;
+	}
+	
+	evaluate(vars) {
+		var res;
+		if (vars.length >= this.id + 1)
+			res = vars[this.id];
+		else
+			res = this.defaultValue;
+		return this.coefficient * res + this.constant;
+	}
+	
+	clone() {
+		return new SPVarExp(this.id, this.defaultValue, this.constant, this.coefficient);
+	}
+	
+	toString() {
+		return ""+this.coefficient+" * v"+this.id+" + "+this.constant;
+	}
 }

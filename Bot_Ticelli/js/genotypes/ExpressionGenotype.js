@@ -5,9 +5,6 @@ const EG_MAX_CONST_VALUE = 10;
 const EG_FACTOR_SIGMA = 0.2;
 const EG_STRUCTURE_MUTATION_PROBABILITY = 0.01;
 const EG_VALUE_MUTATION_PROBABILITY = 0.5;
-const EG_MAX_MUTATION = 400;
-const EG_MAX_LAMBDA = 0.2;
-const EG_MIN_LAMBDA = -0.2;
 const EG_MUTATION_SIGMA = 0.2;
 const EG_EXPRESSION_LEVELS = 4;
 const MAX_AFF_VALUE = 1;
@@ -16,13 +13,10 @@ const EG_MAX_CONST_VALUE_INDEX = 0;
 const EG_FACTOR_SIGMA_INDEX = 1;
 const EG_STRUCTURE_MUTATION_PROBABILITY_INDEX = 2;
 const EG_VALUE_MUTATION_PROBABILITY_INDEX = 3;
-const EG_MAX_MUTATION_INDEX = 4;
-const EG_MAX_LAMBDA_INDEX = 5;
-const EG_MIN_LAMBDA_INDEX = 6;
-const EG_MUTATION_SIGMA_INDEX = 7;
-const EG_EXPRESSION_LEVELS_INDEX = 8;
+const EG_MUTATION_SIGMA_INDEX = 4;
+const EG_EXPRESSION_LEVELS_INDEX = 5;
 
-var egParameters = new Array(8);
+var egParameters = new Array(6);
 
 egParameters[EG_MAX_CONST_VALUE_INDEX] 
 	= new Param("Max Constant Value", EG_MAX_CONST_VALUE);
@@ -32,12 +26,6 @@ egParameters[EG_STRUCTURE_MUTATION_PROBABILITY_INDEX]
 	= new Param("Structural Mutation Probability", EG_STRUCTURE_MUTATION_PROBABILITY);
 egParameters[EG_VALUE_MUTATION_PROBABILITY_INDEX] 
 	= new Param("Value Mutation Probability", EG_VALUE_MUTATION_PROBABILITY);
-egParameters[EG_MAX_MUTATION_INDEX] 	
-	= new Param("Max Mutation", EG_MAX_MUTATION);
-egParameters[EG_MAX_LAMBDA_INDEX] 
-	= new Param("Max Lambda", EG_MAX_LAMBDA);
-egParameters[EG_MIN_LAMBDA_INDEX] 
-	= new Param("Min Lambda", EG_MIN_LAMBDA);
 egParameters[EG_MUTATION_SIGMA_INDEX] 
 	= new Param("Value Mutation Sigma", EG_MUTATION_SIGMA);
 egParameters[EG_EXPRESSION_LEVELS_INDEX]
@@ -60,11 +48,14 @@ class ExpressionGenotype extends Genotype {
 	}
 	
 	mutate() {
-		var level, exp, child;
+		var level, exp, child, structureMutationProb, expressionLevels;
+		
+		structureMutationProb = egParameters[EG_STRUCTURE_MUTATION_PROBABILITY_INDEX].value;
+		expressionLevels = egParameters[EG_EXPRESSION_LEVELS_INDEX].value;
+		
+		if (Math.random() < structureMutationProb) {
 
-		if (Math.random() < EG_STRUCTURE_MUTATION_PROBABILITY) {
-
-			level = random_int(egParameters[EG_EXPRESSION_LEVELS_INDEX].value - 1) + 1;
+			level = random_int(expressionLevels - 1) + 1;
 			exp = this.exp;
 			child = [];
 
@@ -80,28 +71,44 @@ class ExpressionGenotype extends Genotype {
 				child.push(Math.floor(Math.random() * exp.children[child[0]][child[1]].length));
 			}
 
-			exp.children[child[0]][child[1]][child[2]] = Exp.random(egParameters[EG_EXPRESSION_LEVELS_INDEX].value - level, 2);
+			exp.children[child[0]][child[1]][child[2]] = Exp.random(expressionLevels - level, 2);
 
 //			console.log("[] after mutation: "+this.exp.toString());
 			
 		}
 		
-		this.mutateValues(this.exp, egParameters[EG_EXPRESSION_LEVELS_INDEX].value);
+		this.mutateValues(this.exp, expressionLevels);
 		
 	}
 	
 	mutateValues(exp, level) {
+		
+		var valueMutationProb, mutationSigma, factorSigma;
+		
+		valueMutationProb = egParameters[EG_VALUE_MUTATION_PROBABILITY_INDEX].value;
+		mutationSigma = egParameters[EG_MUTATION_SIGMA_INDEX].value;
+		factorSigma = egParameters[EG_FACTOR_SIGMA_INDEX].value;
+		
 		if (level == 0) {
 			if (exp.value != undefined)
-				if (Math.random() < EG_VALUE_MUTATION_PROBABILITY)
-					exp.value = random_normal(exp.value, EG_MUTATION_SIGMA); 
+				if (Math.random() < valueMutationProb)
+					exp.value = random_normal(exp.value, mutationSigma); 
+			if (exp.defaultValue != undefined)
+				if (Math.random() < valueMutationProb)
+					exp.defaultValue = random_normal(exp.defaultValue, mutationSigma);
+			if (exp.constant != undefined)
+				if (Math.random() < valueMutationProb)
+					exp.constant = random_normal(exp.constant, mutationSigma);
+			if (exp.coefficient != undefined)
+				if (Math.random() < valueMutationProb)
+					exp.coefficient = random_lognormal(exp.coefficient, factorSigma);
 		}
 		else {
-			if (Math.random() < EG_VALUE_MUTATION_PROBABILITY)
-				exp.constant = random_normal(exp.constant, EG_MUTATION_SIGMA);
+			if (Math.random() < valueMutationProb)
+				exp.constant = random_normal(exp.constant, mutationSigma);
 			for (var i = 0; i < exp.children.length; i++) {
-				if (Math.random() < EG_VALUE_MUTATION_PROBABILITY)
-					exp.coefficients[i] = random_lognormal(exp.coefficients[i], EG_FACTOR_SIGMA);
+				if (Math.random() < valueMutationProb)
+					exp.coefficients[i] = random_lognormal(exp.coefficients[i], factorSigma);
 				for (var j = 0; j < exp.children[i].length; j++)
 					for (var k = 0; k < exp.children[i][j].length; k++)
 						this.mutateValues(exp.children[i][j][k], level - 1);
