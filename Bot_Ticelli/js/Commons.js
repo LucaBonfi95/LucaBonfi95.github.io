@@ -5,8 +5,8 @@
 // Common parameter defaults
 
 const MAX_POPULATION = 20;
-const WIDTH 	= 500;
-const HEIGHT	= 500;
+const WIDTH 	= 50;
+const HEIGHT	= 50;
 const HD_WIDTH  = 2000;
 const HD_HEIGHT = 2000;
 

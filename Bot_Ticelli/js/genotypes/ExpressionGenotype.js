@@ -1,25 +1,41 @@
 /**
  * 
  */
-const EG_MAX_CONST_VALUE = 10;
+const EG_TERM_MU = 0;
+const EG_TERM_SIGMA = 10;
+const EG_FACTOR_MU = 1;
 const EG_FACTOR_SIGMA = 0.2;
 const EG_STRUCTURE_MUTATION_PROBABILITY = 0.01;
 const EG_VALUE_MUTATION_PROBABILITY = 0.5;
 const EG_MUTATION_SIGMA = 0.2;
 const EG_EXPRESSION_LEVELS = 4;
-const MAX_AFF_VALUE = 1;
+const EG_ZOOM = 100;
+const EG_POLAR_COORDINATES = 1;
 
-const EG_MAX_CONST_VALUE_INDEX = 0;
-const EG_FACTOR_SIGMA_INDEX = 1;
-const EG_STRUCTURE_MUTATION_PROBABILITY_INDEX = 2;
-const EG_VALUE_MUTATION_PROBABILITY_INDEX = 3;
-const EG_MUTATION_SIGMA_INDEX = 4;
-const EG_EXPRESSION_LEVELS_INDEX = 5;
+const EG_TERM_MU_INDEX = 0;
+const EG_TERM_SIGMA_INDEX = 1;
+const EG_FACTOR_MU_INDEX = 2;
+const EG_FACTOR_SIGMA_INDEX = 3;
+const EG_STRUCTURE_MUTATION_PROBABILITY_INDEX = 4;
+const EG_VALUE_MUTATION_PROBABILITY_INDEX = 5;
+const EG_MUTATION_SIGMA_INDEX = 6;
+const EG_EXPRESSION_LEVELS_INDEX = 7;
+const EG_ZOOM_INDEX = 8;
+const EG_POLAR_COORDINATES_INDEX = 9;
 
-var egParameters = new Array(6);
+const EG_TERM_MU_TIP =
+	'The average value of the constants terms in a generated expression';
+const EG_FACTOR_SIGMA_TIP = 
+	'The standard deviation of the factors (average 1) in a generated expression';
 
-egParameters[EG_MAX_CONST_VALUE_INDEX] 
-	= new Param("Max Constant Value", EG_MAX_CONST_VALUE);
+var egParameters = new Array(10);
+
+egParameters[EG_TERM_MU_INDEX] 
+	= new Param("Term Mu", EG_TERM_MU);
+egParameters[EG_TERM_SIGMA_INDEX]
+	= new Param("Term Sigma", EG_TERM_SIGMA);
+egParameters[EG_FACTOR_MU_INDEX]
+	= new Param("Factor Mu", EG_FACTOR_MU);
 egParameters[EG_FACTOR_SIGMA_INDEX] 
 	= new Param("Factor Sigma", EG_FACTOR_SIGMA);
 egParameters[EG_STRUCTURE_MUTATION_PROBABILITY_INDEX] 
@@ -30,6 +46,10 @@ egParameters[EG_MUTATION_SIGMA_INDEX]
 	= new Param("Value Mutation Sigma", EG_MUTATION_SIGMA);
 egParameters[EG_EXPRESSION_LEVELS_INDEX]
 	= new Param("Expression Levels", EG_EXPRESSION_LEVELS);
+egParameters[EG_ZOOM_INDEX]
+	= new Param("Zoom", EG_ZOOM);
+egParameters[EG_POLAR_COORDINATES_INDEX]
+	= new Param("Polar Coordinates", EG_POLAR_COORDINATES);
 
 class ExpressionGenotype extends Genotype {
 	
@@ -87,8 +107,7 @@ class ExpressionGenotype extends Genotype {
 		
 		valueMutationProb = egParameters[EG_VALUE_MUTATION_PROBABILITY_INDEX].value;
 		mutationSigma = egParameters[EG_MUTATION_SIGMA_INDEX].value;
-		factorSigma = egParameters[EG_FACTOR_SIGMA_INDEX].value;
-		
+				
 		if (level == 0) {
 			if (exp.value != undefined)
 				if (Math.random() < valueMutationProb)
@@ -101,14 +120,14 @@ class ExpressionGenotype extends Genotype {
 					exp.constant = random_normal(exp.constant, mutationSigma);
 			if (exp.coefficient != undefined)
 				if (Math.random() < valueMutationProb)
-					exp.coefficient = random_lognormal(exp.coefficient, factorSigma);
+					exp.coefficient = random_lognormal(exp.coefficient, mutationSigma);
 		}
 		else {
 			if (Math.random() < valueMutationProb)
 				exp.constant = random_normal(exp.constant, mutationSigma);
 			for (var i = 0; i < exp.children.length; i++) {
 				if (Math.random() < valueMutationProb)
-					exp.coefficients[i] = random_lognormal(exp.coefficients[i], factorSigma);
+					exp.coefficients[i] = random_lognormal(exp.coefficients[i], mutationSigma);
 				for (var j = 0; j < exp.children[i].length; j++)
 					for (var k = 0; k < exp.children[i][j].length; k++)
 						this.mutateValues(exp.children[i][j][k], level - 1);

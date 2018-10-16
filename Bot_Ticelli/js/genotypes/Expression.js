@@ -5,15 +5,20 @@
 class Exp {
 
 	static random(levels, variables) {
+		var termMu, termSigma, factorMu, factorSigma;
+		termMu = egParameters[EG_TERM_MU_INDEX].value;
+		termSigma = egParameters[EG_TERM_SIGMA_INDEX].value;
+		factorMu = egParameters[EG_FACTOR_MU_INDEX].value;
+		factorSigma = egParameters[EG_FACTOR_SIGMA_INDEX].value;
 		if (levels == 0) {
 			var t = Math.floor(Math.random() * 2); 
 			if (t == 0) 
-				return ConstExp.random(egParameters[EG_MAX_CONST_VALUE_INDEX].value);
+				return ConstExp.random(termMu, termSigma);
 			if (t == 1)
-				return SPVarExp.random(variables, egParameters[EG_MAX_CONST_VALUE_INDEX].value, egParameters[EG_MAX_CONST_VALUE_INDEX].value, egParameters[EG_FACTOR_SIGMA_INDEX].value);
+				return SPVarExp.random(variables, termMu, termSigma, factorMu, factorSigma);
 		}
 		else {
-			return SPCompositeExp.random(levels, variables, 3, 3, egParameters[EG_MAX_CONST_VALUE_INDEX].value, egParameters[EG_FACTOR_SIGMA_INDEX].value);
+			return SPCompositeExp.random(levels, variables, 3, 3, termMu, termSigma, factorMu, factorSigma);
 		}
 	}
 
@@ -33,55 +38,9 @@ class Exp {
 
 }
 
-//class CompositeExp extends Exp {
-//
-//	static random(levels, variables) {
-//		var func = ExpFunction.random();
-//		var children = [];
-//		for (var i = 0; i < func.arity(); i++)
-//			children.push(Exp.random(levels - 1, variables));
-//		return new CompositeExp(func, children);
-//	}
-//	
-//	constructor(expFunction, children) {
-//		super();
-//		this.expFunction = expFunction;
-//		this.children = children;
-//	}
-//
-//	evaluate(vars) {
-//		var args = [];
-//		for (var i = 0; i < this.children.length; i++)
-//			args.push(this.children[i].evaluate(vars));
-//		var res = this.expFunction.evaluate(args);
-//		if (res == Infinity)
-//			res = SOFT_INFINITY;
-//		return res;
-//	}
-//
-//	clone() {
-//		var childrenClone = [];
-//		for (var i = 0; i < this.children.length; i++)
-//			childrenClone.push(this.children[i].clone());
-//		return new CompositeExp(this.expFunction, childrenClone);
-//	}
-//
-//	toString() {
-//		var res = this.expFunction.name+"(";
-//		for (var i = 0; i < this.children.length; i++){ 
-//			res = res + this.children[i].toString();
-//			if (i != this.children.length - 1)
-//				res = res + ", ";
-//		}
-//		res = res + ")";
-//		return res;
-//	}
-//
-//}
-
 class SPCompositeExp extends Exp {
 
-	static random(levels, variables, maxTerms, maxFact, maxConst, factorSigma) {
+	static random(levels, variables, maxTerms, maxFact, termMu, termSigma, factorMu, factorSigma) {
 		var terms, fact, expFunction, children, coefficients;
 		expFunction = [];
 		children = [];
@@ -90,7 +49,7 @@ class SPCompositeExp extends Exp {
 		for (var i = 0; i < terms; i++){
 			expFunction.push([]);
 			children.push([]);
-			coefficients.push(random_lognormal(1,factorSigma));
+			coefficients.push(random_lognormal(factorMu, factorSigma));
 			fact = random_int(maxFact - 1) + 1;
 			for (var j = 0; j < fact; j++){
 				expFunction[i].push(ExpFunction.random());
@@ -100,7 +59,7 @@ class SPCompositeExp extends Exp {
 				}
 			}
 		}
-		return new SPCompositeExp(expFunction, children, random_abs(maxConst), coefficients);
+		return new SPCompositeExp(expFunction, children, random_normal(termMu, termSigma), coefficients);
 	}
 	
 	constructor(expFunction, children, constant, coefficients) {
@@ -182,8 +141,8 @@ class SPCompositeExp extends Exp {
 
 class ConstExp extends Exp {
 
-	static random(maxAbs) {
-		return new ConstExp(random_abs(maxAbs));
+	static random(mu, sigma) {
+		return new ConstExp(random_normal(mu,sigma));
 	}
 	
 	constructor(value) {
@@ -207,8 +166,8 @@ class ConstExp extends Exp {
 
 class VarExp extends Exp {
 	
-	static random(variables, maxAbs) {
-		return new VarExp(random_int(variables), random_abs(maxAbs));
+	static random(variables, mu, sigma) {
+		return new VarExp(random_int(variables), random_normal(mu, sigma));
 	}
 
 	constructor(id, defaultValue) {
@@ -236,8 +195,8 @@ class VarExp extends Exp {
 
 class SPVarExp extends Exp {
 	
-	static random(variables, maxAbs, maxConst, factorSigma) {
-		return new SPVarExp(random_int(variables), random_abs(maxAbs), random_abs(maxConst), random_lognormal(1,factorSigma));
+	static random(variables, termMu, termSigma, factorMu, factorSigma) {
+		return new SPVarExp(random_int(variables), random_normal(termMu, termSigma), random_normal(termMu, termSigma), random_lognormal(factorMu, factorSigma));
 	}
 	
 	constructor(id, defaultValue, constant, coefficient) {
