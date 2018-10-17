@@ -83,13 +83,13 @@ class View {
 		newTab.document.body.innerHTML = '<canvas id="hdCanvas" width='+width+' height='+height+' style="overflow: auto"></canvas>';
 		newTab.document.getElementById("hdCanvas").getContext('2d').putImageData(gaInfo.hdPhenotype.imageData,0,0);
 	}
-	
+	 	
 	updateParams(commonParams, genotypeParams) {
 		for (var i = 0; i < commonParams.length; i++) {
-			document.getElementById("commonParams").innerHTML+=(commonParams[i].name+": "+'<input style="width: 80px;" onchange="changeCommonParam('+i+', this.value)" value="'+commonParams[i].value+'"> <br>');
+			document.getElementById("commonParams").innerHTML+=('<div class="tooltip">'+commonParams[i].name+': <span class="tooltiptext">'+commonParams[i].tip+'</span> </div> <input style="width: 80px;" onchange="changeCommonParam('+i+', this.value)" value="'+commonParams[i].value+'"> <br>');
 		}
 		for (var i = 0; i < genotypeParams.length; i++) {			
-			document.getElementById("genotypeParams").innerHTML += (genotypeParams[i].name+": "+'<input style="width: 80px;" onchange="changeGenotypeParam('+i+', this.value)" value="'+genotypeParams[i].value+'"> <br>');
+			document.getElementById("genotypeParams").innerHTML+=('<div class="tooltip">'+genotypeParams[i].name+': <span class="tooltiptext">'+genotypeParams[i].tip+'</span> </div> <input style="width: 80px;" onchange="changeGenotypeParam('+i+', this.value)" value="'+genotypeParams[i].value+'"> <br>');
 		}
 	}
 	

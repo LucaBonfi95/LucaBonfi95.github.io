@@ -1,8 +1,9 @@
 class Param {
 	
-	constructor(name, value) {
+	constructor(name, value, tip) {
 		this.name = name;
 		this.value = value;
+		this.tip = tip;
 	}
 	
 }
@@ -26,8 +27,8 @@ const HD_HEIGHT_TIP =
 
 var parameters = Array(5);
 
-parameters[MAX_POPULATION_INDEX] = new Param("Population", MAX_POPULATION);
-parameters[WIDTH_INDEX] = new Param("Preview Width", WIDTH);
-parameters[HEIGHT_INDEX] = new Param("Preview Height", HEIGHT);
-parameters[HD_WIDTH_INDEX] = new Param("HD Width", HD_WIDTH);
-parameters[HD_HEIGHT_INDEX] = new Param("HD Height", HD_HEIGHT);
+parameters[MAX_POPULATION_INDEX] = new Param("Population", MAX_POPULATION, MAX_POPULATION_TIP);
+parameters[WIDTH_INDEX] = new Param("Preview Width", WIDTH, WIDTH_TIP);
+parameters[HEIGHT_INDEX] = new Param("Preview Height", HEIGHT, HEIGHT_TIP);
+parameters[HD_WIDTH_INDEX] = new Param("HD Width", HD_WIDTH, HD_WIDTH_TIP);
+parameters[HD_HEIGHT_INDEX] = new Param("HD Height", HD_HEIGHT, HD_HEIGHT_TIP);

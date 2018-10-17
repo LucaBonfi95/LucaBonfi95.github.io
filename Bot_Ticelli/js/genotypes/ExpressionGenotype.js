@@ -25,31 +25,47 @@ const EG_POLAR_COORDINATES_INDEX = 9;
 
 const EG_TERM_MU_TIP =
 	'The average value of the constants terms in a generated expression';
+const EG_TERM_SIGMA_TIP = 
+	'The standard deviation of the constant terms in a generated expression';
+const EG_FACTOR_MU_TIP = 
+	'The average value of the factors in a generated expression';
 const EG_FACTOR_SIGMA_TIP = 
-	'The standard deviation of the factors (average 1) in a generated expression';
+	'The standard deviation of the factors in a generated expression';
+const EG_STRUCTURE_MUTATION_PROBABILITY_TIP =
+	'The probability that a genotype mutates its structure. A structural mutation completely changes part of an expression';
+const EG_VALUE_MUTATION_PROBABILITY_TIP = 
+	'The probability that a genotype mutates one of its constant values. A value mutation slightly changes a value in an expression';
+const EG_MUTATION_SIGMA_TIP =
+	'The smaller the mutation sigma, the closer the mutated values will be to the original ones';
+const EG_EXPRESSION_LEVELS_TIP = 
+	'The "complexity" of an expression, keep this value low because it will exponentially increase the time needed to compute an image';
+const EG_ZOOM_TIP = 
+	'The zoom on the generated expressions';
+const EG_POLAR_COORDINATES_TIP = 
+	'"1" for polar coordinates, "0" for cartesian ones';
 
 var egParameters = new Array(10);
 
 egParameters[EG_TERM_MU_INDEX] 
-	= new Param("Term Mu", EG_TERM_MU);
+	= new Param("Term Mu", EG_TERM_MU, EG_TERM_MU_TIP);
 egParameters[EG_TERM_SIGMA_INDEX]
-	= new Param("Term Sigma", EG_TERM_SIGMA);
+	= new Param("Term Sigma", EG_TERM_SIGMA, EG_TERM_SIGMA_TIP);
 egParameters[EG_FACTOR_MU_INDEX]
-	= new Param("Factor Mu", EG_FACTOR_MU);
+	= new Param("Factor Mu", EG_FACTOR_MU, EG_FACTOR_MU_TIP);
 egParameters[EG_FACTOR_SIGMA_INDEX] 
-	= new Param("Factor Sigma", EG_FACTOR_SIGMA);
+	= new Param("Factor Sigma", EG_FACTOR_SIGMA, EG_FACTOR_SIGMA_TIP);
 egParameters[EG_STRUCTURE_MUTATION_PROBABILITY_INDEX] 
-	= new Param("Structural Mutation Probability", EG_STRUCTURE_MUTATION_PROBABILITY);
+	= new Param("Structural Mutation Probability", EG_STRUCTURE_MUTATION_PROBABILITY, EG_STRUCTURE_MUTATION_PROBABILITY_TIP);
 egParameters[EG_VALUE_MUTATION_PROBABILITY_INDEX] 
-	= new Param("Value Mutation Probability", EG_VALUE_MUTATION_PROBABILITY);
+	= new Param("Value Mutation Probability", EG_VALUE_MUTATION_PROBABILITY, EG_VALUE_MUTATION_PROBABILITY_TIP);
 egParameters[EG_MUTATION_SIGMA_INDEX] 
-	= new Param("Value Mutation Sigma", EG_MUTATION_SIGMA);
+	= new Param("Value Mutation Sigma", EG_MUTATION_SIGMA, EG_MUTATION_SIGMA_TIP);
 egParameters[EG_EXPRESSION_LEVELS_INDEX]
-	= new Param("Expression Levels", EG_EXPRESSION_LEVELS);
+	= new Param("Expression Levels", EG_EXPRESSION_LEVELS, EG_EXPRESSION_LEVELS_TIP);
 egParameters[EG_ZOOM_INDEX]
-	= new Param("Zoom", EG_ZOOM);
+	= new Param("Zoom", EG_ZOOM, EG_ZOOM_TIP);
 egParameters[EG_POLAR_COORDINATES_INDEX]
-	= new Param("Polar Coordinates", EG_POLAR_COORDINATES);
+	= new Param("Polar Coordinates", EG_POLAR_COORDINATES, EG_POLAR_COORDINATES_TIP);
 
 class ExpressionGenotype extends Genotype {
 	

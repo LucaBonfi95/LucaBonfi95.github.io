@@ -21,7 +21,7 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 	}
 	
 	decode(expressionGenotype) {
-		var x1, y1, pixel, index = 0, temp, lambda, res1, res2, width, height, canvas, rawImage, zoom, polar;
+		var x1, y1, pixel, index, temp, lambda, res1, res2, width, height, canvas, rawImage, zoom, polar, samples, pixels;
 		canvas = new OffscreenCanvas(this.width, this.height);
 		this.ctx = canvas.getContext("2d");
 		rawImage = new RawImage(this.ctx.getImageData(0, 0, this.width, this.height));
@@ -29,6 +29,12 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 		height = parameters[HEIGHT_INDEX].value;
 		zoom = egParameters[EG_ZOOM_INDEX].value;
 		polar = egParameters[EG_POLAR_COORDINATES_INDEX].value;
+		samples = new Array(width * height);
+		pixels = new Array(width * height);
+		
+		// Collect samples
+		
+		index = 0;
 		for (var y = 0; y < this.height; y++) {
 			for(var x = 0; x < this.width; x++) {
 				x1 = (width / this.width) * (x - this.width/2) / zoom;
@@ -40,20 +46,64 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 					lambda = (y1 + Math.PI)/(2*Math.PI);
 					res1 = expressionGenotype.exp.evaluate([x1,(y1 - Math.PI)/2]); 
 					res2 = expressionGenotype.exp.evaluate([x1,(y1 + Math.PI)/2]);
-					res1 = 127 * (1 + 2 / Math.PI * Math.atan(res1));
-					res2 = 127 * (1 + 2 / Math.PI * Math.atan(res2));
-					pixel = lambda * res1 + (1-lambda) * res2;
+					samples[index++] = lambda * res1 + (1-lambda) * res2;
 				}
 				else {
-					pixel = expressionGenotype.exp.evaluate([x1,y1]);
-					pixel = 127 * (1 + 2 / Math.PI * Math.atan(pixel));
+					samples[index++] = expressionGenotype.exp.evaluate([x1,y1]);
 				}
-				for (var color = 0; color < 3; color++) {
-					rawImage.imageData.data[index++] = pixel;
-				}
-				rawImage.imageData.data[index++] = 255;
-			}	
+//				samples[index++] = 1000*x1;
+			}
 		}
+		
+		// Normalize samples
+		
+		// atan normalization
+//		for (var i = 0; i < samples.length; i++) {
+//			pixels[i] = Math.floor(128 * (1 + 2 / Math.PI * Math.atan(Math.PI * samples[i] / 256)));
+//		}
+		
+		// z-score normalization
+		var mu = 0;
+		var sigma = 0;
+		for (var i = 0; i < samples.length; i++)
+			mu += samples[i];
+		mu /= samples.length;
+		for (var i = 0; i < samples.length; i++)
+			sigma += Math.pow(samples[i] - mu, 2);
+		sigma = Math.sqrt(sigma / (samples.length - 1));
+		for (var i = 0; i < samples.length; i++) {
+			pixels[i] = Math.floor(100 * (1 + (samples[i] - mu) / sigma));
+		}
+		
+		// no normalization 
+//		for (var i = 0; i < pixels.length; i++) {
+//			pixels[i] = Math.floor(127 + samples[i]);
+//		}
+		
+		// mod normalization 
+//		for (var i = 0; i < pixels.length; i++) {
+//			if (samples[i] >= 0)
+//				pixels[i] = Math.floor((127 + samples[i]) % 256);
+//			else
+//				pixels[i] = Math.floor(256 - (256 - 127 - samples[i]) % 256);
+//		}
+		
+		// Saturate pixels 
+		
+		for (var i = 0; i < pixels.length; i++) {
+			if (pixels[i] > 255) pixels[i] = 255;
+			if (pixels[i] < 0) pixels[i] = 0;
+		}
+		
+		// Create image
+		
+		index = 0;
+		for (var i = 0; i < this.height * this.width; i++) {
+			for (var color = 0; color < 3; color++) {
+				rawImage.imageData.data[index++] = pixels[i];
+			}
+			rawImage.imageData.data[index++] = 255;
+		}	
 		return rawImage;
 	}
 	
