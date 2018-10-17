@@ -35,6 +35,7 @@ onmessage = function(e) {
 			setTimeout(nextGeneration(), TIMEOUT);
 	}
 	else if (cmd.name == CMD_INIT) {
+		genotypes = [];
 		for (var i = 0; i < parameters[MAX_POPULATION_INDEX].value; i++) {
 			genotypes.push(new ExpressionGenotype(Exp.random(egParameters[EG_EXPRESSION_LEVELS_INDEX].value,2)));
 		}

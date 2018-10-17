@@ -24,6 +24,8 @@ class GA {
 	}
 	
 	nextGeneration() {
+		var genotype1, genotype2, crossoverEnabled, mutationEnabled;
+		
 		this.currentGeneration++;
 		
 		if (this.generation.phenotypes == [])
@@ -32,23 +34,25 @@ class GA {
 		this.ready = false;
 		this.status = "Creating new genotypes";
 		this.newGenotypes = [];
-		var genotype1, genotype2, attempts;
+		
+		crossoverEnabled = parameters[CROSSOVER_ENABLED_INDEX].value;
+		mutationEnabled = parameters[MUTATION_ENABLED_INDEX].value;
+		
 		for (var i = 0; i < parameters[MAX_POPULATION_INDEX].value; i+=2) {
 			genotype1 = this.extract();
-			attempts = 0;
-			do {
-				attempts++;
-				genotype2 = this.extract();
-			}
-			while (genotype2 == genotype1 && attempts <= 10);
+			genotype2 = this.extract();
 			
 			genotype1 = this.generation.genotypes[genotype1].clone();
 			genotype2 = this.generation.genotypes[genotype2].clone();
 			
-			genotype1.crossover(genotype2);
-			
-			genotype1.mutate();
-			genotype2.mutate();
+			if (crossoverEnabled === 1) {
+				genotype1.crossover(genotype2);
+			}	
+
+			if (mutationEnabled === 1) { 
+				genotype1.mutate();
+				genotype2.mutate();
+			}
 
 			this.newGenotypes.push(genotype1);
 			this.newGenotypes.push(genotype2);

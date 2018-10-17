@@ -11,6 +11,8 @@ const EG_MUTATION_SIGMA = 0.2;
 const EG_EXPRESSION_LEVELS = 4;
 const EG_ZOOM = 100;
 const EG_POLAR_COORDINATES = 1;
+const EG_MAX_TERMS = 3;
+const EG_MAX_FACTORS = 3;
 
 const EG_TERM_MU_INDEX = 0;
 const EG_TERM_SIGMA_INDEX = 1;
@@ -22,6 +24,8 @@ const EG_MUTATION_SIGMA_INDEX = 6;
 const EG_EXPRESSION_LEVELS_INDEX = 7;
 const EG_ZOOM_INDEX = 8;
 const EG_POLAR_COORDINATES_INDEX = 9;
+const EG_MAX_TERMS_INDEX = 10;
+const EG_MAX_FACTORS_INDEX = 11;
 
 const EG_TERM_MU_TIP =
 	'The average value of the constants terms in a generated expression';
@@ -43,8 +47,12 @@ const EG_ZOOM_TIP =
 	'The zoom on the generated expressions';
 const EG_POLAR_COORDINATES_TIP = 
 	'"1" for polar coordinates, "0" for cartesian ones';
+const EG_MAX_TERMS_TIP = 
+	'The maximum number of terms inside an expression node';
+const EG_MAX_FACTORS_TIP = 
+	'The maximum number of factors inside an expression node';
 
-var egParameters = new Array(10);
+var egParameters = new Array(12);
 
 egParameters[EG_TERM_MU_INDEX] 
 	= new Param("Term Mu", EG_TERM_MU, EG_TERM_MU_TIP);
@@ -66,6 +74,10 @@ egParameters[EG_ZOOM_INDEX]
 	= new Param("Zoom", EG_ZOOM, EG_ZOOM_TIP);
 egParameters[EG_POLAR_COORDINATES_INDEX]
 	= new Param("Polar Coordinates", EG_POLAR_COORDINATES, EG_POLAR_COORDINATES_TIP);
+egParameters[EG_MAX_TERMS_INDEX]
+	= new Param("Max Terms", EG_MAX_TERMS, EG_MAX_TERMS_TIP);
+egParameters[EG_MAX_FACTORS_INDEX]
+	= new Param("Max Factors", EG_MAX_FACTORS, EG_MAX_FACTORS_TIP);
 
 class ExpressionGenotype extends Genotype {
 	

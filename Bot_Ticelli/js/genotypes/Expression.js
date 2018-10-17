@@ -5,11 +5,13 @@
 class Exp {
 
 	static random(levels, variables) {
-		var termMu, termSigma, factorMu, factorSigma;
+		var termMu, termSigma, factorMu, factorSigma, maxTerms, maxFactors;
 		termMu = egParameters[EG_TERM_MU_INDEX].value;
 		termSigma = egParameters[EG_TERM_SIGMA_INDEX].value;
 		factorMu = egParameters[EG_FACTOR_MU_INDEX].value;
 		factorSigma = egParameters[EG_FACTOR_SIGMA_INDEX].value;
+		maxTerms = egParameters[EG_MAX_TERMS_INDEX].value;
+		maxFactors = egParameters[EG_MAX_FACTORS_INDEX].value;
 		if (levels == 0) {
 			var t = Math.floor(Math.random() * 2); 
 			if (t == 0) 
@@ -18,7 +20,7 @@ class Exp {
 				return SPVarExp.random(variables, termMu, termSigma, factorMu, factorSigma);
 		}
 		else {
-			return SPCompositeExp.random(levels, variables, 3, 3, termMu, termSigma, factorMu, factorSigma);
+			return SPCompositeExp.random(levels, variables, maxTerms, maxFactors, termMu, termSigma, factorMu, factorSigma);
 		}
 	}
 
