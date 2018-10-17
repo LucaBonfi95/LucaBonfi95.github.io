@@ -58,7 +58,7 @@ class View {
 	selectPhenotype(i) {
 		document.getElementById("fitness").value = this.gaInfo.newPhenotypes[i].fitness;
 		document.getElementById("id").innerHTML = "Id: "+i;
-		document.getElementById("string").innerHTML = "String: "+this.gaInfo.newGenotypes[i].string;
+		//document.getElementById("string").innerHTML = "String: "+this.gaInfo.newGenotypes[i].string;
 		this.showImage(this.gaInfo.newPhenotypes[i].imageData, document.getElementById("selectedPhenotypeCanvas"));
 	}
 	
