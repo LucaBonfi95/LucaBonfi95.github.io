@@ -33,14 +33,13 @@
 	</div>
 
 	<div id="selectedPhenotype"
-		style="height: 900px; float: right; overflow: auto;">
-		<button id="hdButton" onClick="getHdImage()">HD Render</button>
-		<br>
+		style="height: 900px; float: right; overflow: auto; visibility: hidden">
 		<canvas id="selectedPhenotypeCanvas" width="800" height="800"
 			style="border: 1px solid #000000;"></canvas>
 		<div id="selectedPhenotypeInfo" style="width: 800px;">
+			<button id="hdButton" onClick="getHdImage()">HD Render</button> <br>
 			<div id="id">Id:</div>
-			Fitness: <input id="fitness" onchange='setFitness(this.value)'>
+			Fitness: <input id="fitness" onchange='setFitness(this.value)'>			
 			<!-- <div id="string">String:</div> -->
 		</div>
 	</div>

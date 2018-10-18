@@ -11,6 +11,7 @@ class View {
 		this.phenotypesDisplayed = 0;
 		this.gaInfo = null;
 		document.getElementById("nextGenerationButton").disabled = true;
+		this.unselectPhenotype();
 	}
 	
 	update(gaInfo) {
@@ -33,6 +34,7 @@ class View {
 		if (this.phenotypesDisplayed > this.gaInfo.newPhenotypes.length) {
 			this.phenotypesDisplayed = 0;
 			document.getElementById("phenotypes").innerHTML = "";
+			this.unselectPhenotype();
 		}
 		
 		for (var i = this.phenotypesDisplayed; i < this.gaInfo.newPhenotypes.length; i++){ 
@@ -56,10 +58,15 @@ class View {
 	}
 	
 	selectPhenotype(i) {
+		document.getElementById("selectedPhenotype").style.visibility = "visible";
 		document.getElementById("fitness").value = this.gaInfo.newPhenotypes[i].fitness;
 		document.getElementById("id").innerHTML = "Id: "+i;
 		//document.getElementById("string").innerHTML = "String: "+this.gaInfo.newGenotypes[i].string;
 		this.showImage(this.gaInfo.newPhenotypes[i].imageData, document.getElementById("selectedPhenotypeCanvas"));
+	}
+	
+	unselectPhenotype() {
+		document.getElementById("selectedPhenotype").style.visibility = "hidden";
 	}
 	
 	showImage(imageData, destCanvas) { 

@@ -39,8 +39,6 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 			pixels.push(new Array(this.width * this.height));
 		}
 		
-		console.log(samples);
-		
 		// Collect samples
 		
 		index = 0;

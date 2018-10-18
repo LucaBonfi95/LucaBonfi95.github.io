@@ -23,9 +23,9 @@ const WIDTH_TIP =
 const HEIGHT_TIP = 
 	'Height (pixels) of the preview images, the higher the slower.';
 const HD_WIDTH_TIP = 
-	'Width (pixels) of the HD rendered images (created after pressing the "HD Render" button above the preview).';
+	'Width (pixels) of the HD rendered images (created after pressing the "HD Render" button).';
 const HD_HEIGHT_TIP = 
-	'Height (pixels) of the HD rendered images (created after pressing the "HD Render" button above the preview).';
+	'Height (pixels) of the HD rendered images (created after pressing the "HD Render" button).';
 const CROSSOVER_ENABLED_TIP = 
 	'Enables or disables crossover between genotypes (0 = disabled, 1 = enabled)';
 const MUTATION_ENABLED_TIP = 
