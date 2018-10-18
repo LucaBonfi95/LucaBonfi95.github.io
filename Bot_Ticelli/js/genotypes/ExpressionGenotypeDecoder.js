@@ -31,12 +31,12 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 		polar = egParameters[EG_POLAR_COORDINATES_INDEX].value;
 		grayscale = egParameters[EG_GRAYSCALE_INDEX].value;
 		if (grayscale == 1) {
-			samples = new Array(width * height);
-			pixels = new Array(width * height);
+			samples = new Array(this.width * this.height);
+			pixels = new Array(this.width * this.height);
 		}
 		else {
-			samples = new Array(width * height * 3);
-			pixels = new Array(width * height * 3);
+			samples = new Array(this.width * this.height * 3);
+			pixels = new Array(this.width * this.height * 3);
 		}	
 		
 		// Collect samples
@@ -75,41 +75,7 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 				
 		// Normalize samples
 		
-		// atan normalization
-//		for (var i = 0; i < samples.length; i++) {
-//			pixels[i] = Math.floor(128 * (1 + 2 / Math.PI * Math.atan(Math.PI * samples[i] / 256)));
-//		}
-		
-		// sgm normalization
-//		for (var i = 0; i < samples.length; i++) {
-//			pixels[i] = Math.floor(256 * (1 / (1 + Math.exp(-samples[i] / 256))));
-//		}
-		
-		// z-score normalization
-		var mu = 0;
-		var sigma = 0;
-		for (var i = 0; i < samples.length; i++)
-			mu += samples[i];
-		mu /= samples.length;
-		for (var i = 0; i < samples.length; i++)
-			sigma += Math.pow(samples[i] - mu, 2);
-		sigma = Math.sqrt(sigma / (samples.length - 1));
-		for (var i = 0; i < samples.length; i++) {
-			pixels[i] = Math.floor(128 * (1 + (samples[i] - mu) / sigma));
-		}
-		
-		// no normalization 
-//		for (var i = 0; i < pixels.length; i++) {
-//			pixels[i] = Math.floor(127 + samples[i]);
-//		}
-		
-		// mod normalization 
-//		for (var i = 0; i < pixels.length; i++) {
-//			if (samples[i] >= 0)
-//				pixels[i] = Math.floor((127 + samples[i]) % 256);
-//			else
-//				pixels[i] = Math.floor(256 - (256 - 127 - samples[i]) % 256);
-//		}
+		pixels = this.zscoreNorm(samples);
 		
 		// Saturate pixels 
 		
@@ -136,6 +102,57 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 			}
 		}	
 		return rawImage;
+	}
+	
+	noNorm(samples) {
+		var pixels = Array(samples.length);
+		for (var i = 0; i < pixels.length; i++) {
+			pixels[i] = Math.floor(127 + samples[i]);
+		}
+		return pixels;
+	}
+	
+	modNorm(samples) {
+		var pixels = Array(samples.length);
+		for (var i = 0; i < pixels.length; i++) {
+			if (samples[i] >= 0)
+				pixels[i] = Math.floor((127 + samples[i]) % 256);
+			else
+				pixels[i] = Math.floor(256 - (256 - 127 - samples[i]) % 256);
+		}
+		return pixels;
+	}
+	
+	atanNorm(samples) {
+		var pixels = Array(samples.length);
+		for (var i = 0; i < samples.length; i++) {
+			pixels[i] = Math.floor(128 * (1 + 2 / Math.PI * Math.atan(Math.PI * samples[i] / 256)));
+		}
+		return pixels;
+	}
+	
+	sgmNorm(samples) {
+		var pixels = Array(samples.length);
+		for (var i = 0; i < samples.length; i++) {
+			pixels[i] = Math.floor(256 * (1 / (1 + Math.exp(-samples[i] / 256))));
+		}
+		return pixels;
+	}
+	
+	zscoreNorm(samples) {
+		var pixels = Array(samples.length);
+		var mu = 0;
+		var sigma = 0;
+		for (var i = 0; i < samples.length; i++)
+			mu += samples[i];
+		mu /= samples.length;
+		for (var i = 0; i < samples.length; i++)
+			sigma += Math.pow(samples[i] - mu, 2);
+		sigma = Math.sqrt(sigma / (samples.length - 1));
+		for (var i = 0; i < samples.length; i++) {
+			pixels[i] = Math.floor(128 * (1 + (samples[i] - mu) / sigma));
+		}
+		return pixels;
 	}
 	
 }
