@@ -53,8 +53,8 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 					lambda = (y1 + Math.PI)/(2 * Math.PI);
 					if (channels > 1) {
 						for (var color = 0; color < channels; color++) {
-							res1 = expressionGenotype.exp.evaluate([x1, (y1 - Math.PI)/2, color]); 
-							res2 = expressionGenotype.exp.evaluate([x1, (y1 + Math.PI)/2, color]);
+							res1 = expressionGenotype.exp.evaluate([x1, (y1 - Math.PI)/2, color * 100]); 
+							res2 = expressionGenotype.exp.evaluate([x1, (y1 + Math.PI)/2, color * 100]);
 							samples[color][index] = lambda * res1 + (1 - lambda) * res2;
 						}
 					}
@@ -68,7 +68,7 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 				else {
 					if (channels > 1) 
 						for (var color = 0; color < channels; color++) 
-							samples[color][index] = expressionGenotype.exp.evaluate([x1, y1, color]);
+							samples[color][index] = expressionGenotype.exp.evaluate([x1, y1, color * 100]);
 					else
 						samples[0][index] = expressionGenotype.exp.evaluate([x1, y1]);
 				}

@@ -9,14 +9,6 @@ class ExpFunction {
 		return func_array[f];
 	}
 	
-//	//DEBUG
-//	static random() { 
-//		var f = Math.floor(Math.random() * 3);
-//		if (f == 0) return sinF;
-//		else if (f == 1) return cosF;
-//		else if (f == 2) return tanF;
-//	}
-	
 	constructor(func, defaultArgs, name) {
 		this.defaultArgs = defaultArgs;
 		this.func = func;
@@ -153,3 +145,4 @@ const divF = new ExpFunction(
 
 //const func_array = [absF, addF, atanF, cosF, idF, logF, modF, mulF, powF, sinF, tanF];
 const func_array = [absF, atanF, cosF, idF, logF, modF, sinF, divF];
+//const func_array = [sinF, idF];
