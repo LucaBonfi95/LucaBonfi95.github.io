@@ -35,9 +35,11 @@ onmessage = function(e) {
 			setTimeout(nextGeneration(), TIMEOUT);
 	}
 	else if (cmd.name == CMD_INIT) {
+		var variables;
+		variables = (egParameters[EG_GRAYSCALE_INDEX].value == 0) ? 3 : 2;
 		genotypes = [];
 		for (var i = 0; i < parameters[MAX_POPULATION_INDEX].value; i++) {
-			genotypes.push(new ExpressionGenotype(Exp.random(egParameters[EG_EXPRESSION_LEVELS_INDEX].value,2)));
+			genotypes.push(new ExpressionGenotype(Exp.random(egParameters[EG_EXPRESSION_LEVELS_INDEX].value, variables)));
 		}
 		ga = new GA(genotypes, update);
 		ga.init();

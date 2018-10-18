@@ -13,6 +13,7 @@ const EG_ZOOM = 100;
 const EG_POLAR_COORDINATES = 1;
 const EG_MAX_TERMS = 3;
 const EG_MAX_FACTORS = 3;
+const EG_GRAYSCALE = 0;
 
 const EG_TERM_MU_INDEX = 0;
 const EG_TERM_SIGMA_INDEX = 1;
@@ -26,6 +27,7 @@ const EG_ZOOM_INDEX = 8;
 const EG_POLAR_COORDINATES_INDEX = 9;
 const EG_MAX_TERMS_INDEX = 10;
 const EG_MAX_FACTORS_INDEX = 11;
+const EG_GRAYSCALE_INDEX = 12;
 
 const EG_TERM_MU_TIP =
 	'The average value of the constants terms in a generated expression';
@@ -51,8 +53,10 @@ const EG_MAX_TERMS_TIP =
 	'The maximum number of terms inside an expression node';
 const EG_MAX_FACTORS_TIP = 
 	'The maximum number of factors inside an expression node';
+const EG_GRAYSCALE_TIP = 
+	'1 for grayscale, 0 for color';
 
-var egParameters = new Array(12);
+var egParameters = new Array(13);
 
 egParameters[EG_TERM_MU_INDEX] 
 	= new Param("Term Mu", EG_TERM_MU, EG_TERM_MU_TIP);
@@ -78,6 +82,8 @@ egParameters[EG_MAX_TERMS_INDEX]
 	= new Param("Max Terms", EG_MAX_TERMS, EG_MAX_TERMS_TIP);
 egParameters[EG_MAX_FACTORS_INDEX]
 	= new Param("Max Factors", EG_MAX_FACTORS, EG_MAX_FACTORS_TIP);
+egParameters[EG_GRAYSCALE_INDEX] 
+	= new Param("Grayscale", EG_GRAYSCALE, EG_GRAYSCALE_TIP);
 
 class ExpressionGenotype extends Genotype {
 	
@@ -96,10 +102,11 @@ class ExpressionGenotype extends Genotype {
 	}
 	
 	mutate() {
-		var level, exp, child, structureMutationProb, expressionLevels;
+		var level, exp, child, structureMutationProb, expressionLevels, variables;
 		
 		structureMutationProb = egParameters[EG_STRUCTURE_MUTATION_PROBABILITY_INDEX].value;
 		expressionLevels = egParameters[EG_EXPRESSION_LEVELS_INDEX].value;
+		variables = (egParameters[EG_GRAYSCALE_INDEX].value == 0) ? 3 : 2;
 		
 		if (Math.random() < structureMutationProb) {
 
@@ -119,7 +126,7 @@ class ExpressionGenotype extends Genotype {
 				child.push(Math.floor(Math.random() * exp.children[child[0]][child[1]].length));
 			}
 
-			exp.children[child[0]][child[1]][child[2]] = Exp.random(expressionLevels - level, 2);
+			exp.children[child[0]][child[1]][child[2]] = Exp.random(expressionLevels - level, variables);
 
 //			console.log("[] after mutation: "+this.exp.toString());
 			
