@@ -5,6 +5,8 @@
 // Common parameter defaults
 
 const MAX_POPULATION = 20;
+const PREVIEW_SIZE_X = 200;
+const PREVIEW_SIZE_Y = 200;
 const WIDTH 	= 200;
 const HEIGHT	= 200;
 const HD_WIDTH  = 1000;

@@ -2,9 +2,6 @@
  * 
  */
 
-const PREVIEW_SIZE_X = 200;
-const PREVIEW_SIZE_Y = 200;
-
 class View {
 	
 	constructor() {

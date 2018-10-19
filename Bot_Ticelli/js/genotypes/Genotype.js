@@ -18,4 +18,8 @@ class Genotype {
 		throw new Error('Override me!');
 	}
 	
+	clone(genotype) {
+		throw new Error('Override me!');
+	}
+	
 }

@@ -44,8 +44,8 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 		index = 0;
 		for (var y = 0; y < this.height; y++) {
 			for(var x = 0; x < this.width; x++) {
-				x1 = (width / this.width) * (x - this.width/2) / zoom;
-				y1 = (height / this.height) * (y - this.height/2) / zoom;
+				x1 = (PREVIEW_SIZE_X / this.width) * (x - this.width/2) / zoom;
+				y1 = (PREVIEW_SIZE_Y / this.height) * (y - this.height/2) / zoom;
 				if (polar == 1) {
 					temp = x1;
 					x1 = Math.sqrt(Math.pow(x1, 2) + Math.pow(y1, 2));
