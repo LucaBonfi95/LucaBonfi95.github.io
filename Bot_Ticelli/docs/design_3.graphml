@@ -42,7 +42,7 @@ fittest()</y:MethodLabel>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="224.0634179082134" width="250.30138350914962" x="-311.7927084847031" y="-305.4508004993497"/>
-          <y:Fill color="#FF9900" transparent="false"/>
+          <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="23.5" x="113.40069175457481" y="3.0">GA<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -484,7 +484,7 @@ onMessage()&lt;br&gt;
           <y:Geometry height="63.048594422741076" width="133.83814484047366" x="58.29213639081604" y="-506.6086325828694"/>
           <y:Fill color="#FF9900" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="106.708984375" x="13.56458023273683" y="22.173711273870595">Orange - Controller<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="106.71484375" x="13.56165054523683" y="22.173711273870538">Orange - Presenter<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -501,7 +501,7 @@ onMessage()&lt;br&gt;
           <y:Geometry height="63.048594422741076" width="96.09718884548207" x="77.16261438831185" y="-584.1506881044196"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="82.697265625" x="6.699961610241019" y="22.17371127387048">Yellow - Model<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="82.697265625" x="6.699961610241033" y="22.17371127387048">Yellow - Model<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -531,7 +531,6 @@ onMessage()&lt;br&gt;
     </node>
     <node id="n19">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="108.28529654079654" width="265.7967328310011" x="155.42910909580104" y="177.06572987723797"/>
@@ -555,7 +554,6 @@ decode(expressionGenotype)</y:MethodLabel>
     </node>
     <node id="n20">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="103.78469463078576" width="160.76379404951558" x="-552.6512980390627" y="-245.31143886063592"/>
@@ -962,7 +960,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e17" source="n19" target="n12">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -974,7 +971,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e18" source="n12" target="n6">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="1.481850758729081" sy="-14.027820830624307" tx="-0.8513489019800602" ty="15.206062006556976"/>
@@ -994,7 +990,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e19" source="n1" target="n20">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -1014,7 +1009,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e20" source="n7" target="n20">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-27.62997102691429" sy="-4.641158175831009" tx="29.444643038028403" ty="-6.30861518605542"/>
@@ -1034,7 +1028,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e21" source="n12" target="n7">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-26.937960625226083" ty="-132.90635756750677">
@@ -1057,7 +1050,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e22" source="n2" target="n20">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -1077,7 +1069,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e23" source="n15" target="n14">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-10.262760772712682" sy="75.97364928486263" tx="-23.139868038751388" ty="75.97364928486263">
@@ -1100,7 +1091,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e24" source="n3" target="n20">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="57.55103519714771" sy="75.97364928486269" tx="0.0" ty="0.0">
@@ -1122,7 +1112,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e25" source="n2" target="n3">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-40.18377787066777" sy="-14.074275914398129" tx="-40.18377787066777" ty="2.2030290308246094"/>
@@ -1142,7 +1131,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e26" source="n1" target="n15">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="39.51175076227119" sy="-7.03158544077138" tx="34.02055462018291" ty="6.765853842449133"/>
@@ -1162,7 +1150,6 @@ tip</y:AttributeLabel>
     </edge>
     <edge id="e27" source="n6" target="n1">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-72.85034716121504" sy="-8.681597304501622" tx="58.00802642876042" ty="153.04694529995217">

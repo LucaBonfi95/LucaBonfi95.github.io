@@ -114,7 +114,7 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 			if (samples[i] >= 0)
 				pixels[i] = Math.floor((127 + samples[i]) % 256);
 			else
-				pixels[i] = Math.floor(256 - (256 - 127 - samples[i]) % 256);
+				pixels[i] = Math.floor(256 - (127 - samples[i]) % 256);
 		}
 		return pixels;
 	}
@@ -130,7 +130,7 @@ class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 	sgmNorm(samples) {
 		var pixels = Array(samples.length);
 		for (var i = 0; i < samples.length; i++) {
-			pixels[i] = Math.floor(256 * (1 / (1 + Math.exp(-samples[i] / 256))));
+			pixels[i] = Math.floor(256 * (1 / (1 + Math.exp(-samples[i] / 64))));
 		}
 		return pixels;
 	}
