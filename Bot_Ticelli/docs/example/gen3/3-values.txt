@@ -1,0 +1,54 @@
+----------------------------------
+		General Parameters
+----------------------------------
+
+Population:	20
+Preview Width: 200
+Preview Height: 200
+HD Width: 1000
+HD Height: 1000
+Crossover Enabled: 0
+Mutation Enabled: 1
+
+----------------------------------
+  Expression Genotype Parameters
+----------------------------------
+
+Term Mu: 0
+Term Sigma: 10
+Factor Mu: 1
+Factor Sigma: 0.2
+Structural Mutation Probability: 0
+Value Mutation Probability: 0.5
+Value Mutation Sigma: 0.02
+Expression Levels: 4
+Zoom: 100
+Polar Coordinates: 1
+Max Terms: 3
+Max Factors: 3
+Grayscale: 0
+
+----------------------------------
+			  Fitness
+----------------------------------
+
+Image 0: 10000
+Image 1: 1
+Image 2: 1
+Image 3: 1
+Image 4: 1
+Image 5: 1
+Image 6: 1
+Image 7: 1
+Image 8: 1
+Image 9: 1
+Image 10: 1
+Image 11: 1
+Image 12: 1
+Image 13: 1
+Image 14: 1
+Image 15: 1
+Image 16: 1
+Image 17: 1
+Image 18: 1
+Image 19: 1
