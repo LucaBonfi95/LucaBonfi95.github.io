@@ -13,6 +13,8 @@ importScripts("../js/genotypes/ExpFunction.js");
 importScripts("../js/genotypes/Expression.js");
 importScripts("../js/genotypes/ExpressionGenotype.js");
 importScripts("../js/genotypes/ExpressionGenotypeDecoder.js");
+importScripts("../js/genotypes/IFSGenotype.js");
+importScripts("../js/genotypes/IFSGenotypeDecoder.js");
 
 importScripts("../js/Generation.js");
 importScripts("../js/GA.js");
@@ -39,7 +41,8 @@ onmessage = function(e) {
 		variables = (egParameters[EG_GRAYSCALE_INDEX].value == 0) ? 3 : 2;
 		genotypes = [];
 		for (var i = 0; i < parameters[MAX_POPULATION_INDEX].value; i++) {
-			genotypes.push(new ExpressionGenotype(Exp.random(egParameters[EG_EXPRESSION_LEVELS_INDEX].value, variables)));
+			//genotypes.push(new ExpressionGenotype(Exp.random(egParameters[EG_EXPRESSION_LEVELS_INDEX].value, variables)));
+			genotypes.push(new IFSGenotype());
 		}
 		ga = new GA(genotypes, update);
 		ga.init();
@@ -91,7 +94,7 @@ function update() {
 	}
 	for (var i = 0; i < ga.newGenotypes.length; i++) {
 		var genotypeInfo = new Object();
-		genotypeInfo.string = ga.newGenotypes[i].exp.toString();
+		//genotypeInfo.string = ga.newGenotypes[i].exp.toString();
 		gaInfo.newGenotypes.push(genotypeInfo);
 	}
 	gaInfo.hdPhenotype = null;
