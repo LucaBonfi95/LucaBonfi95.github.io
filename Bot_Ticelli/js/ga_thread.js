@@ -13,6 +13,7 @@ importScripts("../js/genotypes/ExpFunction.js");
 importScripts("../js/genotypes/Expression.js");
 importScripts("../js/genotypes/ExpressionGenotype.js");
 importScripts("../js/genotypes/ExpressionGenotypeDecoder.js");
+importScripts("../js/genotypes/Transformation.js");
 importScripts("../js/genotypes/IFSGenotype.js");
 importScripts("../js/genotypes/IFSGenotypeDecoder.js");
 
@@ -42,7 +43,38 @@ onmessage = function(e) {
 		genotypes = [];
 		for (var i = 0; i < parameters[MAX_POPULATION_INDEX].value; i++) {
 			//genotypes.push(new ExpressionGenotype(Exp.random(egParameters[EG_EXPRESSION_LEVELS_INDEX].value, variables)));
-			genotypes.push(new IFSGenotype());
+			
+//			genotypes.push(new IFSGenotype([
+//				new Transformation([[0.25, 0], [0, 0.25]],[-0.375,0]),
+//				new Transformation([[0.25, 0], [0, 0.25]],[-0.125,0.25]),
+//				new Transformation([[0.25, 0], [0, 0.25]],[0.375,0]),
+//				new Transformation([[0.25, 0], [0, 0.25]],[0.125,-0.25]),
+//				new Transformation([[0, 0.25], [-0.25, 0]],[0,0.125]),
+//				new Transformation([[0, 0.25], [-0.25, 0]],[0,-0.125]),
+//				new Transformation([[0, -0.25], [0.25, 0]],[-0.25,0.125]),
+//				new Transformation([[0, -0.25], [0.25, 0]],[0.25,-0.125])
+//				]));
+			
+			genotypes.push(new IFSGenotype([
+				new Transformation([[1/7, 0], [0, 1/7]],[-2/7, 2/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[-2/7, 1/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[-2/7, 0/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[-2/7, -2/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[-1/7, 0/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[-1/7, -2/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[0/7, 2/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[0/7, 1/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[0/7, 0/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[0/7, -1/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[0/7, -2/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[1/7, 2/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[1/7, 0/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[2/7, 2/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[2/7, 0/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[2/7, -1/7]),
+				new Transformation([[1/7, 0], [0, 1/7]],[2/7, -2/7])
+				]));
+			
 		}
 		ga = new GA(genotypes, update);
 		ga.init();
@@ -106,7 +138,8 @@ function update() {
 	postMessage(new Command(CMD_UPDATE_VIEW, [gaInfo]));
 }
 
-genotypeParams = egParameters;
+//genotypeParams = egParameters;
+genotypeParams = ifsParameters;
 postMessage(new Command(CMD_UPDATE_PARAMS, [parameters, genotypeParams]));
 
 function nextGeneration() {

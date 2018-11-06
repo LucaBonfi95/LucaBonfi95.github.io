@@ -69,6 +69,7 @@ class View {
 	showImage(imageData, destCanvas) { 
 		var newCanvas = document.createElement("canvas");
 		var ctx = destCanvas.getContext("2d");
+		ctx.clearRect(0, 0, destCanvas.width, destCanvas.height);
 		ctx.imageSmoothingEnabled = false;
 		newCanvas.width = imageData.width;
 		newCanvas.height = imageData.height;
