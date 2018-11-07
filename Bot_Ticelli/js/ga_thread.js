@@ -72,7 +72,7 @@ onmessage = function(e) {
 				new Transformation([[1/7, 0], [0, 1/7]],[2/7, 2/7]),
 				new Transformation([[1/7, 0], [0, 1/7]],[2/7, 0/7]),
 				new Transformation([[1/7, 0], [0, 1/7]],[2/7, -1/7]),
-				new Transformation([[1/7, 0], [0, 1/7]],[2/7, -2/7])
+				new Transformation([[1/7, 0], [0, 1/7]],[2/7, -2/7]),
 				]));
 			
 		}

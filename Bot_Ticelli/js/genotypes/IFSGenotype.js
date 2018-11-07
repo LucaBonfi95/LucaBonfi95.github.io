@@ -1,8 +1,8 @@
 /**
  * 
  */
-const IFS_ZOOM = 2;
-const IFS_ITERATIONS = 5;
+const IFS_ZOOM = 1;
+const IFS_ITERATIONS = 4;
 
 const IFS_ZOOM_INDEX = 0;
 const IFS_ITERATIONS_INDEX = 1;
