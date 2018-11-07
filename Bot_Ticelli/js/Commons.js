@@ -4,7 +4,7 @@
 
 // Common parameter defaults
 
-const MAX_POPULATION = 1;
+const MAX_POPULATION = 10;
 const PREVIEW_SIZE_X = 200;
 const PREVIEW_SIZE_Y = 200;
 const WIDTH 	= 1000;

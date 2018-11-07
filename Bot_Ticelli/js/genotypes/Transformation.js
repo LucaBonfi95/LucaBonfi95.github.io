@@ -3,6 +3,18 @@
  */
 
 class Transformation {
+
+	static random(dimensions) {
+		coeff = [];
+		trans = [];
+		for (var i = 0; i < dimensions; i++) {
+			coeff[i] = [];
+			for (var j = 0; j < dimensions; j++)
+				coeff[i].push(random_lognormal(1,0.5))
+			trans.push(random_normal(0,1));
+		}
+		return new Transformation(coeff, trans);
+	}
 	
 	constructor(coefficients, translation) {
 		this.coefficients = coefficients;
