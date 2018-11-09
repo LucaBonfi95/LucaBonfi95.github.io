@@ -4,12 +4,12 @@
 const IFS_ZOOM = 1;
 const IFS_ITERATIONS = 4;
 const IFS_MUTATION_PROBABILITY = 0.5;
-const IFS_MUTATION_SIGMA = 1;
+const IFS_MUTATION_SIGMA = 0.01;
 
 const IFS_ZOOM_INDEX = 0;
 const IFS_ITERATIONS_INDEX = 1;
 const IFS_MUTATION_PROBABILITY_INDEX = 2;
-const IFS_MUTATION_SIGMA_INDEX = 3
+const IFS_MUTATION_SIGMA_INDEX = 3;
 
 const IFS_ZOOM_TIP = 'Do you really need an explanation on the meaning of "zoom"? WTF mate.';
 const IFS_ITERATIONS_TIP = 'Number of iterations, the higher the better will be the results.';
@@ -34,7 +34,7 @@ class IFSGenotype extends Genotype {
 	constructor(transformations) {
 		super();
 		this.transformations = transformations;
-		this.decoder = new RawImageIFSGenotypeDecoder();
+		this.decoder = new DFRawImageIFSGenotypeDecoder();
 	}
 	
 	decode() {

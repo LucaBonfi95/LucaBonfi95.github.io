@@ -16,7 +16,7 @@ class IFSGenotypeDecoder {
 	
 }
 
-class RawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
+class BFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
 
 	constructor() {
 		super();
@@ -91,4 +91,124 @@ class RawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
 		return rawImage;
 	}
 	
+}
+
+class DFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
+	constructor() {
+		super();
+		this.width = parameters[WIDTH_INDEX].value;
+		this.height = parameters[HEIGHT_INDEX].value;
+	}
+	
+	decode(ifsGenotype) {
+		
+		var canvas, rawImage, iterations, zoom, indexes, transformations, graph, backtracking, normalized;
+		
+		iterations = ifsParameters[IFS_ITERATIONS_INDEX].value;
+		zoom = ifsParameters[IFS_ZOOM_INDEX].value;
+		
+		canvas = new OffscreenCanvas(this.width, this.height);
+		this.ctx = canvas.getContext("2d");
+		this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+		
+		rawImage = new RawImage(this.ctx.getImageData(0, 0, this.width, this.height));
+		
+		graph = [];
+		for (var i = 0; i < this.width; i++) {
+			graph.push([]);
+			for (var j = 0; j < this.height; j++)
+				graph[i].push(0);
+		}
+		
+		indexes = [];
+		transformations = [];
+		indexes.push(0);
+		transformations.push(new Transformation([[1,0],[0,1]],[0,0]));
+		for (var i = 1; i < iterations + 1; i++) {
+			indexes.push(0);
+			transformations.push(ifsGenotype.transformations[0].compose(transformations[i-1]));
+		}
+		
+		function condition() {
+			for (var i = 1; i < indexes.length; i++)
+				if (indexes[i] != ifsGenotype.transformations.length - 1)
+					return false;
+			return true;
+		}
+		
+		function increment(v, i, base) {
+			v[i] = (v[i] + 1) % base;
+			if (i != 0 && v[i] == 0)
+				increment(v, i-1, base);
+		}
+		
+		function addPoint(w,h) {
+			var x, y;
+			x = transformations[transformations.length - 1].translation[0];
+			y = -transformations[transformations.length - 1].translation[1];
+			x = Math.floor(x * w / zoom + w / 2);
+			y = Math.floor(y * h / zoom + h / 2);
+			if (x < w && x > 0 && y < h && y > 0)
+				graph[x][y]++;
+		}
+		
+		addPoint(this.width, this.height);
+		while (!condition()) {
+			increment(indexes, indexes.length - 1, ifsGenotype.transformations.length);
+			backtracking = 0;
+			for (var i = indexes.length - 1; i >= 0; i--) {
+				if (indexes[i] != 0)
+					i = -1;
+				else
+					backtracking++;
+			}
+			
+//			console.log(transformations);
+//			console.log(indexes);
+			
+			for (var i = transformations.length - backtracking - 1; i < transformations.length; i++)
+				transformations[i] = ifsGenotype.transformations[indexes[i]].compose(transformations[i-1]);
+			addPoint(this.width, this.height);
+		}
+		
+		var max, min;
+		max = graph[0][0];
+		min = max;
+		
+		for (var i = 0; i < this.width; i++)
+			for (var j = 0; j < this.height; j++) {
+				if (graph[i][j] > max)
+					max = graph[i][j];
+				if (graph[i][j] < min)
+					min = graph[i][j];
+			}
+		
+		normalized = [];
+		for (var i = 0; i < this.width; i++) {
+			normalized.push([]);
+			for (var j = 0; j < this.height; j++) 
+				normalized[i].push(256 * (graph[i][j] - min) / (max - min))
+		}
+		
+		for (var i = 0; i < this.width; i++)
+			for (var j = 0; j < this.height; j++) 
+				normalized[i][j] = Math.floor(normalized[i][j]);
+		
+		for (var i = 0; i < this.width; i++)
+			for (var j = 0; j < this.height; j++) {
+				if (normalized[i][j] > 255)
+					normalized[i][j] = 255;
+				if (normalized[i][j] < 0)
+					normalized[i][j] = 0;
+			}
+				
+		var index = 0;
+		for (var i = 0; i < this.width; i++)
+			for (var j = 0; j < this.height; j++) {
+				for (var c = 0; c < 3; c++)
+					rawImage.imageData.data[index++] = normalized[j][i];
+				rawImage.imageData.data[index++] = 255;
+			}
+		return rawImage;
+	}
 }
