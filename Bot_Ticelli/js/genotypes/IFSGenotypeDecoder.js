@@ -105,7 +105,7 @@ class DFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
 	
 	decode(ifsGenotype) {
 		
-		var canvas, rawImage, iterations, zoom, indexes, transformations, graph, backtracking, normalized, totalOperations, operationsCount, lastProgressUpdate, percentage;
+		var canvas, rawImage, iterations, zoom, indexes, transformations, graph, backtracking, normalized, totalOperations, operationsCount, lastProgressUpdate, percentage, digits;
 		
 		iterations = ifsParameters[IFS_ITERATIONS_INDEX].value;
 		zoom = ifsParameters[IFS_ZOOM_INDEX].value;
@@ -114,6 +114,7 @@ class DFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
 		totalOperations = Math.pow(ifsGenotype.transformations.length, iterations);
 		lastProgressUpdate = 0;
 		percentage = 0;
+		digits = Math.pow(10, parameters[PROGRESS_DECIMAL_DIGITS_INDEX].value);
 		
 		canvas = new OffscreenCanvas(this.width, this.height);
 		this.ctx = canvas.getContext("2d");
@@ -179,7 +180,7 @@ class DFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
 				transformations[i] = ifsGenotype.transformations[indexes[i]].compose(transformations[i-1]);
 			addPoint(this.width, this.height);
 			operationsCount++;
-			percentage = Math.floor(10000 * operationsCount / totalOperations) / 100;
+			percentage = Math.floor(100 * digits * operationsCount / totalOperations) / digits;
 			if (lastProgressUpdate != percentage)
  				this.callback(percentage);
 			lastProgressUpdate = percentage;

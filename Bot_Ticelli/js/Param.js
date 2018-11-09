@@ -15,6 +15,7 @@ const HD_WIDTH_INDEX = 3;
 const HD_HEIGHT_INDEX = 4;
 const CROSSOVER_ENABLED_INDEX = 5;
 const MUTATION_ENABLED_INDEX = 6;
+const PROGRESS_DECIMAL_DIGITS_INDEX = 7;
 
 const MAX_POPULATION_TIP = 
 	'The number of individuals handled by the genetic algorithm. Must be an even number.';
@@ -30,8 +31,10 @@ const CROSSOVER_ENABLED_TIP =
 	'Enables or disables crossover between genotypes (0 = disabled, 1 = enabled)';
 const MUTATION_ENABLED_TIP = 
 	'Enabled or disables genotypes mutation (0 = disabled, 1 = enabled)';
+const PROGRESS_DECIMAL_DIGITS_TIP = 
+	'Number of decimal digits in the progress text label';
 
-var parameters = Array(7);
+var parameters = Array(8);
 
 parameters[MAX_POPULATION_INDEX] = new Param("Population", MAX_POPULATION, MAX_POPULATION_TIP);
 parameters[WIDTH_INDEX] = new Param("Preview Width", WIDTH, WIDTH_TIP);
@@ -40,3 +43,4 @@ parameters[HD_WIDTH_INDEX] = new Param("HD Width", HD_WIDTH, HD_WIDTH_TIP);
 parameters[HD_HEIGHT_INDEX] = new Param("HD Height", HD_HEIGHT, HD_HEIGHT_TIP);
 parameters[CROSSOVER_ENABLED_INDEX] = new Param("Crossover Enabled", CROSSOVER_ENABLED, CROSSOVER_ENABLED_TIP);
 parameters[MUTATION_ENABLED_INDEX] = new Param("Mutation Enabled", MUTATION_ENABLED, MUTATION_ENABLED_TIP);
+parameters[PROGRESS_DECIMAL_DIGITS_INDEX] = new Param("Progress Decimal Digits", PROGRESS_DECIMAL_DIGITS, PROGRESS_DECIMAL_DIGITS_TIP);

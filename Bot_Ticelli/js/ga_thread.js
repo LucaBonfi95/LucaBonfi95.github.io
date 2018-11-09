@@ -50,15 +50,26 @@ onmessage = function(e) {
 //				]));
 			
 			genotypes.push(new IFSGenotype([
-				new Transformation([[0.25, 0], [0, 0.25]],[-0.375,0]),
-				new Transformation([[0.25, 0], [0, 0.25]],[-0.125,0.25]),
-				new Transformation([[0.25, 0], [0, 0.25]],[0.375,0]),
-				new Transformation([[0.25, 0], [0, 0.25]],[0.125,-0.25]),
-				new Transformation([[0, 0.25], [-0.25, 0]],[0,0.125]),
-				new Transformation([[0, 0.25], [-0.25, 0]],[0,-0.125]),
-				new Transformation([[0, -0.25], [0.25, 0]],[-0.25,0.125]),
-				new Transformation([[0, -0.25], [0.25, 0]],[0.25,-0.125])
+				new Transformation([[1/3, 0], [0, 1/3]],[-1/3,-1/3]),
+				new Transformation([[1/3, 0], [0, 1/3]],[0,-1/3]),
+				new Transformation([[1/3, 0], [0, 1/3]],[1/3,-1/3]),
+				new Transformation([[1/3, 0], [0, 1/3]],[-1/3,1/3]),
+				new Transformation([[1/3, 0], [0, 1/3]],[0,1/3]),
+				new Transformation([[1/3, 0], [0, 1/3]],[1/3,1/3]),
+				new Transformation([[1/3, 0], [0, 1/3]],[-1/3,0]),
+				new Transformation([[1/3, 0], [0, 1/3]],[1/3,0])
 				],updateProgress));
+			
+//			genotypes.push(new IFSGenotype([
+//				new Transformation([[0.25, 0], [0, 0.25]],[-0.375,0]),
+//				new Transformation([[0.25, 0], [0, 0.25]],[-0.125,0.25]),
+//				new Transformation([[0.25, 0], [0, 0.25]],[0.375,0]),
+//				new Transformation([[0.25, 0], [0, 0.25]],[0.125,-0.25]),
+//				new Transformation([[0, 0.25], [-0.25, 0]],[0,0.125]),
+//				new Transformation([[0, 0.25], [-0.25, 0]],[0,-0.125]),
+//				new Transformation([[0, -0.25], [0.25, 0]],[-0.25,0.125]),
+//				new Transformation([[0, -0.25], [0.25, 0]],[0.25,-0.125])
+//				],updateProgress));
 			
 //			genotypes.push(new IFSGenotype([
 //				new Transformation([[1/7, 0], [0, 1/7]],[-2/7, 2/7]),
