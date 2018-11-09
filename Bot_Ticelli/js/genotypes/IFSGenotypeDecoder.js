@@ -18,10 +18,11 @@ class IFSGenotypeDecoder {
 
 class BFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
 
-	constructor() {
+	constructor(updateProgressCallback) {
 		super();
 		this.width = parameters[WIDTH_INDEX].value;
 		this.height = parameters[HEIGHT_INDEX].value;
+		this.callback = updateProgressCallback;
 	}
 	
 	decode(ifsGenotype) {
@@ -94,18 +95,25 @@ class BFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
 }
 
 class DFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
-	constructor() {
+	
+	constructor(updateProgressCallback) {
 		super();
 		this.width = parameters[WIDTH_INDEX].value;
 		this.height = parameters[HEIGHT_INDEX].value;
+		this.callback = updateProgressCallback;
 	}
 	
 	decode(ifsGenotype) {
 		
-		var canvas, rawImage, iterations, zoom, indexes, transformations, graph, backtracking, normalized;
+		var canvas, rawImage, iterations, zoom, indexes, transformations, graph, backtracking, normalized, totalOperations, operationsCount, lastProgressUpdate, percentage;
 		
 		iterations = ifsParameters[IFS_ITERATIONS_INDEX].value;
 		zoom = ifsParameters[IFS_ZOOM_INDEX].value;
+
+		operationsCount = 0;
+		totalOperations = Math.pow(ifsGenotype.transformations.length, iterations);
+		lastProgressUpdate = 0;
+		percentage = 0;
 		
 		canvas = new OffscreenCanvas(this.width, this.height);
 		this.ctx = canvas.getContext("2d");
@@ -153,6 +161,7 @@ class DFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
 		}
 		
 		addPoint(this.width, this.height);
+		operationsCount++;
 		while (!condition()) {
 			increment(indexes, indexes.length - 1, ifsGenotype.transformations.length);
 			backtracking = 0;
@@ -169,6 +178,11 @@ class DFRawImageIFSGenotypeDecoder extends IFSGenotypeDecoder {
 			for (var i = transformations.length - backtracking - 1; i < transformations.length; i++)
 				transformations[i] = ifsGenotype.transformations[indexes[i]].compose(transformations[i-1]);
 			addPoint(this.width, this.height);
+			operationsCount++;
+			percentage = Math.floor(10000 * operationsCount / totalOperations) / 100;
+			if (lastProgressUpdate != percentage)
+ 				this.callback(percentage);
+			lastProgressUpdate = percentage;
 		}
 		
 		var max, min;

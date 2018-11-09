@@ -23,6 +23,8 @@ const CMD_CHANGE_GENOTYPE_PARAM = "changeGenotypeParam";
 const CMD_UPDATE_VIEW = "updateView";
 // updateParams <commonParameters> <genotypeParameters>
 const CMD_UPDATE_PARAMS = "updateParams";
+// updateProgress <progress>
+const CMD_UPDATE_PROGRESS = "updateProgress";
 	
 const FITNESS_MODE_AUTO = 0;
 const FITNESS_MODE_MANUAL = 1;

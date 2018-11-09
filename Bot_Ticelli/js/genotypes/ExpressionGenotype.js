@@ -87,14 +87,14 @@ egParameters[EG_GRAYSCALE_INDEX]
 
 class ExpressionGenotype extends Genotype {
 	
-	static random(levels, variables) {
-		return new ExpressionGenotype(Exp.random(levels, variables));
+	static random(levels, variables, updateProgressCallback) {
+		return new ExpressionGenotype(Exp.random(levels, variables), updateProgressCallback);
 	}
 	
-	constructor(exp) {
+	constructor(exp, updateProgressCallback) {
 		super();
 		this.exp = exp;
-		this.decoder = new RawImageExpressionGenotypeDecoder();
+		this.decoder = new RawImageExpressionGenotypeDecoder(updateProgressCallback);
 	}
 	
 	decode() {
@@ -212,7 +212,7 @@ class ExpressionGenotype extends Genotype {
 	} 
 	
 	clone() { 
-		return new ExpressionGenotype(this.exp.clone());
+		return new ExpressionGenotype(this.exp.clone(), this.updateProgressCallback);
 	}
 	
 }

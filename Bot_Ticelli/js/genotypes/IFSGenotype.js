@@ -24,17 +24,17 @@ ifsParameters[IFS_MUTATION_SIGMA_INDEX] = new Param("Mutation Sigma", IFS_MUTATI
 
 class IFSGenotype extends Genotype {
 	
-	static random(dimensions, transformations) {
+	static random(dimensions, transformations, updateProgressCallback) {
 		var t = [];
 		for (var i = 0; i < transformations; i++)
 			t.push(Transformation.random(dimensions));
-		return new IFSGenotype(t);
+		return new IFSGenotype(t, updateProgressCallback);
 	}
 	
-	constructor(transformations) {
-		super();
+	constructor(transformations, updateProgressCallback) {
+		super(updateProgressCallback);
 		this.transformations = transformations;
-		this.decoder = new DFRawImageIFSGenotypeDecoder();
+		this.decoder = new DFRawImageIFSGenotypeDecoder(updateProgressCallback);
 	}
 	
 	decode() {
@@ -64,7 +64,7 @@ class IFSGenotype extends Genotype {
 		var transformationsClone = [];
 		for (var i = 0; i < this.transformations.length; i++)
 			transformationsClone.push(this.transformations[i].clone());
-		return new IFSGenotype(transformationsClone);
+		return new IFSGenotype(transformationsClone, this.updateProgressCallback);
 	}
 	
 }

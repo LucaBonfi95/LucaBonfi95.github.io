@@ -14,10 +14,11 @@ class ExpressionGenotypeDecoder {
 
 class RawImageExpressionGenotypeDecoder extends ExpressionGenotypeDecoder {
 
-	constructor() {
+	constructor(updateProgressCallback) {
 		super();
 		this.width = parameters[WIDTH_INDEX].value;
 		this.height = parameters[HEIGHT_INDEX].value;
+		this.callback = updateProgressCallback;
 	}
 	
 	decode(expressionGenotype) {

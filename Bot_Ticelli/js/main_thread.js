@@ -17,6 +17,9 @@ function cmdHandler(e) {
 	if (cmd.name == CMD_UPDATE_PARAMS) {
 		view.updateParams(cmd.args[0], cmd.args[1]);
 	}
+	if (cmd.name == CMD_UPDATE_PROGRESS) { 
+		view.updateProgress(cmd.args[0]);
+	}
 }
 
 function togglePause() {

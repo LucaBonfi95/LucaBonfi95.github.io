@@ -58,7 +58,7 @@ onmessage = function(e) {
 				new Transformation([[0, 0.25], [-0.25, 0]],[0,-0.125]),
 				new Transformation([[0, -0.25], [0.25, 0]],[-0.25,0.125]),
 				new Transformation([[0, -0.25], [0.25, 0]],[0.25,-0.125])
-				]));
+				],updateProgress));
 			
 //			genotypes.push(new IFSGenotype([
 //				new Transformation([[1/7, 0], [0, 1/7]],[-2/7, 2/7]),
@@ -81,7 +81,7 @@ onmessage = function(e) {
 //				]));
 			
 		}
-		ga = new GA(genotypes, update);
+		ga = new GA(genotypes, update, updateProgress);
 		ga.init();
 	}
 	else if (cmd.name == CMD_NEXT_GENERATION) {
@@ -115,7 +115,6 @@ onmessage = function(e) {
 
 function update() {
 	var gaInfo = new Object();
-	gaInfo.msgId = msgId++;
 	gaInfo.ready = ga.ready;
 	gaInfo.status = ga.status;
 	if (renderingHdImage) 
@@ -141,6 +140,10 @@ function update() {
 	}
 	
 	postMessage(new Command(CMD_UPDATE_VIEW, [gaInfo]));
+}
+
+function updateProgress(completion) {
+	postMessage(new Command(CMD_UPDATE_PROGRESS, [completion]));
 }
 
 //genotypeParams = egParameters;

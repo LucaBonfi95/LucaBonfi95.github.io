@@ -4,7 +4,9 @@
 
 class Genotype {
 	
-	constructor() {}
+	constructor(updateProgressCallback) {
+		this.updateProgressCallback = updateProgressCallback;
+	}
 	
 	decode() {
 		throw new Error('Override me!');

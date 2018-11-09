@@ -62,6 +62,10 @@ class View {
 		this.showImage(this.gaInfo.newPhenotypes[i].imageData, document.getElementById("selectedPhenotypeCanvas"));
 	}
 	
+	updateProgress(completion) {
+		document.getElementById("progressBar").innerHTML = 'Completion: '+completion+'%';
+	}
+	
 	unselectPhenotype() {
 		document.getElementById("selectedPhenotype").style.visibility = "hidden";
 	}
