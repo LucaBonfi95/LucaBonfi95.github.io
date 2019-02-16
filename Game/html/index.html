@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/tooltips.css">
+<title>Bot_Ticelli</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+	<div style="float: left; width: 1040px">
+		<div id="currentGeneration">Generation: 0</div>
+
+		<div id="phenotypes"
+			style="float: left; height: 618px; width: 1040px; overflow: auto;"></div>
+		<div id="generalControls" style="float: left; width: 300px">
+			<div id="status">Status: Idle</div>
+			<div id="progressBar">Progress: 0%</div>
+			<div>
+				<button id="pauseButton" onClick="togglePause()">Pause</button>
+				<button id="nextGenerationButton" onClick="nextGeneration()">Next</button>
+				<button id="startButton" onClick="start()">Start</button>
+			</div>
+			<br>
+			<div>
+				Fitness Mode: <br> <input id="fitnessModeAuto" type="radio"
+					name="fitnessMode" onClick='updateFitnessMode(FITNESS_MODE_AUTO)'>Automatic<br>
+				<input id="fitnessModeManual" type="radio" name="fitnessMode"
+					onClick='updateFitnessMode(FITNESS_MODE_MANUAL)' checked="checked">Manual<br>
+			</div>
+		</div>
+		<div id="commonParams" style="float: left; width: 350px"></div>
+		<div id="genotypeParams" style="float: left; width: 350px"></div>
+	</div>
+
+	<div id="selectedPhenotype"
+		style="height: 900px; float: right; overflow: auto; visibility: hidden">
+		<canvas id="selectedPhenotypeCanvas" width="800" height="800"
+			style="border: 1px solid #000000;"></canvas>
+		<div id="selectedPhenotypeInfo" style="width: 800px;">
+			<button id="hdButton" onClick="getHdImage()">HD Render</button> <br>
+			<div id="id">Id:</div>
+			Fitness: <input id="fitness" onchange='setFitness(this.value)'>			
+			<!-- <div id="string">String:</div> -->
+		</div>
+	</div>
+
+	<script src="../js/Commons.js"></script>
+	<script src="../js/Utils.js"></script>
+	<script src="../js/Param.js"></script>
+
+	<script src="../js/phenotypes/Phenotype.js"></script>
+	<script src="../js/phenotypes/RawImage.js"></script>
+
+	<script src="../js/genotypes/Genotype.js"></script>
+	<script src="../js/genotypes/ExpFunction.js"></script>
+	<script src="../js/genotypes/Expression.js"></script>
+	<script src="../js/genotypes/ExpressionGenotype.js"></script>
+	<script src="../js/genotypes/ExpressionGenotypeDecoder.js"></script>
+
+	<script src="../js/Command.js"></script>
+	<script src="../js/Generation.js"></script>
+	<script src="../js/GA.js"></script>
+
+	<script src="../js/View.js"></script>
+
+	<script src="../js/main_thread.js"></script>
+
+</body>
+</html>
