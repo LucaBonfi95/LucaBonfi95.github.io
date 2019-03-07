@@ -13,10 +13,22 @@ function l(p,t) {
 	var temp = new Object();
 	temp.x = 0;
 	temp.y = 0;
+	var center = new Object();
+	center.x = 0;
+	center.y = 0;
 	for (var i = 0; i < p.length; i++) {
-		temp.x += w(i, p.length, t) * p[i][0];
-		temp.y += w(i, p.length, t) * p[i][1];
+		center.x += p[i][0];
+		center.y += p[i][1];
 	}
+	center.x /= p.length;
+	center.y /= p.length;
+	//console.log(center);
+	for (var i = 0; i < p.length; i++) {
+		temp.x += w(i, p.length, t) * (p[i][0] - center.x);
+		temp.y += w(i, p.length, t) * (p[i][1] - center.y);
+	}
+	temp.x += center.x;
+	temp.y += center.y;
 	return temp;
 }
 
@@ -28,9 +40,9 @@ var p2 = [[600,100],[400,100],[400,300],[600,300]];
 draw_sincspline(p2,0.01);
 draw_c0(p2);
 
-var p3 = [[100,100],[200,200],[300,300],[400,300]];
-//draw_sincspline(p,0.01);
-//draw_c0(p);
+var p3 = [[600,400],[400,400],[400,600],[600,600]];
+draw_sincspline(p3,0.01);
+draw_c0(p3);
 
 var p4 = [[100,100],[200,200],[300,300],[400,300]];
 //draw_sincspline(p,0.01);
